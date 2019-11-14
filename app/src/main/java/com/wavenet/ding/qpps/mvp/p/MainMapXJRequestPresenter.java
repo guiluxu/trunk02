@@ -383,19 +383,18 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
         if (getmMvpView() != null) {
             requestData(0, 7, "");
 
-            mMainMapXJActivityRequestModel.clickTaskStart(context, S_MAN_ID, S_RECODE_ID, T_START, N_CYCLE, new CommonObserver<Object>() {
-
+            mMainMapXJActivityRequestModel.clickTaskStart(context, S_MAN_ID, S_RECODE_ID, T_START, N_CYCLE, new WavenetCallBack() {
                 @Override
-                protected void onError(String errorMsg) {
-                    requestData(1, 7, errorMsg);
-
+                public void onError(int id, String errorCode, String error) {
+                    ToastUtils.showToast(error);
+                    requestData(1, 7, error);
                 }
 
                 @Override
-                protected void onSuccess(Object s) {
-                    //业务处理
-                    requestData(2, 7, (String) s);
+                public void onSuccess(int id, JSONObject result) {
+                    requestData(2, 7, result.toString());
                 }
+
             });
         }
     }
@@ -404,24 +403,24 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 //事件编号，用户名 ， 时间
         requestData(0, 8, "");
 
-        mMainMapXJActivityRequestModel.clickTaskDeal(mContext, S_MANGE_ID, S_MANGE_MAN, T_MANGE_TIME, S_MANGE_REMARK, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickTaskDeal(mContext, S_MANGE_ID, S_MANGE_MAN, T_MANGE_TIME, S_MANGE_REMARK, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String error) {
                 if (getmMvpView() != null) {
-                    if ("空指针异常".equals(errorMsg)) {
-                        requestData(2, 8, errorMsg);
+                    if ("空指针异常".equals(error)) {
+                        requestData(2, 8, error);
                     } else {
-                        requestData(1, 8, errorMsg);
+                        requestData(1, 8, error);
                     }
 
                 }
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
-                requestData(2, 8, (String) s);
+                requestData(2, 8, result.toString());
             }
         });
     }
@@ -430,24 +429,24 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 //事件编号，用户名 ， 时间
         requestData(0, 82, "");
 
-        mMainMapXJActivityRequestModel.clickTaskDeal2(x, mContext, S_MANGE_ID, S_MANGE_MAN, T_MANGE_TIME, S_SJCZ_ID, S_MANGE_REMARK, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickTaskDeal2(x, mContext, S_MANGE_ID, S_MANGE_MAN, T_MANGE_TIME, S_SJCZ_ID, S_MANGE_REMARK, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String error) {
                 if (getmMvpView() != null) {
-                    if ("空指针异常".equals(errorMsg)) {
-                        requestData(2, 82, errorMsg);
+                    if ("空指针异常".equals(error)) {
+                        requestData(2, 82, error);
                     } else {
-                        requestData(1, 82, errorMsg);
+                        requestData(1, 82, error);
                     }
 
                 }
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
-                requestData(2, 82, (String) s);
+                requestData(2, 82, result.toString());
             }
         });
     }
@@ -456,18 +455,18 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 //        事件编号  记录编号  问题类别  问题类型 上报人  上报时间
         requestData(0, 9, "");
 
-        mMainMapXJActivityRequestModel.clickRequestTaskAdd(S_MANGE_ID, S_RECODE_ID, S_CATEGORY, S_TYPE, S_IN_MAN, T_IN_DATE, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickRequestTaskAdd(S_MANGE_ID, S_RECODE_ID, S_CATEGORY, S_TYPE, S_IN_MAN, T_IN_DATE, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
-                requestData(1, 9, errorMsg);
+            public void onError(int id, String errorCode, String error) {
+                requestData(1, 9, error);
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
-                    getmMvpView().requestSuccess(9, (String) s);
+                    getmMvpView().requestSuccess(9, result.toString());
                 }
             }
         });
@@ -478,18 +477,18 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 //      记录编号，   任务编号  ， 时间时间 ， 周期（暂时默认1）
         requestData(0, 10, "");
 
-        mMainMapXJActivityRequestModel.clickTaskPaiStart(S_MAN_ID, S_RECODE_ID, S_MANGE_ID, T_START, N_CYCLE, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickTaskPaiStart(S_MAN_ID, S_RECODE_ID, S_MANGE_ID, T_START, N_CYCLE, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
-                requestData(1, 10, errorMsg);
+            public void onError(int id, String errorCode, String error) {
+                requestData(1, 10, error);
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
-                    getmMvpView().requestSuccess(10, (String) s);
+                    getmMvpView().requestSuccess(10, result.toString());
                 }
             }
         });
@@ -500,18 +499,18 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 //      记录编号，   任务编号  ， 时间时间 ， 周期（暂时默认1）
         requestData(0, 10, "");
 
-        mMainMapXJActivityRequestModel.clickTaskPaiStart1(context, S_MAN_ID, S_RECODE_ID, S_MANGE_ID, T_START, N_CYCLE, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickTaskPaiStart1(context, S_MAN_ID, S_RECODE_ID, S_MANGE_ID, T_START, N_CYCLE, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
-                requestData(1, 10, errorMsg);
+            public void onError(int id, String errorCode, String error) {
+                requestData(1, 10, error);
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
-                    getmMvpView().requestSuccess(10, (String) s);
+                    getmMvpView().requestSuccess(10, result.toString());
                 }
             }
         });
@@ -523,15 +522,15 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 //      记录编号，   任务编号  ， 时间时间 ， 周期（暂时默认1）
         requestData(0, 1111, "");
 
-        mMainMapXJActivityRequestModel.clickTaskPaiState(S_MANGE_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickTaskPaiState(S_MANGE_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String error) {
                 if (getmMvpView() != null) {
-                    if ("空指针异常".equals(errorMsg)) {
-                        requestData(2, 1111, errorMsg);
+                    if ("空指针异常".equals(error)) {
+                        requestData(2, 1111, error);
                     } else {
-                        requestData(1, 1111, errorMsg);
+                        requestData(1, 1111, error);
                     }
 
                 }
@@ -539,10 +538,10 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
-                    getmMvpView().requestSuccess(1111, (String) s);
+                    getmMvpView().requestSuccess(1111, result.toString());
                 }
             }
         });
@@ -553,15 +552,15 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 //      记录编号，   任务编号  ， 时间时间 ， 周期（暂时默认1）
         requestData(0, 102, "");
 
-        mMainMapXJActivityRequestModel.clickTaskPaiReason1(S_MANGE_ID, S_STATUS, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickTaskPaiReason1(S_MANGE_ID, S_STATUS, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String error) {
                 if (getmMvpView() != null) {
-                    if ("空指针异常".equals(errorMsg)) {
-                        requestData(2, 102, errorMsg);
+                    if ("空指针异常".equals(error)) {
+                        requestData(2, 102, error);
                     } else {
-                        requestData(1, 102, errorMsg);
+                        requestData(1, 102, error);
                     }
 
                 }
@@ -569,10 +568,10 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
-                    getmMvpView().requestSuccess(102, (String) s);
+                    getmMvpView().requestSuccess(102, result.toString());
                 }
             }
         });
@@ -583,15 +582,15 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 //      记录编号，   任务编号  ， 时间时间 ， 周期（暂时默认1）
         requestData(0, 1021, "");
 
-        mMainMapXJActivityRequestModel.clickTaskPaiReason2(mContext, S_REASON, S_REMARK, S_MANGE_ID, S_STATUS, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickTaskPaiReason2(mContext, S_REASON, S_REMARK, S_MANGE_ID, S_STATUS, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String error) {
                 if (getmMvpView() != null) {
-                    if ("空指针异常".equals(errorMsg)) {
-                        requestData(2, 1021, errorMsg);
+                    if ("空指针异常".equals(error)) {
+                        requestData(2, 1021, error);
                     } else {
-                        requestData(1, 1021, errorMsg);
+                        requestData(1, 1021, error);
                     }
 
                 }
@@ -599,10 +598,10 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
-                    getmMvpView().requestSuccess(1021, (String) s);
+                    getmMvpView().requestSuccess(1021, result.toString());
                 }
             }
         });
@@ -613,10 +612,10 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 //      记录编号，   任务编号  ， 时间时间 ， 周期（暂时默认1）
         requestData(0, 1022, "");
 
-        mMainMapXJActivityRequestModel.clickTaskPaiReason3(mContext, S_REASON, S_REMARK, S_MANGE_ID, S_STATUS, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickTaskPaiReason3(mContext, S_REASON, S_REMARK, S_MANGE_ID, S_STATUS, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 if (getmMvpView() != null) {
                     if ("空指针异常".equals(errorMsg)) {
                         requestData(2, 1022, errorMsg);
@@ -629,10 +628,10 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
-                    getmMvpView().requestSuccess(1022, (String) s);
+                    getmMvpView().requestSuccess(1022, result.toString());
                 }
             }
         });
@@ -642,17 +641,17 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void getRequestDictionaries() {
         requestData(0, 11, "");
 
-        mMainMapXJActivityRequestModel.getRequestDictionaries(new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.getRequestDictionaries(new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 requestData(1, 11, errorMsg);
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
-                requestData(2, 11, (String) s);
+                requestData(2, 11,  result.toString());
 
             }
         });
@@ -663,10 +662,10 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void RequestCancleTask(String S_RECODE_ID, String T_END, String S_TOWNNAME) {
         requestData(0, 121, "");
 
-        mMainMapXJActivityRequestModel.RequestCancleTask(S_RECODE_ID, T_END, S_TOWNNAME, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.RequestCancleTask(S_RECODE_ID, T_END, S_TOWNNAME, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 if (getmMvpView() != null) {
                     if ("空指针异常".equals(errorMsg)) {
                         requestData(2, 121, errorMsg);
@@ -678,9 +677,9 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
-                requestData(2, 121, (String) s);
+                requestData(2, 121, result.toString());
 
             }
         });
@@ -690,24 +689,23 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void RequestCancleTask1(String S_RECODE_ID, String S_MANGE_ID, String T_END, String S_TOWNNAME) {
         requestData(0, 177, "");
 
-        mMainMapXJActivityRequestModel.RequestCancleTask1(S_RECODE_ID, S_MANGE_ID, T_END, S_TOWNNAME, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.RequestCancleTask1(S_RECODE_ID, S_MANGE_ID, T_END, S_TOWNNAME, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 if (getmMvpView() != null) {
                     if ("空指针异常".equals(errorMsg)) {
                         //   requestData(2, 7, errorMsg);
                     } else {
                         //  requestData(1, 7, errorMsg);
                     }
-
                 }
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
-                requestData(2, 177, (String) s);
+                requestData(2, 177, result.toString());
 
             }
         });
@@ -717,10 +715,10 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void RequestEndTask(String S_RECODE_ID, String T_END) {
         requestData(0, 12, "");
 
-        mMainMapXJActivityRequestModel.RequestEndTask(S_RECODE_ID, T_END, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.RequestEndTask(S_RECODE_ID, T_END, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 if (getmMvpView() != null) {
                     if ("空指针异常".equals(errorMsg)) {
                         requestData(2, 12, errorMsg);
@@ -732,9 +730,9 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
-                requestData(2, 12, (String) s);
+                requestData(2, 12, result.toString());
 
             }
         });
@@ -851,18 +849,17 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void RequestISDeal(String S_MANGE_ID) {//点击地图maker进入页面判断是否处置来设置按钮tv. settext();
         requestData(0, 13, "");
 
-        mMainMapXJActivityRequestModel.RequestISDeal(S_MANGE_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.RequestISDeal(S_MANGE_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
-
+            public void onError(int id, String errorCode, String errorMsg) {
                 requestData(1, 13, errorMsg);
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
-                requestData(2, 13, (String) s);
+                requestData(2, 13, result.toString());
 
             }
         });
@@ -871,18 +868,18 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void RequestRelevantTask(String S_RECODE_ID) {
         requestData(0, 14, "");
 
-        mMainMapXJActivityRequestModel.RequestRelevantTask(S_RECODE_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.RequestRelevantTask(S_RECODE_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
 
                 requestData(1, 14, errorMsg);
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
-                requestData(2, 14, (String) s);
+                requestData(2, 14, result.toString());
 
             }
         });
@@ -891,17 +888,17 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void RequestReportDetails(String S_MANGE_ID) {
         //上报人，状态
         requestData(0, 15, "");
-        mMainMapXJActivityRequestModel.RequestReportDetails(S_MANGE_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.RequestReportDetails(S_MANGE_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 requestData(1, 15, errorMsg);
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
-                requestData(2, 15, (String) s);
+                requestData(2, 15, result.toString());
             }
         });
     }
@@ -963,17 +960,17 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void RequestRefuselist(String S_TASK_ID) {
         //上报人，状态
         requestData(0, 18, "");
-        mMainMapXJActivityRequestModel.RequestRefuselist(S_TASK_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.RequestRefuselist(S_TASK_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 requestData(1, 18, errorMsg);
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
-                requestData(2, 18, (String) s);
+                requestData(2, 18, result.toString());
             }
         });
     }
@@ -995,10 +992,10 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void clickRequestIsDeal(Context mContext, String S_MANGE_ID) {//上报成功后点击处置派单任务列表更新（自己接手当前事件，自己派单给自己）
 //        事件编号  记录编号  问题类别  问题类型 上报人  上报时间
         requestData(0, 19, "");
-        mMainMapXJActivityRequestModel.clickRequestIsDeal(mContext, S_MANGE_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickRequestIsDeal(mContext, S_MANGE_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 if (getmMvpView() != null) {
                     if ("空指针异常".equals(errorMsg)) {
                         requestData(2, 19, errorMsg);
@@ -1011,11 +1008,11 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
 //                    getmMvpView().hide();
-                    requestData(2, 19, (String) s);
+                    requestData(2, 19, result.toString());
                 }
             }
         });
@@ -1024,20 +1021,20 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void clickRequestIsDealDetail(String S_MANGE_ID) {//上报成功后提示dialog提示是否处置  点击进行处置去请求事件详情信息
 //        事件编号  记录编号  问题类别  问题类型 上报人  上报时间
         requestData(0, 20, "");
-        mMainMapXJActivityRequestModel.clickRequestIsDealDetail(S_MANGE_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickRequestIsDealDetail(S_MANGE_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 requestData(1, 20, errorMsg);
 
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
 //                    getmMvpView().hide();
-                    requestData(2, 20, (String) s);
+                    requestData(2, 20, result.toString());
                 }
             }
         });
@@ -1046,20 +1043,20 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void clickRequestIsDealDetail1(String S_MANGE_ID) {//点击地图Marker时请求的基本信息；
 //        事件编号  记录编号  问题类别  问题类型 上报人  上报时间
         requestData(0, 21, "");
-        mMainMapXJActivityRequestModel.clickRequestIsDealDetail(S_MANGE_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickRequestIsDealDetail(S_MANGE_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 requestData(1, 21, errorMsg);
 
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
 //                    getmMvpView().hide();
-                    requestData(2, 21, (String) s);
+                    requestData(2, 21, result.toString());
                 }
             }
         });
@@ -1068,20 +1065,20 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void clickRequestIsDealDetail2(String S_MANGE_ID) {//点击地图Marker时当该事件未处置时，点击处置按钮请求处置信息
 //        事件编号  记录编号  问题类别  问题类型 上报人  上报时间
         requestData(0, 22, "");
-        mMainMapXJActivityRequestModel.clickRequestIsDealDetail(S_MANGE_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clickRequestIsDealDetail(S_MANGE_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 requestData(2, 22, errorMsg);
 
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
 //                    getmMvpView().hide();
-                    requestData(2, 22, (String) s);
+                    requestData(2, 22, result.toString());
                 }
             }
         });
@@ -1186,15 +1183,15 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
      */
     public void requestSearchHis(String user) {
         requestData1(0, 3, "");
-        mMainMapXJActivityRequestModel.requestSearchHis(user, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.requestSearchHis(user, new WavenetCallBack() {
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 requestData1(1, 3, errorMsg);
             }
 
             @Override
-            protected void onSuccess(Object o) {
-                requestData1(2, 3, (String) o);
+            public void onSuccess(int id, JSONObject result) {
+                requestData1(2, 3, result.toString());
             }
         });
     }
@@ -1203,15 +1200,15 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
      * 增加搜索记录
      */
     public void addSearchHis(String user, String str) {
-        mMainMapXJActivityRequestModel.addSearchHis(user, str, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.addSearchHis(user, str, new WavenetCallBack() {
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 ToastUtils.showToast(errorMsg);
             }
 
             @Override
-            protected void onSuccess(Object o) {
-                LogUtils.d("addSearchHis", (String) o);
+            public void onSuccess(int id, JSONObject result) {
+                LogUtils.d("addSearchHis", result.toString());
             }
         });
     }
@@ -1220,17 +1217,17 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
      * 清空搜索记录
      */
     public void clearHisList(final List<SearchHistory.DataBean> hisList, String user, final SearchHisAdapter mAdapter) {
-        mMainMapXJActivityRequestModel.clearSearchHis(user, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.clearSearchHis(user, new WavenetCallBack() {
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String errorMsg) {
                 ToastUtils.showToast(errorMsg);
             }
 
             @Override
-            protected void onSuccess(Object o) {
+            public void onSuccess(int id, JSONObject result) {
                 hisList.clear();
                 mAdapter.notifyDataSetChanged();
-                requestData1(2, 4, (String) o);
+                requestData1(2, 4, result.toString());
                 ToastUtils.showToast("清空成功！");
             }
         });

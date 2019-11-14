@@ -52,28 +52,28 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
     public void clickRequestUPTask(Context mContext, String S_DESC, String S_MANGE_ID, String S_RECODE_ID, String S_CATEGORY, String S_TYPE, String S_IN_MAN, String T_IN_DATE, double N_X, double N_Y, String S_LOCAL, WavenetCallBack callback) {
         String urlstr =AppConfig.BeasUrl1+ "/management/addManagement";
         Map<String, String> reqParams = new HashMap<>();
-        reqParams.put("sMangeId", S_MANGE_ID);//S_MANGE_ID
-        reqParams.put("sRecodeId", S_RECODE_ID);//S_RECODE_ID
-        reqParams.put("sCategory", S_CATEGORY);//S_CATEGORY
-        reqParams.put("sType", S_TYPE);//S_TYPE
+        reqParams.put("sMangeId", S_MANGE_ID);
+        reqParams.put("sRecodeId", S_RECODE_ID);
+        reqParams.put("sCategory", S_CATEGORY);
+        reqParams.put("sType", S_TYPE);
         if (AppTool.isNull(S_IN_MAN)) {
             ToastUtils.showToast("上报人为空");
             return;
         }
 
-        reqParams.put("sEmergency", "W1008100001");//S_EMERGENCY
-        reqParams.put("sInMan", S_IN_MAN);//S_IN_MAN
-        reqParams.put("tInDate", T_IN_DATE);//T_IN_DATE
-        reqParams.put("nx", String.valueOf(N_X));//N_X
-        reqParams.put("ny", String.valueOf(N_Y));//N_Y
-        reqParams.put("sIsMange", "W1001600000");//为处置//S_IS_MANGE
-        reqParams.put("sSjsbId", S_MANGE_ID);//S_SJSB_ID
-        reqParams.put("sDesc", S_DESC);//S_DESC
-        reqParams.put("sSource", "W1007500004");//S_SOURCE
-        reqParams.put("sLocal", S_LOCAL);//S_LOCAL
-        reqParams.put("sTownidIn", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));//S_TOWNID_IN
-        reqParams.put("sCompanyIn", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));//S_COMPANY_IN
-        reqParams.put("sStatue", "W1006500001");//S_STATUS
+        reqParams.put("sEmergency", "W1008100001");
+        reqParams.put("sInMan", S_IN_MAN);
+        reqParams.put("tInDate", T_IN_DATE);
+        reqParams.put("nx", String.valueOf(N_X));
+        reqParams.put("ny", String.valueOf(N_Y));
+        reqParams.put("sIsMange", "W1001600000");
+        reqParams.put("sSjsbId", S_MANGE_ID);
+        reqParams.put("sDesc", S_DESC);
+        reqParams.put("sSource", "W1007500004");
+        reqParams.put("sLocal", S_LOCAL);
+        reqParams.put("sTownidIn", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
+        reqParams.put("sCompanyIn", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
+        reqParams.put("sStatue", "W1006500001");
 
         for (Map.Entry<String, String> entry : reqParams.entrySet()) {
             String key = entry.getKey();
@@ -163,99 +163,100 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 
     }
 
-    public void clickTaskStart(Context context, String S_MAN_ID, String S_RECODE_ID, String T_IN_DATE, String N_CYCLE, CommonObserver<Object> callback) {
-        String urlstr =AppConfig.BeasUrl+ "2056/api/PatrolRecode/AddT_Patrol_Recode";
+    public void clickTaskStart(Context context, String S_MAN_ID, String S_RECODE_ID, String T_IN_DATE, String N_CYCLE, WavenetCallBack callback) {
+        String urlstr =AppConfig.BeasUrl1+ "/patrolRecode/addTPatrolRecode";
         //流水号，系统时间， 暂时默认1
-        Map<Object, Object> reqParams = new HashMap<>();
-        reqParams.put("S_RECODE_ID", S_RECODE_ID);
-        reqParams.put("T_START", T_IN_DATE);
-        //reqParams.put("N_CYCLE", 1);
-        reqParams.put("S_MAN_ID", S_MAN_ID);
-        reqParams.put("S_TOWNID", SPUtil.getInstance(context).getStringValue(SPUtil.APP_TOWNID));
-        reqParams.put("S_COMPANY",
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("sRecodeId",S_RECODE_ID);
+        reqParams.put("tStart",T_IN_DATE);
+
+        reqParams.put("sManId", S_MAN_ID);
+        reqParams.put("sTownId", SPUtil.getInstance(context).getStringValue(SPUtil.APP_TOWNID));
+        reqParams.put("sCompany",
                 UrlUtils.toURLDecoded(SPUtil.getInstance(context).getStringValue(SPUtil.APP_COMPANY))
         );
-        reqParams.put("S_TOWNNAME",
+        reqParams.put("sTownName",
                 UrlUtils.toURLDecoded(SPUtil.getInstance(context).getStringValue(SPUtil.APP_TOWNNAME))
         );
-        reqParams.put("S_MAN_CN",
+        reqParams.put("sManCn",
                 UrlUtils.toURLDecoded(SPUtil.getInstance(context).getStringValue(SPUtil.APP_MYNAME))
         );
 
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .userXJcTaskStart(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-
-        for (Map.Entry<Object, Object> entry : reqParams.entrySet()) {
-            String key = entry.getKey().toString();
-            String value = entry.getValue().toString();
-            System.out.println("clickTaskStart：  " + "Key = " + key + "  ----  " + "Value = " + value);
-        }
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
     }
 
-    public void clickTaskDeal(Context mContext, String S_MANGE_ID, String S_MANGE_MAN, String T_MANGE_TIME, String S_MANGE_REMARK, CommonObserver<Object> callback) {
+    public void clickTaskDeal(Context mContext, String S_MANGE_ID, String S_MANGE_MAN, String T_MANGE_TIME, String S_MANGE_REMARK, WavenetCallBack callback) {
 //        String urlStr = AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_PATROL_MANAGEMENT('" + S_MANGE_ID + "')";
-        String urlStr = AppConfig.BeasUrl+"2056/api/Management/EdtManagement";
+        String urlStr = AppConfig.BeasUrl1+"/management/edtManagement";
         Map<String, String> reqParams = new HashMap<>();
-        reqParams.put("S_MANGE_ID", S_MANGE_ID);
-        reqParams.put("S_MANGE_MAN", S_MANGE_MAN);
-        reqParams.put("T_MANGE_TIME", T_MANGE_TIME);
-//        reqParams.put("S_IS_MANGE", "1");//处置
-        reqParams.put("S_IS_MANGE", "W1001600001");//处置
-        reqParams.put("S_SJCZ_ID", S_MANGE_ID);
-        reqParams.put("S_STATUS", "W1006500004");
+        reqParams.put("sMangeId", S_MANGE_ID);
+        reqParams.put("sMangeMan", S_MANGE_MAN);
+        reqParams.put("tMangeTime", T_MANGE_TIME);
+        reqParams.put("sIsMange", "W1001600001");//处置
+        reqParams.put("sSjczId", S_MANGE_ID);
+        reqParams.put("sStatus", "W1006500004");
         if (!AppTool.isNull(S_MANGE_REMARK)) {
-            reqParams.put("S_MANGE_REMARK", S_MANGE_REMARK);//
+            reqParams.put("sMangeRemark", S_MANGE_REMARK);//
         }
 
-        reqParams.put("S_TOWNID_MANGE", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
-        reqParams.put("S_COMPANY_MANGE", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .userXJTaskDeal(urlStr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-
+        reqParams.put("sTownidMange", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
+        reqParams.put("sCompanyMange", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
+        post()
+                .url(urlStr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .userXJTaskDeal(urlStr, reqParams)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
 
     }
 
 
 
-    public void clickTaskDeal2(double x, Context mContext, String S_MANGE_ID, String S_MANGE_MAN, String T_MANGE_TIME, String S_SJCZ_ID, String S_MANGE_REMARK, CommonObserver<Object> callback) {
-        String urlStr = AppConfig.BeasUrl+"2056/api/PatrolRecode/TaskComplete";
-        Map<String, Object> reqParams = new HashMap<>();
-        Map<String, Object> headerMaps = new HashMap<>();
-        reqParams.put("T_END", GetUTCTime.getNow());
+    public void clickTaskDeal2(double x, Context mContext, String S_MANGE_ID, String S_MANGE_MAN, String T_MANGE_TIME, String S_SJCZ_ID, String S_MANGE_REMARK, WavenetCallBack callback) {
+        String urlStr = AppConfig.BeasUrl1+"/patrolRecode/taskComplete";
+        Map<String, String> reqParams = new HashMap<>();
 
-        reqParams.put("S_MANGE_ID", S_MANGE_ID);
-        reqParams.put("S_MANGE_MAN", S_MANGE_MAN);
+        reqParams.put("tEnd", GetUTCTime.getNow());
+
+        reqParams.put("sMangeId", S_MANGE_ID);
+        reqParams.put("sMangeMan", S_MANGE_MAN);
         if (!AppTool.isNull(S_MANGE_REMARK)) {
-            reqParams.put("S_MANGE_REMARK", S_MANGE_REMARK);//
+            reqParams.put("sMangeRemark", S_MANGE_REMARK);//
         }
-        reqParams.put("S_STATUS", "W1006500004");
+        reqParams.put("sStatus", "W1006500004");
 
         //N_MILEAGE   里程   单位米
-        reqParams.put("N_MILEAGE", x);
-        reqParams.put("N_DEL", 1);
-        reqParams.put("S_SJSB_ID", MainMapXJActivity.S_SJSB_ID);//派单任务记录上报id
-        reqParams.put("S_SJCZ_ID", S_MANGE_ID);//派单任务记录处置id
-        reqParams.put("S_RECODE_ID", S_SJCZ_ID);//自动生成的s_recode_id
+        reqParams.put("nMileage", x+"");
+        reqParams.put("nDel", 1+"");
+        reqParams.put("sSjsbId", MainMapXJActivity.S_SJSB_ID);//派单任务记录上报id
+        reqParams.put("sSjczId", S_MANGE_ID);//派单任务记录处置id
+        reqParams.put("sRecodeId", S_SJCZ_ID);//自动生成的s_recode_id
 
-        reqParams.put("S_MANGE_FULL", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
-        reqParams.put("S_TOWNID_MANGE", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
-        reqParams.put("S_COMPANY_MANGE", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
-        reqParams.put("S_MANGE_MAN", SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO));
-        reqParams.put("T_MANGE_TIME", GetUTCTime.getNow());
-        LogUtils.e("数据", reqParams.toString());
+        reqParams.put("sMangeFull", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
+        reqParams.put("sTownIdMange", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
+        reqParams.put("sCompanyMange", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
+        reqParams.put("sMangeMan", SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO));
+        reqParams.put("tMangeTime", GetUTCTime.getNow());
+
 //        headerMaps.put("Accept", "application/json");
-
-        RxHttpUtils
+        post()
+                .url(urlStr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+       /* RxHttpUtils
                 .createApi(ApiService.class)
                 .userXJTaskDeal3(urlStr, reqParams)
                 .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+                .subscribe(callback);*/
 //        SingleRxHttp
 //                .getInstance().addHeaders(headerMaps).createSApi(ApiService.class)
 //
@@ -266,219 +267,236 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 
     }
 
-    public void clickRequestTaskAdd(String S_MANGE_ID, String S_RECODE_ID, String S_CATEGORY, String S_TYPE, String S_IN_MAN, String T_IN_DATE, CommonObserver<Object> callback) {
-        String urlstr = AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_PATROL_MANAGEMENT";
-        Map<String, Object> reqParams = new HashMap<>();
-        reqParams.put("S_MANGE_ID", S_MANGE_ID);
-        reqParams.put("S_RECODE_ID", S_RECODE_ID);
-        reqParams.put("S_CATEGORY", S_CATEGORY);
-        reqParams.put("S_TYPE", S_TYPE);
-        reqParams.put("S_IN_MAN", S_IN_MAN);
-        reqParams.put("T_IN_DATE", T_IN_DATE);
-//        reqParams.put("S_IS_MANGE", "0");//为处置
-        reqParams.put("S_IS_MANGE", "W1001600000");//为处置
+    public void clickRequestTaskAdd(String S_MANGE_ID, String S_RECODE_ID, String S_CATEGORY, String S_TYPE, String S_IN_MAN, String T_IN_DATE, WavenetCallBack callback) {
+        String urlstr = AppConfig.BeasUrl1+"/management/addManagement";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("sMangeId", S_MANGE_ID);
+        reqParams.put("sRecordId", S_RECODE_ID);
+        reqParams.put("sCategory", S_CATEGORY);
+        reqParams.put("sType", S_TYPE);
+        reqParams.put("sInMan", S_IN_MAN);
+        reqParams.put("sInDate", T_IN_DATE);
+        reqParams.put("sIsMange", "W1001600000");//为处置
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .userXJReportData(urlstr, reqParams)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
 
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .userXJReportData(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-
-
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            System.out.println("clickRequestTaskAdd：  " + "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
-    public void clickTaskPaiStart(String S_MAN_ID, String S_RECODE_ID, String S_MANGE_ID, String T_IN_DATE, String N_CYCLE, CommonObserver<Object> callback) {
-        String urlstr = AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_PATROL_RECODE";
-        Map<Object, Object> reqParams = new HashMap<>();
-        reqParams.put("S_RECODE_ID", S_RECODE_ID);
-        reqParams.put("S_MANGE_ID", S_MANGE_ID);
-        reqParams.put("T_IN_DATE", T_IN_DATE);
+    public void clickTaskPaiStart(String S_MAN_ID, String S_RECODE_ID, String S_MANGE_ID, String T_IN_DATE, String N_CYCLE, WavenetCallBack callback) {
+        String urlstr = AppConfig.BeasUrl1+"/patrolRecode/addTPatrolRecode";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("sRecodeID", S_RECODE_ID);
+        reqParams.put("sMangeId", S_MANGE_ID);
+        reqParams.put("tInDate", T_IN_DATE);
         // reqParams.put("N_CYCLE", 1);
-        reqParams.put("S_MAN_ID", S_MAN_ID);
+        reqParams.put("sManId", S_MAN_ID);
 
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .userXJReportDataPai(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
 
 
     }
 
-    public void clickTaskPaiStart1(Context context, String S_MAN_ID, String S_RECODE_ID, String S_MANGE_ID, String T_IN_DATE, String N_CYCLE, CommonObserver<Object> callback) {
-        String urlstr = AppConfig.BeasUrl+"2056/api/PatrolRecode/TaskBegin";
-        Map<String, Object> reqParams = new HashMap<>();
-        reqParams.put("S_RECODE_ID", S_RECODE_ID);
-        reqParams.put("S_MANGE_ID", S_MANGE_ID);
+    public void clickTaskPaiStart1(Context context, String S_MAN_ID, String S_RECODE_ID, String S_MANGE_ID, String T_IN_DATE, String N_CYCLE, WavenetCallBack callback) {
+        String urlstr = AppConfig.BeasUrl1+"/patrolRecode/taskBegin";
+        Map<String, String> reqParams = new HashMap<>();
+
+        reqParams.put("sRecodeId", S_RECODE_ID);
+        reqParams.put("sMangeId", S_MANGE_ID);
 
 //        reqParams.put("S_TASK_ID", S_MANGE_ID);
-        reqParams.put("T_START", GetUTCTime.getNow());
+        reqParams.put("tStart", GetUTCTime.getNow());
         // reqParams.put("N_CYCLE", 1);
-        reqParams.put("S_MAN_ID", S_MAN_ID);
-        reqParams.put("S_TOWNID", SPUtil.getInstance(context).getStringValue(SPUtil.APP_TOWNID));
-        reqParams.put("S_COMPANY",
+        reqParams.put("sManId", S_MAN_ID);
+        reqParams.put("sTownId", SPUtil.getInstance(context).getStringValue(SPUtil.APP_TOWNID));
+        reqParams.put("sCompany",
                 UrlUtils.toURLDecoded(SPUtil.getInstance(context).getStringValue(SPUtil.APP_COMPANY))
         );
-        reqParams.put("S_TOWNNAME",
+        reqParams.put("sTownName",
                 UrlUtils.toURLDecoded(SPUtil.getInstance(context).getStringValue(SPUtil.APP_TOWNNAME))
         );
-        reqParams.put("S_MAN_CN",
+        reqParams.put("sManCn",
                 UrlUtils.toURLDecoded(SPUtil.getInstance(context).getStringValue(SPUtil.APP_MYNAME))
         );
 
-        SingleRxHttp.getInstance().createSApi(ApiService.class)
-                .userXJpaidanstart(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
 
 
     }
 
-    public void clickTaskPaiState(String S_MANGE_ID, CommonObserver<Object> callback) {
-        String urlstr =AppConfig.BeasUrl+ "2081/odata/PSSSYH/default/T_PATROL_MANAGEMENT('" + S_MANGE_ID + "')";
-        Map<Object, Object> reqParams = new HashMap<>();
-//        reqParams.put("S_MANGE_ID", S_MANGE_ID);
+
+    public void clickTaskPaiState(String S_MANGE_ID, WavenetCallBack callback) {
+        String urlstr =AppConfig.BeasUrl1+ "/management/changeState";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("S_MANGE_ID", S_MANGE_ID);
         reqParams.put("S_STATUS", "W1006500003");
 
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .userXJReportDataPaistate(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .userXJReportDataPaistate(urlstr, reqParams)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
 
     }
 
-    public void clickTaskPaiReason1(String S_MANGE_ID, String S_STATUS, CommonObserver<Object> callback) {
-        String urlstr = AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_PATROL_MANAGEMENT('" + S_MANGE_ID + "')";
+    public void clickTaskPaiReason1(String S_MANGE_ID, String S_STATUS, WavenetCallBack callback) {
+        String urlstr = AppConfig.BeasUrl1+"/patrolRecode/taskRefuse";
 //        任务编号 S_ PATROL_TASK 主键
 //        任务状态 S_STATUS W1006500006 已退单
 //        W1006500005 已拒绝
-        Map<Object, Object> reqParams = new HashMap<>();
+        Map<String, String> reqParams = new HashMap<>();
         reqParams.put("S_STATUS", S_STATUS);
-        reqParams.put("S_STATUS", S_MANGE_ID);
-
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .userXJReportDataPaireason1(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-
-
-    }
-
-    public void requestFile(Map<String, Object> map, ArrayList<String> arrayList, CommonObserver<Object> callback) {
-        RxHttpUtils.uploadImgsWithParams(AppConfig.BeasUrl+"2083/file/upload/SSYH", "file", map, arrayList)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+        reqParams.put("S_MANGE_ID", S_MANGE_ID);
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .userXJReportDataPaireason1(urlstr, reqParams)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
 
 
     }
+//
+//    public void requestFile(Map<String, Object> map, ArrayList<String> arrayList, CommonObserver<Object> callback) {
+//        RxHttpUtils.uploadImgsWithParams(AppConfig.BeasUrl+"2083/file/upload/SSYH", "file", map, arrayList)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
+//
+//
+//    }
 
 
-    public void clickTaskPaiReason2(Context mContext, String S_REASON, String S_REMARK, String S_MANGE_ID, String S_STATUS, CommonObserver<Object> callback) {
-        String urlstr = AppConfig.BeasUrl+"2056/api/PatrolRecode/TaskRefuse ";
+    public void clickTaskPaiReason2(Context mContext, String S_REASON, String S_REMARK, String S_MANGE_ID, String S_STATUS, WavenetCallBack callback) {
+        String urlstr = AppConfig.BeasUrl1+"/patrolRecode/taskRefuse ";
         String user = SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO);
 
-        Map<String, Object> reqParams = new HashMap<>();
-        reqParams.put("S_ID", user + System.currentTimeMillis());
-        reqParams.put("S_TOWNID", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
-        reqParams.put("S_COMPANY", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
-        reqParams.put("S_TOWNNAME", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNNAME));
-        reqParams.put("T_TM", GetUTCTime.getNow()
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("sId", user + System.currentTimeMillis());
+        reqParams.put("sTownId", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
+        reqParams.put("sCompany", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
+        reqParams.put("sTownName", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNNAME));
+        reqParams.put("tTm", GetUTCTime.getNow()
         );
         if (!AppTool.isNull(S_REMARK)) {
-            reqParams.put("S_REMARK", S_REMARK);
+            reqParams.put("sRemark", S_REMARK);
         }
-        reqParams.put("S_MAN", user);
-        reqParams.put("S_TASK_ID", S_MANGE_ID);
+        reqParams.put("sMan", user);
+        reqParams.put("sTaskId", S_MANGE_ID);
 
-        reqParams.put("S_REASON", S_REASON);
-        reqParams.put("S_STATUS", S_STATUS);//W1006500006 已退单 W1006500005 已拒绝
-        reqParams.put("S_MANGE_ID", S_MANGE_ID);
-        reqParams.put("S_MAN_FULLNAME", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
+        reqParams.put("sReason", S_REASON);
+        reqParams.put("sStatus", S_STATUS);//W1006500006 已退单 W1006500005 已拒绝
+        reqParams.put("sMangeId", S_MANGE_ID);
+        reqParams.put("sManFullName", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
 
-
-        LogUtils.e("数据", reqParams.toString());
-
-        SingleRxHttp.getInstance()
-                .createSApi(ApiService.class)
-                .refuse(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
 
 
     }
+
 
     //执行派单的时候退单调用的接口
-    public void clickTaskPaiReason3(Context mContext, String S_REASON, String S_REMARK, String S_MANGE_ID, String S_STATUS, CommonObserver<Object> callback) {
-        String urlstr =AppConfig.BeasUrl+ "2056/api/PatrolRecode/TaskChargeback";
+    public void clickTaskPaiReason3(Context mContext, String S_REASON, String S_REMARK, String S_MANGE_ID, String S_STATUS, WavenetCallBack callback) {
+        String urlstr =AppConfig.BeasUrl1+ "/patrolRecode/taskChargeback";
         String user = SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO);
 
-        Map<String, Object> reqParams = new HashMap<>();
-        reqParams.put("S_ID", user + System.currentTimeMillis());
-        reqParams.put("S_TOWNID", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
-        reqParams.put("S_COMPANY", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
-        reqParams.put("S_TOWNNAME", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNNAME));
-        reqParams.put("T_TM", GetUTCTime.getNow()
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("sId", user + System.currentTimeMillis());
+        reqParams.put("sTownId", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
+        reqParams.put("sCompany", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
+        reqParams.put("sTownName", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNNAME));
+        reqParams.put("tTm", GetUTCTime.getNow()
         );
-        reqParams.put("T_END", GetUTCTime.getNow()
+        reqParams.put("tEnd", GetUTCTime.getNow()
         );
         if (!AppTool.isNull(S_REMARK)) {
-            reqParams.put("S_REMARK", S_REMARK);
+            reqParams.put("sRemark", S_REMARK);
         }
-        reqParams.put("S_MAN", user);
-        reqParams.put("S_TASK_ID", S_MANGE_ID);
-        reqParams.put("N_DEL", 1);
-        reqParams.put("S_REASON", S_REASON);
-        reqParams.put("S_STATUS", "W1006500006");//W1006500006 已退单 W1006500005 已拒绝
-        reqParams.put("S_MANGE_ID", S_MANGE_ID);
-        reqParams.put("S_MAN_FULLNAME", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
-
-
-        LogUtils.e("数据", reqParams.toString());
-
-        SingleRxHttp.getInstance()
-                .createSApi(ApiService.class)
-                .refuse(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+        reqParams.put("sMan", user);
+        reqParams.put("sTaskId", S_MANGE_ID);
+        reqParams.put("nDel", 1+"");
+        reqParams.put("sReason", S_REASON);
+        reqParams.put("sStatus", "W1006500006");//W1006500006 已退单 W1006500005 已拒绝
+        reqParams.put("sMangeId", S_MANGE_ID);
+        reqParams.put("sManFullName", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
 
 
     }
 
-    public void getRequestDictionaries(CommonObserver<Object> callback) {
+    public void getRequestDictionaries(WavenetCallBack callback) {
 
-        String urlstr = AppConfig.BeasUrl+"2056/api/T_Dict/GetT_Dict";
-//
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .userXJgetDictionaries(urlstr)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+        String urlstr = AppConfig.BeasUrl1+"/tDict/getTDict";
+        post()
+                .url(urlstr)
+                .build()
+                .execute(callback);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .userXJgetDictionaries(urlstr)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
 
 
     }
 
-    public void RequestEndTask(String S_RECODE_ID, String T_END, CommonObserver<Object> callback) {
-        String urlstr =AppConfig.BeasUrl+ "2056/api/PatrolRecode/UpdatePatrolRecode";
-        Map<Object, Object> reqParams = new HashMap<>();
-        reqParams.put("T_END", T_END);
-        reqParams.put("S_RECODE_ID", S_RECODE_ID);
+    public void RequestEndTask(String S_RECODE_ID, String T_END, WavenetCallBack callback) {
+        String urlstr =AppConfig.BeasUrl1+ "/patrolRecode/updatePatrolRecode";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("tEnd", T_END);
+        reqParams.put("sRecodeId", S_RECODE_ID);
 
-        reqParams.put("N_MILEAGE", AppTool.getDoubleAccurate(MainMapXJActivity.Distance));
+        reqParams.put("nMileage", AppTool.getDoubleAccurate(MainMapXJActivity.Distance)+"");
 
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .RequestXJEndTask(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
 
     }
 
     public void RequestEndTaskpai1(Context mContext, String S_RECODE_ID, CommonObserver<Object> callback) {//废弃
         String urlstr =AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_PATROL_RECODE('" + S_RECODE_ID + "')";//TODO  文档没写主键传什么值  自己认为传记录列表的taskid
+//        String urlstr =AppConfig.BeasUrl+"/patrolRecode/updatePatrolRecode";
         Map<Object, Object> reqParams = new HashMap<>();
+        reqParams.put("S_RECODE_ID", S_RECODE_ID);
         reqParams.put("T_END", GetUTCTime.getNow());
         reqParams.put("N_MILEAGE", AppTool.getDoubleAccurate(MainMapXJActivity.Distance));
         reqParams.put("N_TIME", ControllerMainUIView.timeint);
@@ -554,77 +572,99 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 
     }
 
-    public void RequestCancleTask(String S_RECODE_ID, String T_END, String S_TOWNNAME, CommonObserver<Object> callback) {
-        String urlstr = AppConfig.BeasUrl+"2056/api/PatrolRecode/UpdatePatrolRecode";
-        Map<Object, Object> reqParams = new HashMap<>();
-        reqParams.put("T_END", AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS));
-        reqParams.put("S_RECODE_ID", S_RECODE_ID);
-        reqParams.put("S_TOWNNAME", S_TOWNNAME);
-        reqParams.put("N_DEL", 0);//正常为1，取消为0
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .RequestCancleTask(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+    public void RequestCancleTask(String S_RECODE_ID, String T_END, String S_TOWNNAME, WavenetCallBack callback) {
+        String urlstr = AppConfig.BeasUrl1+"/patrolRecode/updatePatrolRecode";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("tEnd", AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS));
+        reqParams.put("sRecodeId", S_RECODE_ID);
+        reqParams.put("sTownName", S_TOWNNAME);
+        reqParams.put("nDel", 0+"");//正常为1，取消为0
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
 
 
     }
 
 
     //派单取消
-    public void RequestCancleTask1(String S_RECODE_ID, String S_MANGE_ID, String T_END, String S_TOWNNAME, CommonObserver<Object> callback) {
+    public void RequestCancleTask1(String S_RECODE_ID, String S_MANGE_ID, String T_END, String S_TOWNNAME, WavenetCallBack callback) {
         String urlstr =
-                AppConfig.BeasUrl+"2056/api/PatrolRecode/TaskCancel";
+                AppConfig.BeasUrl1+"/patrolRecode/taskCancel";
 
 
-        Map<String, Object> reqParams = new HashMap<>();
-        reqParams.put("T_END", GetUTCTime.getNow());
-        reqParams.put("S_RECODE_ID", S_RECODE_ID);
-        reqParams.put("S_MANGE_ID", S_MANGE_ID);
-        reqParams.put("S_STATUS", "W1006500002");
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("tEnd", GetUTCTime.getNow());
+        reqParams.put("sRecodeId", S_RECODE_ID);
+        reqParams.put("sMangeId", S_MANGE_ID);
+        reqParams.put("sStatus", "W1006500002");
 
 
-        reqParams.put("N_DEL", 0);//正常为1，取消为0
-        SingleRxHttp.getInstance().createSApi(ApiService.class)
-                .cancleTask(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+        reqParams.put("nDel", 0+"");//正常为1，取消为0
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
 
 
     }
 
 
-    public void RequestISDeal(String S_MANGE_ID, CommonObserver<Object> callback) {
+    public void RequestISDeal(String S_MANGE_ID, WavenetCallBack callback) {
 //        String urlstr = AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_PATROL_MANAGEMENT?$select=S_IS_MANGE &$filter=S_MANGE_ID eq '" + S_MANGE_ID + "'";
-String urlstr = AppConfig.BeasUrl+"2056/api/Management/GetIsMange?S_MANGE_ID=" + S_MANGE_ID ;
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .RequestXJISDeal(urlstr)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+        String urlstr = AppConfig.BeasUrl1+"/management/getIsMange";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("sMangeId", S_MANGE_ID);
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .RequestXJISDeal(urlstr)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
 
 
     }
 
-    public void RequestRelevantTask(String S_RECODE_ID, CommonObserver<Object> callback) {
-        String urlstr = "http://222.66.154.70:2081/odata/PSSSYH/default/T_PATROL_MANAGEMENT?$select=S_IS_MANGE,N_X,N_Y,S_CATEGORY,S_TYPE,S_MANGE_ID,S_IN_MAN,T_IN_DATE &$filter=S_RECODE_ID eq '" + S_RECODE_ID + "'";
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .RequestXJRelevantTask(urlstr)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+    public void RequestRelevantTask(String S_RECODE_ID, WavenetCallBack callback) {
+        String urlstr = AppConfig.BeasUrl1+"/management/getXJReleventTask";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("sRecodeId", S_RECODE_ID);
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .RequestXJRelevantTask(urlstr)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
 
 
     }
 
-    public void RequestReportDetails(String S_MANGE_ID, CommonObserver<Object> callback) {
+    public void RequestReportDetails(String S_MANGE_ID, WavenetCallBack callback) {
 
-        String urlstr = AppConfig.BeasUrl+"2056/api/Management/T_PATROL_MANAGEMENT_operation?S_MANGE_ID=" + S_MANGE_ID + "&PAGE=1&PAGESIZE=1";
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .RequestXJDealDetails(urlstr)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+        String urlstr = AppConfig.BeasUrl1+"/management/getById";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("sMangeId", S_MANGE_ID);
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .RequestXJDealDetails(urlstr)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
 
     }
 
@@ -639,15 +679,22 @@ String urlstr = AppConfig.BeasUrl+"2056/api/Management/GetIsMange?S_MANGE_ID=" +
 
     }
 
-    public void RequestRefuselist(String S_MANGE_ID, CommonObserver<Object> callback) {
-        String urlstr = AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_REJECT_PATROL?$select=T_TM,S_REMARK,S_MAN,S_REASON,S_STATUS,S_MAN_FULLNAME,S_TASK_ID,S_TOWNID,S_COMPANY,S_TOWNNAME&$filter=S_TASK_ID%20eq%20%27" + S_MANGE_ID + "%27";
-
-
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .RequestXJDealDetails(urlstr)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+    public void RequestRefuselist(String S_MANGE_ID, WavenetCallBack callback) {
+//        String urlstr = AppConfig.BeasUrl+
+//"2081/odata/PSSSYH/default/T_REJECT_PATROL?$select=T_TM,S_REMARK,S_MAN,S_REASON,S_STATUS,S_MAN_FULLNAME,S_TASK_ID,S_TOWNID,S_COMPANY,S_TOWNNAME&$filter=S_TASK_ID%20eq%20%27" + S_MANGE_ID + "%27";
+String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("sTaskId", S_MANGE_ID);
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .RequestXJDealDetails(urlstr)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
 
     }
 
@@ -664,32 +711,42 @@ String urlstr = AppConfig.BeasUrl+"2056/api/Management/GetIsMange?S_MANGE_ID=" +
                 .subscribe(callback);
     }
 
-    public void clickRequestIsDeal(Context mContext, String S_MANGE_ID, CommonObserver<Object> callback) {
-        String urlstr =AppConfig.BeasUrl+"2056/api/Management/EdtManagement";
-        Map<String, Object> reqParams = new HashMap<>();
-        reqParams.put("S_MANGE_MAN", SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO));
-        reqParams.put("S_MANGE_FULL", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
-        reqParams.put("S_MANGE_ID", S_MANGE_ID);
-        reqParams.put("S_STATUS", "W1006500002");
-
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .userXJIsDeal(urlstr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+    public void clickRequestIsDeal(Context mContext, String S_MANGE_ID, WavenetCallBack callback) {
+        String urlstr =AppConfig.BeasUrl1+"/management/edtManagement";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("sMangeMan", SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO));
+        reqParams.put("sMangeFull", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
+        reqParams.put("sMangeId", S_MANGE_ID);
+        reqParams.put("sStatus", "W1006500002");
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .userXJIsDeal(urlstr, reqParams)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
 
 
     }
 
-    public void clickRequestIsDealDetail(String S_MANGE_ID, CommonObserver<Object> callback) {
-        String urlStr = AppConfig.BeasUrl+"2056/api/Management/T_PATROL_MANAGEMENT_operation?S_MANGE_ID=" + S_MANGE_ID + "&PAGE=1&PAGESIZE=1";
-        Map<String, Object> headerMaps = new HashMap<>();
-        headerMaps.put("Accept", "application/json");
-        SingleRxHttp.getInstance().addHeaders(headerMaps).createSApi(ApiService.class)
-
-                .userXJIsDealDetail(urlStr)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+    public void clickRequestIsDealDetail(String S_MANGE_ID, WavenetCallBack callback) {
+        String urlStr = AppConfig.BeasUrl1+"/management/getById";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("Accept", "application/json");
+        reqParams.put("sMangeId", S_MANGE_ID);
+        post()
+                .url(urlStr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        SingleRxHttp.getInstance().addHeaders(headerMaps).createSApi(ApiService.class)
+//
+//                .userXJIsDealDetail(urlStr)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
 
 
     }
@@ -734,34 +791,52 @@ String urlstr = AppConfig.BeasUrl+"2056/api/Management/GetIsMange?S_MANGE_ID=" +
 
     }
 
-    public void addSearchHis(String user, String str, CommonObserver<Object> callback) {
-        String url = AppConfig.BeasUrl+"2056/api/AppSearchHis/AddAppSearch";
-        Map<String, Object> params = new HashMap<>();
-        params.put("AppType", "1");
-        params.put("UserId", user);
-        params.put("SearchValue", str);
-        RxHttpUtils.createApi(ApiService.class)
-                .addSearchHis(url, params)
-                .compose(Transformer.<String>switchSchedulers())
-                .subscribe(callback);
+    public void addSearchHis(String user, String str, WavenetCallBack callback) {
+        String urlStr = AppConfig.BeasUrl1+"/appSearchHis/addAppSearch";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("appType", "1");
+        reqParams.put("userId", user);
+        reqParams.put("searchValue", str);
+        post()
+                .url(urlStr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils.createApi(ApiService.class)
+//                .addSearchHis(url, params)
+//                .compose(Transformer.<String>switchSchedulers())
+//                .subscribe(callback);
     }
 
-    public void requestSearchHis(String user, CommonObserver<Object> callback) {
-        String url = AppConfig.BeasUrl+"2056/api/AppSearchHis/GetAppSearch?AppType=1&UserId=" + user;
-        RxHttpUtils.createApi(ApiService.class)
-                .getSearchList(url)
-                .compose(Transformer.<String>switchSchedulers())
-                .subscribe(callback);
+    public void requestSearchHis(String user, WavenetCallBack callback) {
+        String urlStr = AppConfig.BeasUrl1+"/appSearchHis/getAppSearch";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("appType", "1");
+        reqParams.put("userId", user);
+        post()
+                .url(urlStr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils.createApi(ApiService.class)
+//                .getSearchList(url)
+//                .compose(Transformer.<String>switchSchedulers())
+//                .subscribe(callback);
     }
 
-    public void clearSearchHis(String user, CommonObserver<Object> callback) {
-        String url = AppConfig.BeasUrl+"2056/api/AppSearchHis/ClearAppHis";
-        Map<String, Object> params = new HashMap<>();
-        params.put("AppType", "1");
-        params.put("UserId", user);
-        RxHttpUtils.createApi(ApiService.class)
-                .clearHis(url, params)
-                .compose(Transformer.<String>switchSchedulers())
-                .subscribe(callback);
+    public void clearSearchHis(String user,WavenetCallBack callback) {
+        String urlStr = AppConfig.BeasUrl1+"/appSearchHis/clearAppHis";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("appType", "1");
+        reqParams.put("userId", user);
+        post()
+                .url(urlStr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils.createApi(ApiService.class)
+//                .clearHis(url, params)
+//                .compose(Transformer.<String>switchSchedulers())
+//                .subscribe(callback);
     }
 }

@@ -5,8 +5,11 @@ import android.content.Context;
 
 import com.dereck.library.base.BaseMvpPersenter;
 import com.dereck.library.observer.CommonObserver;
+import com.wavenet.ding.qpps.db.WavenetCallBack;
 import com.wavenet.ding.qpps.mvp.m.LoginActivityRequestModel;
 import com.wavenet.ding.qpps.mvp.v.LoginActivityRequestView;
+
+import org.json.JSONObject;
 
 import okhttp3.ResponseBody;
 
@@ -23,23 +26,23 @@ public class LoginRequestPresenter extends BaseMvpPersenter<LoginActivityRequest
             getmMvpView().show();
         }
 
-        loginActivityRequestModel.request(userName, passWord, new CommonObserver<Object>() {
+        loginActivityRequestModel.request(userName, passWord, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
+            public void onError(int id, String errorCode, String error) {
                 //业务处理
                 if (getmMvpView() != null) {
                     getmMvpView().hide();
-                    getmMvpView().resultFailure(errorMsg);
+                    getmMvpView().resultFailure(error);
                 }
 
             }
 
             @Override
-            protected void onSuccess(Object s) {
+            public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 if (getmMvpView() != null) {
-                    getmMvpView().resultSuccess(s);
+                    getmMvpView().resultSuccess(result);
                     getmMvpView().hide();
                 }
 
