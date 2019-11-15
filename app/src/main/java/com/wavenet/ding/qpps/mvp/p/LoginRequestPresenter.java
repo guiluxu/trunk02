@@ -26,23 +26,23 @@ public class LoginRequestPresenter extends BaseMvpPersenter<LoginActivityRequest
             getmMvpView().show();
         }
 
-        loginActivityRequestModel.request(userName, passWord, new WavenetCallBack() {
+        loginActivityRequestModel.request(userName, passWord, new CommonObserver<Object>() {
 
             @Override
-            public void onError(int id, String errorCode, String error) {
+            protected void onError(String errorMsg) {
                 //业务处理
                 if (getmMvpView() != null) {
                     getmMvpView().hide();
-                    getmMvpView().resultFailure(error);
+                    getmMvpView().resultFailure(errorMsg);
                 }
 
             }
 
             @Override
-            public void onSuccess(int id, JSONObject result) {
+            protected void onSuccess(Object s) {
                 //业务处理
                 if (getmMvpView() != null) {
-                    getmMvpView().resultSuccess(result);
+                    getmMvpView().resultSuccess(s);
                     getmMvpView().hide();
                 }
 

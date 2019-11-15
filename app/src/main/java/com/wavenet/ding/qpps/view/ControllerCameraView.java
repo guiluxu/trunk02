@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -493,6 +494,16 @@ public class ControllerCameraView extends LinearLayout implements View.OnClickLi
                 arrayList.add(audioPath);
             }
         }
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.e("fileRequest：  " ,"Key = " + key + "  ----  " + "Value = " + value);
+        }
+
+        for (String tmp : arrayList) {
+            Log.e("fileRequest",tmp);
+        }
+
         mActivity.presenter.FileRequest(file, map, arrayList, imaDatas, mfilevideo, audioPath);
     }
 

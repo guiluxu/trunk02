@@ -19,21 +19,21 @@ import static com.zhy.http.okhttp.OkHttpUtils.post;
 
 public class LoginActivityRequestModel {
 
-    public void request(String userName, String passWord, WavenetCallBack callback) {
+    public void request(String userName, String passWord, CommonObserver<Object> callback) {
 
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("userName", userName);
         reqParams.put("passWord", passWord);
-        post()
-                .url(AppConfig.BeasUrl1+"/account/checkUserLogin")
-                .params(reqParams)
-                .build()
-                .execute(callback);
-//        RxHttpUtils
-//                .createApi(ApiService.class)
-//                .userLogin( AppConfig.BeasUrl1+"/account/checkUserLogin",reqParams)
-//                .compose(Transformer.switchSchedulers())
-//                .subscribe(callback);
+//        post()
+//                .url(AppConfig.BeasUrl1+"/account/checkUserLogin")
+//                .params(reqParams)
+//                .build()
+//                .execute(callback);
+        RxHttpUtils
+                .createApi(ApiService.class)
+                .userLogin( AppConfig.BeasUrl1+"/account/checkUserLogin",reqParams)
+                .compose(Transformer.switchSchedulers())
+                .subscribe(callback);
     }
     public void FileRequest(Context mContext, CommonObserver<Object> callback) {
         String url = AppConfig.BeasUrl+"2056/api/File/UploadFile";

@@ -143,7 +143,11 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .params(reqParams)
                 .build()
                 .execute(callback);
-
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            System.out.println("clickRequestTasklist：  " + "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     //事件上报（文件）
