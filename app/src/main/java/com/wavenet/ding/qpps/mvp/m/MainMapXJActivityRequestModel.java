@@ -30,6 +30,7 @@ import static com.zhy.http.okhttp.OkHttpUtils.post;
 
 public class MainMapXJActivityRequestModel implements IMvpBaseView {
 
+    //开始巡检定时查询位置信息
     public void requestUPloca(String S_ID, String S_MAN_ID, String T_UPLOAD, double N_X, double N_Y, double N_SPEED, String S_TASK_TYPE, String S_RECORD_ID, double N_MILEAGE, WavenetCallBack callback) {
         String urlstr = AppConfig.BeasUrl1+"/trajectory/addTrajectory";
         Map<String, String> reqParams = new HashMap<>();
@@ -41,7 +42,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         reqParams.put("nSpeed",  String.valueOf(N_SPEED));
         reqParams.put("sTaskType", S_TASK_TYPE);
         reqParams.put("sRecordId", S_RECORD_ID);
-        reqParams.put("nMilie", String.valueOf(N_MILEAGE));
+        reqParams.put("nMileage", String.valueOf(N_MILEAGE));
         post()
                 .url(urlstr)
                 .params(reqParams)
@@ -49,6 +50,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .execute(callback);
     }
 
+    //上报中提交文字部分
     public void clickRequestUPTask(Context mContext, String S_DESC, String S_MANGE_ID, String S_RECODE_ID, String S_CATEGORY, String S_TYPE, String S_IN_MAN, String T_IN_DATE, double N_X, double N_Y, String S_LOCAL, WavenetCallBack callback) {
         String urlstr =AppConfig.BeasUrl1+ "/management/addManagement";
         Map<String, String> reqParams = new HashMap<>();
@@ -71,14 +73,16 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         reqParams.put("sDesc", S_DESC);
         reqParams.put("sSource", "W1007500004");
         reqParams.put("sLocal", S_LOCAL);
-        reqParams.put("sTownidIn", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
+        reqParams.put("sTownIdIn", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
         reqParams.put("sCompanyIn", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
-        reqParams.put("sStatue", "W1006500001");
+        reqParams.put("sStatus", "W1006500001");
+
+        Log.e("MOD-RequestModel","clickRequestUPTask92");
 
         for (Map.Entry<String, String> entry : reqParams.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            System.out.println("clickRequestUPTask：  " + "Key = " + key + "  ----  " + "Value = " + value);
+            Log.d("MOD-clickRequestUPTask：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
 
 //        RxHttpUtils
@@ -94,6 +98,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .execute(callback);
     }
 
+    //上报中大类
     public void clickRequestClasbig(WavenetCallBack callback) {
 
 //        String urlstr = AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_DICT?$select=S_CORRESPOND,S_VALUE&$filter=S_CODE%20eq%20%27W10026%27";
@@ -111,9 +116,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
 
+        Log.e("MOD-RequestModel","clickRequestClasbig 106");
+        Log.d("MOD-clickRequestClasbig：  " , "sCode："+"W10026"+" url:" + urlstr);
 
     }
 
+    //上报中小类
     public void clickRequestClassmall(String clasbig, WavenetCallBack callback) {
 //        clasbig = AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_DICT?$select=S_CORRESPOND,S_VALUE&$filter=S_PCODE eq '" + clasbig + "'";
         String urlstr = AppConfig.BeasUrl1+"/tDict/getTDict";
@@ -129,9 +137,11 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .userXJgetClassmall(clasbig)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-
+        Log.e("MOD-RequestModel","clickRequestClassmall 117");
+        Log.d("MOD-clickRequestClassmall：" , "sPcode："+clasbig+" url: " + clasbig);
     }
 
+    //待处置任务列表
     public void clickRequestTasklist(String S_MAN, String S_STATUS, WavenetCallBack callback) {
 
 //        String urlstr =AppConfig.BeasUrl+ "2081/odata/PSSSYH/default/V_PATROL_MANAGEMENT?$select=S_MANGE_ID,S_NAME,T_IN_DATE,S_SOURCE,S_CATEGORY,S_TYPE,T_CREATE,S_LOCAL,S_EMERGENCY,S_SJSB_ID,S_STATUS,S_SJCZ_ID,N_X,N_Y,S_COMPANY_MANGE,IS_SJSB_FJ,IS_SJCZ_FJ,IS_TD,IS_JJ,S_SOURCE_CN,S_EMERGENCY_CN,S_STATUS_CN,S_DESC,S_CATEGORY_CN,S_TYPE_CN&$filter=S_MANGE_MAN eq '" + S_MAN + "' and S_STATUS eq 'W1006500002' and S_DELETE eq 1";
@@ -143,30 +153,29 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .params(reqParams)
                 .build()
                 .execute(callback);
-        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            System.out.println("clickRequestTasklist：  " + "Key = " + key + "  ----  " + "Value = " + value);
-        }
+        Log.e("MOD-RequestModel","clickRequestTasklist131");
+        Log.d("MOD-clickRequestTasklist：  " , "sMan："+ S_MAN +" url: "+ urlstr);
     }
 
-    //事件上报（文件）
+    //事件上报（文件）//TODO 6 事件上报，61事件处置，62 暂时没有用  63 派单结束上报
     public void FileRequest(final int file, Map<String, Object> map, ArrayList<String> arrayList, CommonObserver<Object> callback) {
-        String url =AppConfig.BeasUrl+ "2083/file/upload/SJSB";
+        String url =AppConfig.BeasUrl1+ "/file/addXjImg";
         if (file == 6) {
-            url = AppConfig.BeasUrl+"2083/file/upload/SJSB";//上报，补录
+            url = AppConfig.BeasUrl1+"/file/addXjImg";//上报，补录
         } else if (file == 61 || file == 63) {
-            url = AppConfig.BeasUrl+"2083/file/upload/SJCZ";
+            url = AppConfig.BeasUrl1+"/file/addXjImg";
         } else if (file == 62) {
-            url = AppConfig.BeasUrl+"2083/file/upload/SJSB";
+            url = AppConfig.BeasUrl1+"/file/addXjImg";
         }
         RxHttpUtils.uploadImgsWithParams(url, "file", map, arrayList)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
 
-
+        Log.e("MOD-RequestModel","FileRequest 146");
+        Log.d("MOD-FileRequest：  " , "get方法：" + url);
     }
 
+    //日常巡检开始
     public void clickTaskStart(Context context, String S_MAN_ID, String S_RECODE_ID, String T_IN_DATE, String N_CYCLE, WavenetCallBack callback) {
         String urlstr =AppConfig.BeasUrl1+ "/patrolRecode/addTPatrolRecode";
         //流水号，系统时间， 暂时默认1
@@ -191,8 +200,14 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .params(reqParams)
                 .build()
                 .execute(callback);
+        Log.e("MOD-RequestModel","clickTaskStart174");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-clickTaskStart：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
-
+    //上报后处置提交
     public void clickTaskDeal(Context mContext, String S_MANGE_ID, String S_MANGE_MAN, String T_MANGE_TIME, String S_MANGE_REMARK, WavenetCallBack callback) {
 //        String urlStr = AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_PATROL_MANAGEMENT('" + S_MANGE_ID + "')";
         String urlStr = AppConfig.BeasUrl1+"/management/edtManagement";
@@ -219,37 +234,36 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .userXJTaskDeal(urlStr, reqParams)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-
+        Log.e("MOD-RequestModel","clickTaskDeal 201");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-clickTaskDeal：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
-
-
+    //派单处置
     public void clickTaskDeal2(double x, Context mContext, String S_MANGE_ID, String S_MANGE_MAN, String T_MANGE_TIME, String S_SJCZ_ID, String S_MANGE_REMARK, WavenetCallBack callback) {
         String urlStr = AppConfig.BeasUrl1+"/patrolRecode/taskComplete";
         Map<String, String> reqParams = new HashMap<>();
-
         reqParams.put("tEnd", GetUTCTime.getNow());
-
         reqParams.put("sMangeId", S_MANGE_ID);
         reqParams.put("sMangeMan", S_MANGE_MAN);
         if (!AppTool.isNull(S_MANGE_REMARK)) {
-            reqParams.put("sMangeRemark", S_MANGE_REMARK);//
+            reqParams.put("sMangeRemark", S_MANGE_REMARK);
         }
         reqParams.put("sStatus", "W1006500004");
-
         //N_MILEAGE   里程   单位米
         reqParams.put("nMileage", x+"");
         reqParams.put("nDel", 1+"");
         reqParams.put("sSjsbId", MainMapXJActivity.S_SJSB_ID);//派单任务记录上报id
         reqParams.put("sSjczId", S_MANGE_ID);//派单任务记录处置id
         reqParams.put("sRecodeId", S_SJCZ_ID);//自动生成的s_recode_id
-
         reqParams.put("sMangeFull", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
         reqParams.put("sTownIdMange", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
         reqParams.put("sCompanyMange", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
         reqParams.put("sMangeMan", SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO));
         reqParams.put("tMangeTime", GetUTCTime.getNow());
-
 //        headerMaps.put("Accept", "application/json");
         post()
                 .url(urlStr)
@@ -267,8 +281,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .userXJTaskDeal3(urlStr, reqParams)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-
-
+        Log.e("MOD-RequestModel","clickTaskDeal2 245");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-clickTaskDeal2：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void clickRequestTaskAdd(String S_MANGE_ID, String S_RECODE_ID, String S_CATEGORY, String S_TYPE, String S_IN_MAN, String T_IN_DATE, WavenetCallBack callback) {
@@ -292,10 +310,11 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
 
+        Log.e("MOD-RequestModel","clickRequestTaskAdd267");
         for (Map.Entry<String, String> entry : reqParams.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            System.out.println("clickRequestTaskAdd：  " + "Key = " + key + "  ----  " + "Value = " + value);
+            Log.d("MOD-clickRequestTaskAdd：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
     }
 
@@ -313,10 +332,15 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .params(reqParams)
                 .build()
                 .execute(callback);
-
+        Log.e("MOD-RequestModel","clickTaskPaiStart286");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-clickTaskPaiStart：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
 
     }
-
+    //派单列表点击其中一项后执行
     public void clickTaskPaiStart1(Context context, String S_MAN_ID, String S_RECODE_ID, String S_MANGE_ID, String T_IN_DATE, String N_CYCLE, WavenetCallBack callback) {
         String urlstr = AppConfig.BeasUrl1+"/patrolRecode/taskBegin";
         Map<String, String> reqParams = new HashMap<>();
@@ -345,7 +369,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .build()
                 .execute(callback);
 
-
+        Log.e("MOD-RequestModel","clickTaskPaiStart1 316");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-clickTaskPaiStart1：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
 
@@ -365,7 +394,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .params(reqParams)
                 .build()
                 .execute(callback);
-
+        Log.e("MOD-RequestModel","clickTaskPaiState330");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-clickTaskPaiState：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void clickTaskPaiReason1(String S_MANGE_ID, String S_STATUS, WavenetCallBack callback) {
@@ -387,7 +421,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
 
-
+        Log.e("MOD-RequestModel","clickTaskPaiReason1 348");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-clickTaskPaiReason1：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 //
 //    public void requestFile(Map<String, Object> map, ArrayList<String> arrayList, CommonObserver<Object> callback) {
@@ -426,7 +465,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .params(reqParams)
                 .build()
                 .execute(callback);
-
+        Log.e("MOD-RequestModel","clickTaskPaiReason2 391");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-clickTaskPaiReason2：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
 
     }
 
@@ -461,7 +505,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .build()
                 .execute(callback);
 
-
+        Log.e("MOD-RequestModel","clickTaskPaiReason3 428");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-clickTaskPaiReason3：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void getRequestDictionaries(WavenetCallBack callback) {
@@ -476,24 +525,29 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .userXJgetDictionaries(urlstr)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-
+        Log.e("MOD-RequestModel","getRequestDictionaries442");
+        Log.d("MOD-getRequestDictionaries","get方法:"+urlstr);
 
     }
 
+    //结束上报
     public void RequestEndTask(String S_RECODE_ID, String T_END, WavenetCallBack callback) {
         String urlstr =AppConfig.BeasUrl1+ "/patrolRecode/updatePatrolRecode";
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("tEnd", T_END);
         reqParams.put("sRecodeId", S_RECODE_ID);
-
         reqParams.put("nMileage", AppTool.getDoubleAccurate(MainMapXJActivity.Distance)+"");
-
         post()
                 .url(urlstr)
                 .params(reqParams)
                 .build()
                 .execute(callback);
-
+        Log.e("MOD-RequestModel","RequestEndTask458");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-RequestEndTask：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void RequestEndTaskpai1(Context mContext, String S_RECODE_ID, CommonObserver<Object> callback) {//废弃
@@ -517,7 +571,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .RequestXJEndTask(urlstr, reqParams)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
+        Log.e("MOD-RequestModel","RequestEndTaskpai1 480");
+        for (Map.Entry<Object, Object> entry : reqParams.entrySet()) {
+            String key = entry.getKey().toString();
+            String value = entry.getValue().toString();
+            Log.d("MOD-RequestEndTaskpai1：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
 
     }
 
@@ -530,6 +589,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .RequestXJEndTask(urlstr, reqParams)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
+        Log.e("MOD-RequestModel","RequestEndTaskpai2 493");
+        for (Map.Entry<Object, Object> entry : reqParams.entrySet()) {
+            String key = entry.getKey().toString();
+            String value = entry.getValue().toString();
+            Log.d("MOD-RequestEndTaskpai2：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void RequestEndTaskpai3(Context mContext, String T_MANGE_TIME, String S_MANGE_ID_REL, CommonObserver<Object> callback) {//废弃
@@ -553,7 +618,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
 
-
+        Log.e("MOD-RequestModel","RequestEndTaskpai3 517");
+        for (Map.Entry<Object, Object> entry : reqParams.entrySet()) {
+            String key = entry.getKey().toString();
+            String value = entry.getValue().toString();
+            Log.d("MOD-RequestEndTaskpai3：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void RequestEndTaskpai4(Context mContext, String T_MANGE_TIME, CommonObserver<Object> callback) {
@@ -572,7 +642,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .RequestXJEndTask1(urlstr, reqParams)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
+        Log.e("MOD-RequestModel","RequestEndTaskpai4 536");
+        for (Map.Entry<Object, Object> entry : reqParams.entrySet()) {
+            String key = entry.getKey().toString();
+            String value = entry.getValue().toString();
+            Log.d("MOD-RequestEndTaskpai4：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
 
     }
 
@@ -588,7 +663,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .params(reqParams)
                 .build()
                 .execute(callback);
-
+        Log.e("MOD-RequestModel","RequestCancleTask552");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-RequestCancleTask：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
 
     }
 
@@ -612,7 +692,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .params(reqParams)
                 .build()
                 .execute(callback);
-
+        Log.e("MOD-RequestModel","RequestCancleTask1575");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-RequestCancleTask1：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
 
     }
 
@@ -632,7 +717,8 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .RequestXJISDeal(urlstr)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-
+        Log.e("MOD-RequestModel","RequestISDeal589");
+        Log.d("MOD-RequestISDeal" , "sMangeId： "+S_MANGE_ID+" url: " + urlstr);
 
     }
 
@@ -651,7 +737,8 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
 
-
+        Log.e("MOD-RequestModel","RequestRelevantTask600");
+        Log.d("MOD-RequestRelevantTask" , "sRecodeId："+S_RECODE_ID+" url:" + urlstr);
     }
 
     public void RequestReportDetails(String S_MANGE_ID, WavenetCallBack callback) {
@@ -669,7 +756,8 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .RequestXJDealDetails(urlstr)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-
+        Log.e("MOD-RequestModel","RequestReportDetails611");
+        Log.d("MOD-RequestReportDetails" , "sMangeId："+ " url: " + urlstr);
     }
 
     public void RequestReportDetailsPhoto(String S_RECODE_ID, CommonObserver<Object> callback) {
@@ -680,7 +768,8 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .RequestXJDealDetails(urlstr)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
+        Log.e("MOD-RequestModel","RequestReportDetailsPhoto622");
+        Log.d("MOD-ReportDetailsPhoto： " , "url：" + urlstr);
     }
 
     public void RequestRefuselist(String S_MANGE_ID, WavenetCallBack callback) {
@@ -699,9 +788,11 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
 //                .RequestXJDealDetails(urlstr)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-
+        Log.e("MOD-RequestModel","RequestRefuselist634");
+        Log.d("MOD-RequestRefuselist" , "sTaskId： "+S_MANGE_ID+" url: " + urlstr);
     }
 
+    //上报后推送（未完）
     public void clickRequestPushMessage(String name, String local, String category, String xl,
                                         String sbsj, CommonObserver<Object> callback) {
 
@@ -713,10 +804,12 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
                 .pushMessage(url)
                 .compose(Transformer.<String>switchSchedulers())
                 .subscribe(callback);
+        Log.e("MOD-RequestModel","clickRequestPushMessage648");
+        Log.d("MOD-clickRequestPushMessag" , "post方法无参：" + url);
     }
 
     public void clickRequestIsDeal(Context mContext, String S_MANGE_ID, WavenetCallBack callback) {
-        String urlstr =AppConfig.BeasUrl1+"/management/edtManagement";
+        String urlstr =AppConfig.BeasUrl1+"/management/edtManagenment";
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("sMangeMan", SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO));
         reqParams.put("sMangeFull", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
@@ -733,13 +826,17 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
 
-
+        Log.e("MOD-RequestModel","clickRequestIsDeal665");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-clickRequestIsDeal：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void clickRequestIsDealDetail(String S_MANGE_ID, WavenetCallBack callback) {
         String urlStr = AppConfig.BeasUrl1+"/management/getById";
         Map<String, String> reqParams = new HashMap<>();
-        reqParams.put("Accept", "application/json");
         reqParams.put("sMangeId", S_MANGE_ID);
         post()
                 .url(urlStr)
@@ -751,7 +848,8 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
 //                .userXJIsDealDetail(urlStr)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-
+        Log.e("MOD-RequestModel","clickRequestIsDealDetail677");
+        Log.d("MOD-DealDetail：  " ,"sMangeId："+S_MANGE_ID+" url: " + urlStr);
 
     }
 
@@ -769,7 +867,8 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
                 .AdminGetObjectIds(urlstr)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
+        Log.e("MOD-RequestModel","AdminGetObjectIds695");
+        Log.d("MOD-AdminGetObjectIds：  " , "get方法：" + urlstr);
     }
 
     public void AdminGetObjectDetails(int url, String ids, String filterkey, CommonObserver<Object> callback) {
@@ -779,7 +878,8 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
                 .AdminGetObjectDetails(urlstr)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
+        Log.e("MOD-RequestModel","AdminGetObjectDetails705");
+        Log.d("MOD-AdminGetObjectDetails：" , "get方法：" + urlstr);
     }
 
     public void requestPeople(String filterStr, CommonObserver<Object> callback) {
@@ -792,7 +892,12 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
                 .requestPeople(urlstr)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
+        Log.e("MOD-RequestModel","requestPeople718");
+        for (Map.Entry<String, Object> entry : headerMaps.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.d("MOD-requestPeople：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void addSearchHis(String user, String str, WavenetCallBack callback) {
@@ -810,6 +915,12 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
 //                .addSearchHis(url, params)
 //                .compose(Transformer.<String>switchSchedulers())
 //                .subscribe(callback);
+        Log.e("MOD-RequestModel","addSearchHis731");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-addSearchHis：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void requestSearchHis(String user, WavenetCallBack callback) {
@@ -826,6 +937,8 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
 //                .getSearchList(url)
 //                .compose(Transformer.<String>switchSchedulers())
 //                .subscribe(callback);
+        Log.e("MOD-RequestModel","requestSearchHis740");
+        Log.d("MOD-requestSearchHis：  " , "appType： "+"1"+" userId: "+user+" url: " + urlStr);
     }
 
     public void clearSearchHis(String user,WavenetCallBack callback) {
@@ -842,5 +955,11 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
 //                .clearHis(url, params)
 //                .compose(Transformer.<String>switchSchedulers())
 //                .subscribe(callback);
+        Log.e("MOD-RequestModel","clearSearchHis752");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-clearSearchHis：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 }

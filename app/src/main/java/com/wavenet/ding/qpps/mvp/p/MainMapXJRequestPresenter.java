@@ -399,6 +399,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
         }
     }
 
+    //上报后处置提交
     public void clickTaskDeal(Context mContext, String S_MANGE_ID, String S_MANGE_MAN, String T_MANGE_TIME, String S_MANGE_REMARK) {
 //事件编号，用户名 ， 时间
         requestData(0, 8, "");

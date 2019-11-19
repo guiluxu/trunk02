@@ -775,18 +775,10 @@ boolean isFistsetMap=true;
     @Override
     public void requestSuccess(int resultid, String result) {
 try {
-//    Log.e("requestSuccess111",result);
 
         if (!AppTool.isNull(result) && !result.contains("error")) {
-            //暂注释
-           /* JSONObject JB=new JSONObject(result);
-            if (resultid!=6&&resultid!=61&&resultid!=62&&resultid!=63&&resultid!=16&&resultid!=17&&resultid!=171&&JB.getInt("Code")!=200){
-                ToastUtils.showToast(JB.getString("Msg"));
-                return;
-            }*/
             switch (resultid) {
                 case 1:
-//                    Log.e("requestSuccess111",result);
                     try {
                         JSONObject jsonObject=new JSONObject(result);
                         if (jsonObject.getInt("code")!=200){
@@ -796,7 +788,6 @@ try {
                         AppAttribute.G.TrackUPSuccess++;
 //                        String s=jsonObject.getString("Data");
                         XYbean xYbean = new Gson().fromJson(result, XYbean.class);
-                        Log.e("requestSuccess111",xYbean.toString());
                         if (!mMainUIView.isStartde)
                             return;
                         mTrackBiz.inserttasktrack(new TrackBean(xYbean));
