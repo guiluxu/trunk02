@@ -258,12 +258,11 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityRequestView, Log
     @Override
     public void resultSuccess(Object result) {
         try {
-//            OkHttpPost.postStr(callBack);
             String str = new Gson().toJson(result);
-            Log.e(TAG,"登陆返回:"+str);
             LoginBean loginBean = (LoginBean) result;
-            if (loginBean.getData()!=null) {
-                loginBean.setSPUtil(this);
+            Log.e("权限角色：",loginBean.role);
+            loginBean.setSPUtil(this);
+            if (loginBean.success) {
                 SPUtil.getInstance(LoginActivity.this).setStringValue(SPUtil.USERNO, etLoginUser.getText().toString().trim());
                 SPUtil.getInstance(LoginActivity.this).setStringValue(SPUtil.USERPWDOLD, etLoginPwd.getText().toString().trim());
                 if (cbLoginSavePwd.isChecked()) {
@@ -274,24 +273,25 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityRequestView, Log
                 SPUtil.getInstance(LoginActivity.this).setBooleanValue(SPUtil.CBSAVE, cbLoginSavePwd.isChecked());
                 SPUtil.getInstance(LoginActivity.this).setBooleanValue(SPUtil.AUTOLOGIN, cbLoginAutoLogin.isChecked());
                 SPUtils.put("user", etLoginUser.getText().toString().trim());
-                if (loginBean.getData().getRole().equals("巡查人员")) {
+//                ToastUtils.showToast("登录成功");
+                if (loginBean.role.equals("巡查人员")) {
                     intent = new Intent(activity, MainMapXJActivity.class);
                     startActivity(intent);
                 }
-                if (loginBean.getData().getRole().equals("养护人员")) {
+                if (loginBean.role.equals("养护人员")) {
                     intent = new Intent(activity, MainMapYHActivity.class);
                     startActivity(intent);
                 }
-                if (loginBean.getData().getRole().contains("管理员")||loginBean.getData().getRole().contains("调度员")||loginBean.getData().getRole().contains("青浦管理单位")) {
+                if (loginBean.role.contains("管理员")||loginBean.role.contains("调度员")||loginBean.role.contains("青浦管理单位")) {
                     mLoginTime = AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS);
                     intent = new Intent(activity, AdminActivity.class);
                     startActivity(intent);
-                }   if (loginBean.getData().getRole().contains("一般用户")) {
+                }   if (loginBean.role.contains("一般用户")) {
                     intent = new Intent(activity, AdminNormalActivity.class);
                     startActivity(intent);
                 }
                 //设置别名
-                mHandlers.sendMessage(mHandlers.obtainMessage(MSG_SET_ALIAS, loginBean.getData().getName()));
+                mHandlers.sendMessage(mHandlers.obtainMessage(MSG_SET_ALIAS, loginBean.name));
 
             } else {
                 ToastUtils.showToast("账号或者密码错误");
