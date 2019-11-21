@@ -6,7 +6,7 @@ android {
         applicationId "com.wavenet.ding.qpps"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 46
+        versionCode 49
         versionName "V1.4.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

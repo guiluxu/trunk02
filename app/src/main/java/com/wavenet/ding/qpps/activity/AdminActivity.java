@@ -123,12 +123,9 @@ public class AdminActivity extends BaseMvpActivity {
                         break;
                     case "设 施":
                         p = 2;
-
-//
                         break;
                     case "我 的":
                         p = 4;
-//
                         break;
                 }
                 mCustomViewPager.setCurrentItem(p);

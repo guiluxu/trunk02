@@ -38,15 +38,13 @@ public abstract class WavenetCallBack extends StringCallback {
 
     @Override
     public void onResponse(String response, int id) {
-        Log.v("tag", "OkHttpPost_Rspose=" + response);
+        Log.e("MOD-WavenetCallBack", "OkHttpPost_Rspose=" + response);
         try {
             JSONObject jsonObject = new JSONObject(response);
             onSuccess(id, jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public abstract void onError(int id, String errorCode, String error);

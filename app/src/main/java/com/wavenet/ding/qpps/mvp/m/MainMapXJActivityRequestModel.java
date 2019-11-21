@@ -48,6 +48,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .params(reqParams)
                 .build()
                 .execute(callback);
+        //        Log.e("RequestModel","requestUPloca49");
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.d("MOD-requestUPloca：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     //上报中提交文字部分
@@ -270,8 +276,8 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 .params(reqParams)
                 .build()
                 .execute(callback);
-       /* RxHttpUtils
-                .createApi(ApiService.class)
+       /* RxHttpUtilsFF
+                .createApi(ApiService.class)F
                 .userXJTaskDeal3(urlStr, reqParams)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);*/

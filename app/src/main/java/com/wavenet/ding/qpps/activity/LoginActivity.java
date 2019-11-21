@@ -160,9 +160,7 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityRequestView, Log
         locationClient.setLocationOption(locationOption);
         //启动定位
         locationClient.startLocation();
-
     }
-
 
     @Override
     public void init() {
@@ -212,12 +210,9 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityRequestView, Log
             tv_crashlog.setVisibility(View.GONE);
         }else {
             tv_crashlog.setVisibility(View.VISIBLE);
-
         }
-        mapdownloadUtil=    new MapdownloadUtil(this).setCallBackMap(this).setBListener(this);
+        mapdownloadUtil = new MapdownloadUtil(this).setCallBackMap(this).setBListener(this);
         mapdownloadUtil.Rxhttp();
-
-
     }
 
     @Override
@@ -225,7 +220,9 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityRequestView, Log
         super.onResume();
 
     }
+
     boolean isLoginClick=false;
+
     @Override
     public void onClick(String mOnClick) {
         switch (mOnClick) {
@@ -241,7 +238,6 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityRequestView, Log
                 break;
         }
     }
-
 
     @Override
     public void requestData() {
@@ -259,10 +255,10 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityRequestView, Log
     public void resultSuccess(Object result) {
         try {
             String str = new Gson().toJson(result);
+            Log.e(TAG,"登陆返回:"+str);
             LoginBean loginBean = (LoginBean) result;
-            Log.e("权限角色：",loginBean.role);
-            loginBean.setSPUtil(this);
-            if (loginBean.success) {
+            if (loginBean.getData()!=null) {
+                loginBean.setSPUtil(this);
                 SPUtil.getInstance(LoginActivity.this).setStringValue(SPUtil.USERNO, etLoginUser.getText().toString().trim());
                 SPUtil.getInstance(LoginActivity.this).setStringValue(SPUtil.USERPWDOLD, etLoginPwd.getText().toString().trim());
                 if (cbLoginSavePwd.isChecked()) {
@@ -273,25 +269,24 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityRequestView, Log
                 SPUtil.getInstance(LoginActivity.this).setBooleanValue(SPUtil.CBSAVE, cbLoginSavePwd.isChecked());
                 SPUtil.getInstance(LoginActivity.this).setBooleanValue(SPUtil.AUTOLOGIN, cbLoginAutoLogin.isChecked());
                 SPUtils.put("user", etLoginUser.getText().toString().trim());
-//                ToastUtils.showToast("登录成功");
-                if (loginBean.role.equals("巡查人员")) {
+                if (loginBean.getData().getRole().equals("巡查人员")) {
                     intent = new Intent(activity, MainMapXJActivity.class);
                     startActivity(intent);
                 }
-                if (loginBean.role.equals("养护人员")) {
+                if (loginBean.getData().getRole().equals("养护人员")) {
                     intent = new Intent(activity, MainMapYHActivity.class);
                     startActivity(intent);
                 }
-                if (loginBean.role.contains("管理员")||loginBean.role.contains("调度员")||loginBean.role.contains("青浦管理单位")) {
+                if (loginBean.getData().getRole().contains("管理员")||loginBean.getData().getRole().contains("调度员")||loginBean.getData().getRole().contains("青浦管理单位")) {
                     mLoginTime = AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS);
                     intent = new Intent(activity, AdminActivity.class);
                     startActivity(intent);
-                }   if (loginBean.role.contains("一般用户")) {
+                }   if (loginBean.getData().getRole().contains("一般用户")) {
                     intent = new Intent(activity, AdminNormalActivity.class);
                     startActivity(intent);
                 }
                 //设置别名
-                mHandlers.sendMessage(mHandlers.obtainMessage(MSG_SET_ALIAS, loginBean.name));
+                mHandlers.sendMessage(mHandlers.obtainMessage(MSG_SET_ALIAS, loginBean.getData().getName()));
 
             } else {
                 ToastUtils.showToast("账号或者密码错误");
@@ -308,9 +303,10 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityRequestView, Log
 
     @Override
     public void resultFailureCrash( String result) {
-ToastUtils.showToast("日志上传失败，请重试或者放弃上传");
+        ToastUtils.showToast("日志上传失败，请重试或者放弃上传");
         showUpdataCrashlogDialog();
     }
+
     @Override
     public void Ba(boolean b) {
         if (isLoginClick){
@@ -319,6 +315,7 @@ ToastUtils.showToast("日志上传失败，请重试或者放弃上传");
             autoLogin();
         }
     }
+
     @Override
     public void resultSuccessCrash( String result) {
         CrashBean  b = GsonUtils.getObject(result,CrashBean.class);
@@ -329,6 +326,7 @@ ToastUtils.showToast("日志上传失败，请重试或者放弃上传");
             autoLogin();
         }
     }
+
     @Override
     public void show() {
         showDialog();
@@ -370,20 +368,18 @@ ToastUtils.showToast("日志上传失败，请重试或者放弃上传");
                 }).build();
                 pvOptions.setPicker(arrayList);
                 pvOptions.show();
-
                 break;
             case R.id.cb_login_auto_login:
                 break;
             case R.id.btn_login:
-isLoginClick=true;
-if (AppTool.isNull(MapdownloadUtil.strMapUrl)){
-//    mLoadingWaitView.loadView();
-    mapdownloadUtil.Rxhttp();
-}else {
-    if (submit()) {
-        presenter.clickRequest(etLoginUser.getText().toString(), etLoginPwd.getText().toString());
-
-    }
+                isLoginClick=true;
+            if (AppTool.isNull(MapdownloadUtil.strMapUrl)){
+            //    mLoadingWaitView.loadView();
+                mapdownloadUtil.Rxhttp();
+            }else {
+                if (submit()) {
+                    presenter.clickRequest(etLoginUser.getText().toString(), etLoginPwd.getText().toString());
+                }
 //    intent = new Intent(activity, MapLocaActivity1.class);
 //    startActivity(intent);
 }
@@ -438,7 +434,8 @@ if (AppTool.isNull(MapdownloadUtil.strMapUrl)){
                 break;
         }
     }
-boolean iss=true;
+
+    boolean iss=true;
     private boolean submit() {
         // validate
         String user = etLoginUser.getText().toString().trim();
@@ -452,9 +449,9 @@ boolean iss=true;
             Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
             return false;
         }
-
         return true;
     }
+
     public void showUpdataCrashlogDialog()
     {
         updataCrashlogDialog= MapUtil.getInstance(this).isUpdataCrashlogDialog(this , new GoBackInteDef.A() {
@@ -468,6 +465,7 @@ boolean iss=true;
             }
         });
     }
+
     public void autoLogin(){
         if (cbLoginAutoLogin.isChecked()) {
             if (submit()) {
@@ -476,8 +474,9 @@ boolean iss=true;
             }
         }
     }
+
     RadioButton rb1,rb2;
-     EditText tv_content1,tv_content2;
+    EditText tv_content1,tv_content2;
     public void showMyDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         //     builder.setTitle("添加故障描述！");
@@ -502,8 +501,8 @@ boolean iss=true;
                 rb1.setChecked(false);
             }
         });
-         tv_content1 = view.findViewById(R.id.edContent1);
-       tv_content2 = view.findViewById(R.id.edContent2);
+        tv_content1 = view.findViewById(R.id.edContent1);
+        tv_content2 = view.findViewById(R.id.edContent2);
         final EditText tv_content3 = view.findViewById(R.id.edContent3);
         final EditText tv_content4 = view.findViewById(R.id.edContent4);
         final EditText tv_content5 = view.findViewById(R.id.edContent5);
@@ -535,8 +534,8 @@ boolean iss=true;
                 }
                 if (rb2.isChecked()){
                     if (!AppTool.isNull(tv_content2.getText().toString())){
-AppConfig.BeasUrl="http://"+tv_content2.getText().toString()+":";
-                }
+                        AppConfig.BeasUrl="http://"+tv_content2.getText().toString()+":";
+                     }
                 }
 
                 dialog.dismiss();
@@ -545,6 +544,7 @@ AppConfig.BeasUrl="http://"+tv_content2.getText().toString()+":";
         dialog.setCancelable(true);
         dialog.show();
     }
+
     @Override
     public boolean onKeyDown(int keyCode,KeyEvent event){
         if(keyCode==KeyEvent.KEYCODE_BACK){
@@ -576,6 +576,7 @@ AppConfig.BeasUrl="http://"+tv_content2.getText().toString()+":";
             }
         }
     };
+
     private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
         @Override
         public void gotResult(int code, String alias, Set<String> tags) {
@@ -596,6 +597,5 @@ AppConfig.BeasUrl="http://"+tv_content2.getText().toString()+":";
             }
         }
     };
-
 
 }

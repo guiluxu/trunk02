@@ -193,8 +193,8 @@ public class MainMapXJActivity extends BaseMvpActivity<XJActivityRequestView, Ma
     public GraphicsOverlay mStarOverlay;
     Point point;
     LatLng llold;
-    public Runnable r = new Runnable() {
 
+    public Runnable r = new Runnable() {
         @Override
         public void run() {
 
@@ -233,12 +233,11 @@ public class MainMapXJActivity extends BaseMvpActivity<XJActivityRequestView, Ma
                 taskDaily(false);
             } else {
                 taskPai(false);
-
             }
             SPUtil.getInstance(MainMapXJActivity.this).setBooleanValue(SPUtil.ISBREAKOFF, false);
-
         }
     };
+
     public Handler myHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -311,14 +310,10 @@ public class MainMapXJActivity extends BaseMvpActivity<XJActivityRequestView, Ma
                     double distance = intent.getDoubleExtra("distance", 0);
                     setLatlonupload(distance);//坐标上传
                 }
-
             } else if (acString.equals(LocService.TIME_ACTION)) {
 //                mMainUIView.setTime();
-
             } else if (acString.equals(Intent.ACTION_SCREEN_ON)) { // 屏幕亮
-
 //                Toast.makeText(MainActivity.this, "由于屏幕锁定熄屏，期间的巡查轨迹没有被记录", Toast.LENGTH_LONG).show();
-
             }
         }
     };
@@ -330,7 +325,6 @@ public class MainMapXJActivity extends BaseMvpActivity<XJActivityRequestView, Ma
         return R.layout.activity_mainxjmap;
     }
 
-    //
     @Override
     public void init() {
         MapUtil.init(this);
@@ -348,7 +342,6 @@ public class MainMapXJActivity extends BaseMvpActivity<XJActivityRequestView, Ma
         mLoadingWaitView = findViewById(R.id.loadingWaitView);
         mLoadingWaitView.setRestLoadListener(this);
 //        mLoadingWaitView.setVisibility(View.VISIBLE);
-
         mIvshou = findViewById(R.id.iv_shou);
         mMainUIView = findViewById(R.id.c_mainui);// TODO 暂时注释
         mMainUIView.setCallBackMap(this);
@@ -402,7 +395,6 @@ public class MainMapXJActivity extends BaseMvpActivity<XJActivityRequestView, Ma
                     mTvseach.setVisibility(View.VISIBLE);
                     mIvclean.setVisibility(View.VISIBLE);
                     mVXJSeachlist.isQuerySeach = tvSeachStr.equals(editable.toString());
-
                 } else {
                     mIvspeak.setVisibility(View.VISIBLE);
                     mTvseach.setVisibility(View.GONE);
@@ -575,7 +567,6 @@ public class MainMapXJActivity extends BaseMvpActivity<XJActivityRequestView, Ma
         mEtseach.setText(str);
     }
 
-
     public void isContinueTask() {
         if (!SPUtil.getInstance(MainMapXJActivity.this).getBooleanValue(SPUtil.ISBREAKOFF, false))
             return;
@@ -590,7 +581,8 @@ public class MainMapXJActivity extends BaseMvpActivity<XJActivityRequestView, Ma
             }
         });
     }
-boolean isFistsetMap=true;
+
+    boolean isFistsetMap=true;
     @Override
     public void onClick(String mOnClick) {
         switch (mOnClick) {
