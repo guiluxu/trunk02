@@ -66,13 +66,13 @@ public class UploadRetrofit {
      * 上传一张图片
      *
      * @param uploadUrl 上传图片的服务器url
-     * @param filePath  图片路径
+     * @param file  图片路径改为图片文件
      * @return Observable
      */
-    public static Observable<ResponseBody> uploadImg(String uploadUrl, String filePath) {
-        List<String> filePaths = new ArrayList<>();
-        filePaths.add(filePath);
-        return uploadImgsWithParams(uploadUrl, "files", null, filePaths);
+    public static Observable<ResponseBody> uploadImg(String uploadUrl, File file) {
+        List<File> fileList = new ArrayList<>();
+        fileList.add(file);
+        return uploadImgsWithParams(uploadUrl, "files", null, fileList);
 
     }
 
@@ -80,11 +80,11 @@ public class UploadRetrofit {
      * 只上传图片
      *
      * @param uploadUrl 上传图片的服务器url
-     * @param filePaths 图片路径
+     * @param fileList 图片路径改为图片文件路径
      * @return Observable
      */
-    public static Observable<ResponseBody> uploadImgs(String uploadUrl, Map<String, Object> map, List<String> filePaths) {
-        return uploadImgsWithParams(uploadUrl, "files", map, filePaths);
+    public static Observable<ResponseBody> uploadImgs(String uploadUrl, Map<String, Object> map, List<File> fileList) {
+        return uploadImgsWithParams(uploadUrl, "files", map, fileList);
     }
 
     /**
@@ -93,10 +93,10 @@ public class UploadRetrofit {
      * @param uploadUrl 上传图片的服务器url
      * @param fileName  后台协定的接受图片的name（没特殊要求就可以随便写）
      * @param map       普通参数
-     * @param filePaths 图片路径
+     * @param filelist  图片路径改为图片文件集合
      * @return Observable
      */
-    public static Observable<ResponseBody> uploadImgsWithParams(String uploadUrl, String fileName, Map<String, Object> map, List<String> filePaths) {
+    public static Observable<ResponseBody> uploadImgsWithParams(String uploadUrl, String fileName, Map<String, Object> map, List<File> filelist) {
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
@@ -106,18 +106,17 @@ public class UploadRetrofit {
                 builder.addFormDataPart(key, map.get(key) + "");
             }
         }
-
-        for (int i = 0; i < filePaths.size(); i++) {
-            File file = new File(filePaths.get(i));
-            RequestBody imageBody=null;
-            if (filePaths.get(i).endsWith("mp4")){
-                if (filePaths.get(i).contains("MyRecording")){
+        for (int i = 0; i < filelist.size(); i++) {
+//            File file = new File(filePaths.get(i));
+            File file = filelist.get(i);
+            RequestBody imageBody = null;
+            if (filelist.get(i).getAbsolutePath().endsWith("mp4")){
+                if (filelist.get(i).getAbsolutePath().contains("MyRecording")){
                     imageBody = RequestBody.create(MediaType.parse("audio/mpeg"), file);
                 }else {
                     imageBody = RequestBody.create(MediaType.parse("video/mp4"), file);
                 }
-
-            }else if (filePaths.get(i).endsWith("text")){
+            }else if (filelist.get(i).getAbsolutePath().endsWith("text")){
                 imageBody = RequestBody.create(MediaType.parse("text/plain"), file);
             }else {
                 imageBody = RequestBody.create(MediaType.parse("image/jpeg"), file);
@@ -127,7 +126,6 @@ public class UploadRetrofit {
         }
 
         List<MultipartBody.Part> parts = builder.build().parts();
-        //Log.d("qingpu", "uploadUrl = "+uploadUrl);
         return UploadRetrofit
                 .getInstance()
                 .getRetrofit()

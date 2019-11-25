@@ -706,15 +706,15 @@ public class MainMapXJActivity extends BaseMvpActivity<XJActivityRequestView, Ma
         } else if (MapUtil.CANCLE_TD.equals(sate)) {
             if (mTaskReportView != null && mTaskReportView.mTaskBean != null) {
                 List<String> nameList = (List<String>) SPUtil.getInstance(this).getObjectValue(SPUtil.APP_PUSH);
-                StringBuilder sb = new StringBuilder();
+              /*  StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < nameList.size(); i++) {
                     if (i == nameList.size() - 1) {
                         sb.append(nameList.get(i));
                     } else {
                         sb.append(nameList.get(i) + ",");
                     }
-                }
-                presenter.clickRequestPushMessage(sb.toString(), mTaskReportView.mTaskBean.addr, mTaskReportView.mTaskBean.clabig, mTaskReportView.mTaskBean.clasmall, mTaskReportView.mTaskBean.time);
+                }*/
+                presenter.clickRequestPushMessage(nameList, mTaskReportView.mTaskBean.addr, mTaskReportView.mTaskBean.clabig, mTaskReportView.mTaskBean.clasmall, mTaskReportView.mTaskBean.time);
             }
         } else if (MapUtil.czdw.equals(sate)) {
             if (MapUtil.isLegalLL(aMapLocation)) {

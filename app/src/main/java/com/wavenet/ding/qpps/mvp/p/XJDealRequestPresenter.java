@@ -8,6 +8,7 @@ import com.dereck.library.observer.CommonObserver;
 import com.wavenet.ding.qpps.mvp.m.XJDealActivityRequestModel;
 import com.wavenet.ding.qpps.mvp.v.XJActivityRequestView;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -85,7 +86,7 @@ public class XJDealRequestPresenter extends BaseMvpPersenter<XJActivityRequestVi
             }
         });
     }
-    public void FileRequest(final int file, Map<String, Object> map, ArrayList<String> arrayList) {
+    public void FileRequest(final int file, Map<String, Object> map, ArrayList<File> arrayList) {
 //        file  6 事件上报，61事件处置，62 补录
         requestData(0, file, "");
         mXJDealActivityRequestModel.FileRequest(file, map, arrayList, new CommonObserver<Object>() {

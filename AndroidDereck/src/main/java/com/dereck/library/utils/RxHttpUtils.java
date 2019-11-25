@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.dereck.library.upload.UploadRetrofit;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -93,22 +94,22 @@ public class RxHttpUtils {
      * 上传单张图片
      *
      * @param uploadUrl 地址
-     * @param filePath  文件路径
+     * @param file  文件路径改为文件
      * @return ResponseBody
      */
-    public static Observable<ResponseBody> uploadImg(String uploadUrl, String filePath) {
-        return com.dereck.library.upload.UploadRetrofit.uploadImg(uploadUrl, filePath);
+    public static Observable<ResponseBody> uploadImg(String uploadUrl, File file) {
+        return com.dereck.library.upload.UploadRetrofit.uploadImg(uploadUrl, file);
     }
 
     /**
      * 上传多张图片
      *
      * @param uploadUrl 地址
-     * @param filePaths 文件路径
+     * @param fileList 文件路径改为文件集合
      * @return ResponseBody
      */
-    public static Observable<ResponseBody> uploadImgs(String uploadUrl, List<String> filePaths) {
-        return com.dereck.library.upload.UploadRetrofit.uploadImgs(uploadUrl, null, filePaths);
+    public static Observable<ResponseBody> uploadImgs(String uploadUrl, List<File> fileList) {
+        return com.dereck.library.upload.UploadRetrofit.uploadImgs(uploadUrl, null, fileList);
     }
 
     /**
@@ -118,7 +119,7 @@ public class RxHttpUtils {
      * @param filePaths 文件路径
      * @return ResponseBody
      */
-    public static Observable<ResponseBody> uploadImgsWithParams(String uploadUrl, String fileName, Map<String, Object> map, List<String> filePaths) {
+    public static Observable<ResponseBody> uploadImgsWithParams(String uploadUrl, String fileName, Map<String, Object> map, List<File> filePaths) {
         return UploadRetrofit.uploadImgsWithParams(uploadUrl, fileName, map, filePaths);
     }
 

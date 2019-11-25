@@ -228,13 +228,11 @@ public void setRequestCode(int requestCode){
 
     public void FileRequest(String RELYID) {
         Map<String, Object> map = new HashMap<>();
-//把高德经纬度转换为84
-
+        //把高德经纬度转换为84
         map.put("relyid", RELYID);
-        ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList<File> arrayList = new ArrayList<>();
         for (int i = 0; i < imaDatas.size(); i++) {
-            arrayList.add(imaDatas.get(i).getCompressPath());
-
+            arrayList.add(new File(imaDatas.get(i).getCompressPath()));
         }
         mActivity.presenter.FileRequest(2, map, arrayList);
     }

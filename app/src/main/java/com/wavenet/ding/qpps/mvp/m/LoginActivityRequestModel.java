@@ -40,10 +40,10 @@ public class LoginActivityRequestModel {
 
         Map<String, Object> map = new HashMap<>();
         map.put("time",System.currentTimeMillis());
-        ArrayList <String> arrayList= (ArrayList<String>) AppTool.getFilesAllPath(AppTool.getCrashLogFolder(mContext,""));
-        RxHttpUtils.uploadImgsWithParams(url, "file", map, arrayList)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+//        ArrayList <String> arrayList= (ArrayList<String>) AppTool.getFilesAllPath(AppTool.getCrashLogFolder(mContext,""));
+//        RxHttpUtils.uploadImgsWithParams(url, "file", map, arrayList)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
 
     }
 

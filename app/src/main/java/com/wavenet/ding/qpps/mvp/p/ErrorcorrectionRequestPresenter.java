@@ -6,6 +6,7 @@ import com.wavenet.ding.qpps.mvp.m.ErrorcorrectionActivityRequestModel;
 import com.wavenet.ding.qpps.mvp.v.RequestView;
 import com.wavenet.ding.qpps.utils.LogUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class ErrorcorrectionRequestPresenter extends BaseMvpPersenter<RequestVie
             }
         });
     }
-    public void FileRequest(final int file, Map<String, Object> map, ArrayList<String> arrayList) {
+    public void FileRequest(final int file, Map<String, Object> map, ArrayList<File> arrayList) {
 //        file  6 事件上报，61事件处置，62 补录
         requestData(0, file, "");
         mErrorcorrectionActivityRequestModel.FileRequest(file, map, arrayList, new CommonObserver<Object>() {

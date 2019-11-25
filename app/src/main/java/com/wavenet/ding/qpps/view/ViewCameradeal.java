@@ -399,19 +399,18 @@ public void setRequestCode(int requestCode){
 
         map.put("y", MainMapXJActivity.g.getWgLat());
         map.put("relyid", mActivity.mS_MANGE_ID);//S_SJSB_ID TODO 新文档和就文档穿得参数不一样，按就文档写的，估计新文档错误
-        ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList<File> arrayList = new ArrayList<>();
         for (int i = 0; i < imaDatas.size(); i++) {
-            arrayList.add(imaDatas.get(i).getCompressPath());
-
+            arrayList.add(new File(imaDatas.get(i).getCompressPath()));
         }
         if (!AppTool.isNull(mfilevideo)){
-            arrayList.add(mfilevideo);
+            arrayList.add(new File(mfilevideo));
         }
         if (!AppTool.isNull(mSoundrul)){
             File f=new File(mSoundrul);
           File mm=AppTool.getAudioFolder(mContext,"/MyRecording"+System.currentTimeMillis()+"@"+timel+".mp4");
             if(f.renameTo(mm)){
-                arrayList.add(mm.getAbsolutePath());
+                arrayList.add(new File(mm.getAbsolutePath()));
             }
 //            arrayList.add(mSoundrul);
         }

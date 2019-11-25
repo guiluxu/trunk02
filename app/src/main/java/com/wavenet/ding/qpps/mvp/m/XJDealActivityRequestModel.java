@@ -13,6 +13,7 @@ import com.wavenet.ding.qpps.utils.AppConfig;
 import com.wavenet.ding.qpps.utils.AppTool;
 import com.wavenet.ding.qpps.utils.SPUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,7 +70,7 @@ public class XJDealActivityRequestModel implements IMvpBaseView {
 
 
     }
-    public void FileRequest(final int file, Map<String, Object> map, ArrayList<String> arrayList, CommonObserver<Object> callback) {
+    public void FileRequest(final int file, Map<String, Object> map, ArrayList<File> arrayList, CommonObserver<Object> callback) {
         String url = AppConfig.BeasUrl+"2083/file/upload/SJSB";
         if (file == 6) {
             url = AppConfig.BeasUrl+"2083/file/upload/SJSB";//上报，补录

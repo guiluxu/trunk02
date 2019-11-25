@@ -11,6 +11,7 @@ import com.wavenet.ding.qpps.mvp.v.AdminSubmitActivityRequestView;
 
 import org.devio.takephoto.model.TImage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -88,7 +89,7 @@ public class AdminSubmitActivityRequestPresenter extends BaseMvpPersenter<AdminS
         });
     }
     //正常的附件上传
-    public void FileRequest(final int file, final Map<String, Object> map, final ArrayList<String> arrayList,
+    public void FileRequest(final int file, final Map<String, Object> map, final ArrayList<File> arrayList,
                             final ArrayList<TImage> images, final String mfilevideo, final String audioPath) {
 
 //        file  6 事件上报，61事件处置，62 暂时没有用  63 派单结束上报

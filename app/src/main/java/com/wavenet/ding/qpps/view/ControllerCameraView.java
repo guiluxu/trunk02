@@ -477,13 +477,12 @@ public class ControllerCameraView extends LinearLayout implements View.OnClickLi
         map.put("x", MainMapXJActivity.g.getWgLon());
         map.put("y", MainMapXJActivity.g.getWgLat());
         map.put("relyid", MainMapXJActivity.S_MANGE_ID);//S_SJSB_ID
-        ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList<File> arrayList = new ArrayList<>();
         for (int i = 0; i < imaDatas.size(); i++) {
-            arrayList.add(imaDatas.get(i).getCompressPath());
-
+            arrayList.add(new File(imaDatas.get(i).getCompressPath()));
         }
         if (mRlvideo.getVisibility() == VISIBLE && !AppTool.isNull(mfilevideo)) {
-            arrayList.add(mfilevideo);
+            arrayList.add(new File(mfilevideo));
         }
         String audioPath = null;
         if (mRlsound.getVisibility() == VISIBLE && !AppTool.isNull(mSoundrul)) {
@@ -491,19 +490,9 @@ public class ControllerCameraView extends LinearLayout implements View.OnClickLi
             File mm = AppTool.getAudioFolder(mContext, "/MyRecording" + System.currentTimeMillis() + "@" + timel + ".mp4");
             if (f.renameTo(mm)) {
                 audioPath = mm.getAbsolutePath();
-                arrayList.add(audioPath);
+                arrayList.add(new File(audioPath));
             }
         }
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue().toString();
-            Log.e("fileRequest：  " ,"Key = " + key + "  ----  " + "Value = " + value);
-        }
-
-        for (String tmp : arrayList) {
-            Log.e("fileRequest",tmp);
-        }
-
         mActivity.presenter.FileRequest(file, map, arrayList, imaDatas, mfilevideo, audioPath);
     }
 

@@ -30,6 +30,7 @@ import com.wavenet.ding.qpps.utils.LogUtils;
 import org.devio.takephoto.model.TImage;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -236,30 +237,41 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     }
 
     //正常的附件上传
-    public void FileRequest(final int file, final Map<String, Object> map, final ArrayList<String> arrayList,
+    public void FileRequest(final int file, final Map<String, Object> map, final ArrayList<File> arrayList,
                             final ArrayList<TImage> images, final String mfilevideo, final String audioPath) {
 
 //        file  6 事件上报，61事件处置，62 暂时没有用  63 派单结束上报
         requestData(0, file, "");
-        mMainMapXJActivityRequestModel.FileRequest(file, map, arrayList, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.FileRequest(file, map, arrayList, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
-                requestData(file, errorMsg, map, images, mfilevideo, audioPath);
+            public void onError(int id, String errorCode, String error) {
+                requestData(file, error, map, images, mfilevideo, audioPath);
             }
 
             @Override
-            protected void onSuccess(Object responseBody) {
-                if (getmMvpView() != null) {
-                    try {
-                        ResponseBody b = (ResponseBody) responseBody;
-                        requestData(2, file, b.string());
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+            public void onSuccess(int id, JSONObject result) {
+                requestData(2, file, result.toString());
+                Log.e("FileRequest", "onSuccess: "+result.toString());
             }
+
+//            @Override
+//            protected void onError(String errorMsg) {
+//                requestData(file, errorMsg, map, images, mfilevideo, audioPath);
+//            }
+//
+//            @Override
+//            protected void onSuccess(Object responseBody) {
+//                if (getmMvpView() != null) {
+//                    try {
+//                        ResponseBody b = (ResponseBody) responseBody;
+//                        requestData(2, file, b.string());
+//
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
         });
     }
 
@@ -315,25 +327,27 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
         map.put("y", y);
         map.put("relyid", relyid);//S_SJSB_ID
 
-        ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList<File> arrayList = new ArrayList<>();
 
         for (int i = 0; i < filePaths.size(); i++) {
-            arrayList.add(filePaths.get(i).getImagePath());
-
+            File file = new File(filePaths.get(i).getImagePath());
+            arrayList.add(file);
         }
         if (!AppTool.isNull(mfilevideo)) {
-            arrayList.add(mfilevideo);
+            File file = new File(mfilevideo);
+            arrayList.add(file);
         }
         if (!AppTool.isNull(audioPath)) {
-            arrayList.add(audioPath);
+            File file = new File(audioPath);
+            arrayList.add(file);
         }
 
-        FileRequest(context, xjResults, map, arrayList, index, type);
+//        FileRequest(context, xjResults, map, arrayList, index, type);
     }
 
     //补传的附件上传
-    public void FileRequest(final Context context, final List<FailXJResult> xjResults, final Map<String, Object> map,
-                            final ArrayList<String> arrayList, final int index, final int type) {
+   /* public void FileRequest(final Context context, final List<FailXJResult> xjResults, final Map<String, Object> map,
+                            final ArrayList<File> arrayList, final int index, final int type) {
 
         requestData(0, 0, "");
         mMainMapXJActivityRequestModel.FileRequest(type, map, arrayList, new CommonObserver<Object>() {
@@ -352,7 +366,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 fileRequest(context, xjResults, index + 1);
             }
         });
-    }
+    }*/
 
     private void showTipDialog(final Context context, String tip, final List<FailXJResult> successResults) {
         final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
@@ -976,7 +990,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
         });
     }
 
-    public void clickRequestPushMessage(String name, String local, String category, String xl, String sbsj) {
+    public void clickRequestPushMessage(List<String> name, String local, String category, String xl, String sbsj) {
         mMainMapXJActivityRequestModel.clickRequestPushMessage(name, local, category, xl, sbsj, new CommonObserver<Object>() {
             @Override
             protected void onError(String errorMsg) {

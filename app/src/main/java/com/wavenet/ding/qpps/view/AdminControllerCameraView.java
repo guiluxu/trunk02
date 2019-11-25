@@ -466,17 +466,15 @@ public class AdminControllerCameraView extends LinearLayout implements View.OnCl
 
     private void fileRequest(int file) {
         Map<String, Object> map = new HashMap<>();
-
         map.put("x", AdminSubmitActivity.g.getWgLon());
         map.put("y", AdminSubmitActivity.g.getWgLat());
         map.put("relyid", AdminSubmitActivity.S_MANGE_ID);//S_SJSB_ID
-        ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList<File> arrayList = new ArrayList<>();
         for (int i = 0; i < imaDatas.size(); i++) {
-            arrayList.add(imaDatas.get(i).getCompressPath());
-
+            arrayList.add(new File(imaDatas.get(i).getCompressPath()));
         }
         if (mRlvideo.getVisibility() == VISIBLE && !AppTool.isNull(mfilevideo)) {
-            arrayList.add(mfilevideo);
+            arrayList.add(new File(mfilevideo));
         }
         String audioPath = null;
         if (mRlsound.getVisibility() == VISIBLE && !AppTool.isNull(mSoundrul)) {
@@ -484,7 +482,7 @@ public class AdminControllerCameraView extends LinearLayout implements View.OnCl
             File mm = AppTool.getAudioFolder(mContext, "/MyRecording" + System.currentTimeMillis() + "@" + timel + ".mp4");
             if (f.renameTo(mm)) {
                 audioPath = mm.getAbsolutePath();
-                arrayList.add(audioPath);
+                arrayList.add(new File(audioPath));
             }
         }
         mActivity.presenter.FileRequest(file, map, arrayList, imaDatas, mfilevideo, audioPath);

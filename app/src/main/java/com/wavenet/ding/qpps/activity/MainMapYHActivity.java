@@ -982,7 +982,7 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                 }
                 if (allPhotoimages.size() > 0) {
                     //把高德经纬度转换为84
-                    Gps   g = com.wavenet.ding.qpps.utils.PositionUtil.gcj_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
+                    Gps g = com.wavenet.ding.qpps.utils.PositionUtil.gcj_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
                     Point p=new Point(g.getWgLon(),g.getWgLat(), SpatialReferences.getWgs84());
                     if (!GeometryEngine.intersects(roadbuffer,p)&&!GeometryEngine.crosses(roadbuffer,p)&&!GeometryEngine.touches(roadbuffer,p)){
                         MapUtil.getInstance(this).showTipsDialog(this,"当前坐标位置数据异常，不在养护区域内，请稍后重试");
@@ -993,7 +993,7 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                     map.put("x", g1.getWgLat());
                     map.put("y", g1.getWgLon());
                     map.put("relyid", SPUtil.getInstance(this).getStringValue(SPUtil.YHID));
-                    ArrayList<String> arrayList1 = new ArrayList<>();
+                    ArrayList<File> arrayList1 = new ArrayList<>();
                     ArrayList<String> imgList = new ArrayList<>();
                     String audioPath = null;
                     String videoPath = null;
@@ -1009,15 +1009,15 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                             File f = new File(allPhotoimages.get(i).getCompressPath());
                             File mm = AppTool.getAudioFolder(this, "/MyRecording" + System.currentTimeMillis() + "@" + timel + ".mp4");
                             if (f.renameTo(mm)) {
-                                arrayList1.add(mm.getAbsolutePath());
+                                arrayList1.add(new File(mm.getAbsolutePath()));
                                 audioPath = mm.getAbsolutePath();
                             }
 //            arrayList.add(mSoundrul);
                         } else if (allPhotoimages.get(i).mType == 1) {//视频
                             videoPath = allPhotoimages.get(i).getCompressPath();
-                            arrayList1.add(allPhotoimages.get(i).getCompressPath());
+                            arrayList1.add(new File(allPhotoimages.get(i).getCompressPath()));
                         } else {
-                            arrayList1.add(allPhotoimages.get(i).getCompressPath());
+                            arrayList1.add(new File(allPhotoimages.get(i).getCompressPath()));
                             imgList.add(allPhotoimages.get(i).getCompressPath());
                         }
                     }
@@ -1774,7 +1774,7 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                             map.put("x", g.getWgLat());
                             map.put("y", g.getWgLon());
                             map.put("relyid", SPUtil.getInstance(MainMapYHActivity.this).getStringValue(SPUtil.YHID));
-                            ArrayList<String> arrayList = new ArrayList<>();
+                            ArrayList<File> arrayList = new ArrayList<>();
                             ArrayList<String> imgList = new ArrayList<>();
                             String audioPath = null;
                             String videoPath = null;
@@ -1784,15 +1784,15 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                                     File f = new File(allimages.get(i).getCompressPath());
                                     File mm = AppTool.getAudioFolder(this, "/MyRecording" + System.currentTimeMillis() + "@" + timel + ".mp4");
                                     if (f.renameTo(mm)) {
-                                        arrayList.add(mm.getAbsolutePath());
+                                        arrayList.add(new File(mm.getAbsolutePath()));
                                         audioPath = mm.getAbsolutePath();
                                     }
                                 } else if (allimages.get(i).mType == 1) {//视频
                                     videoPath = allimages.get(i).getCompressPath();
-                                    arrayList.add(allimages.get(i).getCompressPath());
+                                    arrayList.add(new File(allimages.get(i).getCompressPath()));
                                 } else {
                                     imgList.add(allimages.get(i).getCompressPath());
-                                    arrayList.add(allimages.get(i).getCompressPath());
+                                    arrayList.add(new File(allimages.get(i).getCompressPath()));
                                 }
                             }
                             map.put("yxfa", System.currentTimeMillis());

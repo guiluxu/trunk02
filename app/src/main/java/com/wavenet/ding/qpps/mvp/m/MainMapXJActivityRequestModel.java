@@ -13,6 +13,7 @@ import com.dereck.library.utils.ToastUtils;
 import com.wavenet.ding.qpps.activity.MainMapXJActivity;
 import com.wavenet.ding.qpps.api.ApiService;
 import com.wavenet.ding.qpps.db.WavenetCallBack;
+import com.wavenet.ding.qpps.http.PostFormBuilder;
 import com.wavenet.ding.qpps.utils.AppAttribute;
 import com.wavenet.ding.qpps.utils.AppConfig;
 import com.wavenet.ding.qpps.utils.AppTool;
@@ -21,12 +22,18 @@ import com.wavenet.ding.qpps.utils.LogUtils;
 import com.wavenet.ding.qpps.utils.SPUtil;
 import com.wavenet.ding.qpps.utils.UrlUtils;
 import com.wavenet.ding.qpps.view.ControllerMainUIView;
+import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import cn.jiguang.net.HttpRequest;
+
 import static com.zhy.http.okhttp.OkHttpUtils.post;
+import static com.zhy.http.okhttp.OkHttpUtils.postFile;
 
 public class MainMapXJActivityRequestModel implements IMvpBaseView {
 
@@ -164,7 +171,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
     }
 
     //事件上报（文件）//TODO 6 事件上报，61事件处置，62 暂时没有用  63 派单结束上报
-    public void FileRequest(final int file, Map<String, Object> map, ArrayList<String> arrayList, CommonObserver<Object> callback) {
+    public void FileRequest(final int file, Map<String, Object> map, ArrayList<File> arrayList, WavenetCallBack callback) {
         String url =AppConfig.BeasUrl1+ "/file/addXjImg";
         if (file == 6) {
             url = AppConfig.BeasUrl1+"/file/addXjImg";//上报，补录
@@ -173,12 +180,46 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         } else if (file == 62) {
             url = AppConfig.BeasUrl1+"/file/addXjImg";
         }
+        Map<String, String> reqParams = new HashMap<>();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            if (entry.getKey().equals("reyId")){
+                reqParams.put("reyId", entry.getValue().toString());
+            } else if (entry.getKey().equals("x")){
+                reqParams.put("x", entry.getValue().toString());
+            } else if (entry.getKey().equals("y")){
+                reqParams.put("y", entry.getValue().toString());
+            }
+        }
+//        reqParams.put("files", arrayList);
+//        post()
+//                .url(url)
+//                .params(reqParams)
+//                .build()
+//                .execute(callback);
+        new PostFormBuilder().files("files", arrayList)
+                .url(url)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils
+//        .createApi(ApiService.class)
+//        .userXJReportData(url, reqParams)
+//        .compose(Transformer.switchSchedulers())
+//        .subscribe(callback);
+/*
         RxHttpUtils.uploadImgsWithParams(url, "file", map, arrayList)
                 .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-
-        Log.e("MOD-RequestModel","FileRequest 146");
-        Log.d("MOD-FileRequest：  " , "get方法：" + url);
+                .subscribe(callback);*/
+        Log.e("DMOD-RequestModel","FileRequest 146");
+        Log.d("DMOD-FileRequest：  " , "get方法：" + url);
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.d("DMOD-RequestModel_map：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
+        for (int i = 0;i<arrayList.size();i++) {
+            Log.d("DMOD-RequestModel_arraylist：  " , arrayList.get(i).getAbsolutePath());
+        }
     }
 
     //日常巡检开始
@@ -799,19 +840,32 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
     }
 
     //上报后推送（未完）
-    public void clickRequestPushMessage(String name, String local, String category, String xl,
+    public void clickRequestPushMessage(List<String> name, String local, String category, String xl,
                                         String sbsj, CommonObserver<Object> callback) {
-
-        String url = AppConfig.BeasUrl+"2056/api/JPush/ExecutePushExample?type=2&local=" + local +
-                "&category=" + category + "&xl=" + xl + "&sbsj=" + sbsj + "&personid=" + name;
-
+// /push/excutePushExample
+        String urlstr = AppConfig.BeasUrl1+"/push/excutePushExample";
+//        String url = AppConfig.BeasUrl+"2056/api/JPush/ExecutePushExample?type=2&local=" + local +
+//                "&category=" + category + "&xl=" + xl + "&sbsj=" + sbsj + "&personid=" + name;
+        Map<String, Object> reqParams = new HashMap<>();
+        reqParams.put("personId", name);
+        reqParams.put("type", "2");
+        reqParams.put("local", local);
+        reqParams.put("category", category);
+        reqParams.put("xl", xl);
+//        reqParams.put("pdr", "");
+        reqParams.put("sbsj", sbsj);
+//        post()
+//                .url(urlstr)
+//                .params(reqParams)
+//                .build()
+//                .execute(callback);
         RxHttpUtils
                 .createApi(ApiService.class)
-                .pushMessage(url)
+                .pushMessage(urlstr)
                 .compose(Transformer.<String>switchSchedulers())
                 .subscribe(callback);
         Log.e("MOD-RequestModel","clickRequestPushMessage648");
-        Log.d("MOD-clickRequestPushMessag" , "post方法无参：" + url);
+        Log.d("MOD-clickRequestPushMessag" , "post方法无参：" + urlstr);
     }
 
     public void clickRequestIsDeal(Context mContext, String S_MANGE_ID, WavenetCallBack callback) {

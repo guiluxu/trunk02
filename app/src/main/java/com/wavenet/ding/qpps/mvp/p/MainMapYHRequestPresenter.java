@@ -23,6 +23,7 @@ import com.wavenet.ding.qpps.mvp.m.MainMapYHRequestModel;
 import com.wavenet.ding.qpps.mvp.v.MainMapYHActivityRequestView;
 import com.wavenet.ding.qpps.utils.AppTool;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,7 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
     }
 
     //正常上传附件
-    public void reporFile(final int what, final Map<String, Object> map, ArrayList<String> arrayList,
+    public void reporFile(final int what, final Map<String, Object> map, ArrayList<File> arrayList,
                           final String audioPath, final String videoPath, final ArrayList<String> imgPaths) {
         if (getmMvpView() != null) {
             getmMvpView().show();
@@ -128,24 +129,23 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
         map.put("S_TYPE", sType);
         map.put("S_DESC", sDesc);
 
-        ArrayList<String> arrayList = new ArrayList<>();
+        ArrayList<File> arrayList = new ArrayList<>();
 
         for (int i = 0; i < filePaths.size(); i++) {
-            arrayList.add(filePaths.get(i).getImagePath());
-
+            arrayList.add(new File(filePaths.get(i).getImagePath()));
         }
         if (!AppTool.isNull(mfilevideo)) {
-            arrayList.add(mfilevideo);
+            arrayList.add(new File(mfilevideo));
         }
         if (!AppTool.isNull(audioPath)) {
-            arrayList.add(audioPath);
+            arrayList.add(new File(audioPath));
         }
 
         reporFile(context, xjResults, map, arrayList, index);
     }
 
     public void reporFile(final Context context, final List<FailYHResult> xjResults, final Map<String, Object> map,
-                          ArrayList<String> arrayList, final int index) {
+                          ArrayList<File> arrayList, final int index) {
 
         mainMapYHRequestModel.requestFile(map, arrayList, new CommonObserver<Object>() {
 
