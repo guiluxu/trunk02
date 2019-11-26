@@ -1,11 +1,14 @@
 package com.wavenet.ding.qpps.mvp.m;
 
 
+import android.util.Log;
+
 import com.dereck.library.http.SingleRxHttp;
 import com.dereck.library.interceptor.Transformer;
 import com.dereck.library.observer.CommonObserver;
 import com.dereck.library.utils.RxHttpUtils;
 import com.wavenet.ding.qpps.api.ApiService;
+import com.wavenet.ding.qpps.db.WavenetCallBack;
 import com.wavenet.ding.qpps.utils.AppConfig;
 import com.wavenet.ding.qpps.utils.AppTool;
 import com.wavenet.ding.qpps.utils.LogUtils;
@@ -16,14 +19,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.zhy.http.okhttp.OkHttpUtils.post;
+
 public class MainMapYHRequestModel {
 
     public void requestFile(Map<String, Object> map, ArrayList<File> arrayList, CommonObserver<Object> callback) {
-        RxHttpUtils.uploadImgsWithParams(AppConfig.BeasUrl+"2083/file/upload/SSYH", "file", map, arrayList)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-
-
+//        RxHttpUtils.uploadImgsWithParams(AppConfig.BeasUrl+"2083/file/upload/SSYH", "file", map, arrayList)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
+        Log.d("养护_requestFile：  " , AppConfig.BeasUrl+"2083/file/upload/SSYH");
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.d("养护_requestFile：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
+        for (int i = 0; i < arrayList.size(); i++) {
+            Log.d("养护_requestFile：  " , arrayList.get(i).getAbsolutePath());
+        }
     }
 
     public void requestUPXY(Map<String, Object> map, CommonObserver<Object> callback) {
@@ -33,18 +45,32 @@ public class MainMapYHRequestModel {
                 .userXJCoordinate(urlstr, map)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
+        Log.d("养护_requestUPXY：  " , urlstr);
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.d("养护_requestUPXY：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
 
     }
 
-    public void requestRelyid(Map<String, Object> map, CommonObserver<Object> callback) {
-
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .userXJRelyid(AppConfig.BeasUrl+"2056/api/CuringRecode/AddCuringRecode", map)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-
+    public void requestRelyid(Map<String, String> map, WavenetCallBack callback) {
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .userXJRelyid(AppConfig.BeasUrl1+"/curingCode/addCuringCode", map)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
+        post()
+                .url(AppConfig.BeasUrl1+"/curingCode/addCuringCode")
+                .params(map)
+                .build()
+                .execute(callback);
+        Log.d("养护_requestRelyid：  " , AppConfig.BeasUrl1+"/curingCode/addCuringCode");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("养护_requestRelyid：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
 
     }
 
@@ -54,10 +80,13 @@ public class MainMapYHRequestModel {
                 .getPicUrl(AppConfig.BeasUrl+"2083/file/find/SSYH", map)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
-
+        Log.d("养护_getPicUrl：  " , AppConfig.BeasUrl+"2083/file/find/SSYH");
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.d("养护_getPicUrl：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
-
 
     public void userFinishTask(String id, Map<String, Object> map, CommonObserver<Object> callback) {
         map.put("S_RECODE_ID",id);
@@ -66,10 +95,13 @@ public class MainMapYHRequestModel {
                 .userFinishTask(AppConfig.BeasUrl+"2056/api/CuringRecode/UpdateCuringRecode", map)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
-
+        Log.d("养护_userFinishTask：  " , AppConfig.BeasUrl+"2056/api/CuringRecode/UpdateCuringRecode");
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.d("养护_userFinishTask：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
-
 
     public void userCancelTask(String id, Map<String, Object> map, CommonObserver<Object> callback) {
         map.put("S_RECODE_ID",id);
@@ -78,7 +110,12 @@ public class MainMapYHRequestModel {
                 .userFinishTask(AppConfig.BeasUrl+"2056/api/CuringRecode/UpdateCuringRecode", map)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
+        Log.d("养护_userCancelTask：  " , AppConfig.BeasUrl+"2056/api/CuringRecode/UpdateCuringRecode");
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.d("养护_userCancelTask：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
 
     }
     public void AdminGetObjectIds(String idstr, String filterkey, String filtervalue ,String townname,CommonObserver<Object> callback) {
@@ -111,13 +148,11 @@ public class MainMapYHRequestModel {
         String urlstr = AppConfig.BeasUrl+"2081/services/QPSSYH_DATASERVICE/t_person_operation?" + filterStr;
         Map<String, Object> headerMaps = new HashMap<>();
         headerMaps.put("Accept", "application/json");
-        LogUtils.e("pppppppp",urlstr);
         SingleRxHttp.getInstance().addHeaders(headerMaps).createSApi(ApiService.class)
-
                 .requestPeople(urlstr)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
+        Log.d("养护_requestPeople：  " , urlstr);
     }
 
     public void addSearchHis(String user, String str, CommonObserver<Object> callback) {
@@ -130,6 +165,12 @@ public class MainMapYHRequestModel {
                 .addSearchHis(url, params)
                 .compose(Transformer.<String>switchSchedulers())
                 .subscribe(callback);
+        Log.d("养护_addSearchHis：  " , url);
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.d("养护_addSearchHis：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void requestSearchHis(String user, CommonObserver<Object> callback) {
@@ -138,6 +179,7 @@ public class MainMapYHRequestModel {
                 .getSearchList(url)
                 .compose(Transformer.<String>switchSchedulers())
                 .subscribe(callback);
+        Log.d("养护_requestSearchHis：  " , url);
     }
 
     public void clearSearchHis(String user, CommonObserver<Object> callback) {
@@ -149,6 +191,12 @@ public class MainMapYHRequestModel {
                 .clearHis(url, params)
                 .compose(Transformer.<String>switchSchedulers())
                 .subscribe(callback);
+        Log.d("养护_clearSearchHis：  " , url);
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.d("养护_clearSearchHis：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
 }

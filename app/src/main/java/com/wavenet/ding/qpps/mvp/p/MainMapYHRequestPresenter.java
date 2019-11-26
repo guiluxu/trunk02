@@ -19,9 +19,12 @@ import com.dereck.library.utils.ToastUtils;
 import com.wavenet.ding.qpps.R;
 import com.wavenet.ding.qpps.adapter.SearchHisAdapter;
 import com.wavenet.ding.qpps.bean.SearchHistory;
+import com.wavenet.ding.qpps.db.WavenetCallBack;
 import com.wavenet.ding.qpps.mvp.m.MainMapYHRequestModel;
 import com.wavenet.ding.qpps.mvp.v.MainMapYHActivityRequestView;
 import com.wavenet.ding.qpps.utils.AppTool;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -315,33 +318,46 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
         });
     }
 
-    public void getRelyid(final int what, Map<String, Object> map) {
+    public void getRelyid(final int what, Map<String, String> map) {
         if (getmMvpView() != null) {
             getmMvpView().show();
         }
-
-        mainMapYHRequestModel.requestRelyid(map, new CommonObserver<Object>() {
-
-
+        mainMapYHRequestModel.requestRelyid(map, new WavenetCallBack() {
             @Override
-            protected void onError(String errorMsg) {
-                //业务处理
+            public void onError(int id, String errorCode, String error) {
                 if (getmMvpView() != null) {
                     getmMvpView().hide();
-                    getmMvpView().resultFailure(what, errorMsg);
+                    getmMvpView().resultFailure(what, error);
                 }
-
             }
 
             @Override
-            protected void onSuccess(Object s) {
-                //业务处理
+            public void onSuccess(int id, JSONObject result) {
                 if (getmMvpView() != null) {
-                    getmMvpView().resultStringSuccess(what, (String) s);
+                    getmMvpView().resultStringSuccess(what, result.toString());
                     getmMvpView().hide();
-
-
                 }
+
+//            @Override
+//            protected void onError(String errorMsg) {
+//                //业务处理
+//                if (getmMvpView() != null) {
+//                    getmMvpView().hide();
+//                    getmMvpView().resultFailure(what, errorMsg);
+//                }
+//
+//            }
+//
+//            @Override
+//            protected void onSuccess(Object s) {
+//                //业务处理
+//                if (getmMvpView() != null) {
+//                    getmMvpView().resultStringSuccess(what, (String) s);
+//                    getmMvpView().hide();
+//
+//
+//                }
+//            }
             }
         });
     }

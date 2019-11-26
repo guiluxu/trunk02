@@ -22,6 +22,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -208,7 +209,7 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
     String tag;
     BitmapDrawable endDrawable;
     GraphicsOverlay markerOverlay;
-    Map<String, Object> map;
+    Map<String, String> map;
     //地图下方按钮是隐藏还是显示
     boolean checkBtn = true;
     //判断是补录的拍照还是直接拍照,因为类型不同添加mark的方法不同,now 现场,old为补录
@@ -940,22 +941,22 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                     map = new HashMap<>();
 
 
-                    map.put("S_CURING_MODE", S_CURING_MODE);
-                    map.put("S_TARKS_TYPE", S_TARKS_TYPE);
+                    map.put("sCuringMode", S_CURING_MODE);
+                    map.put("sTarksType", S_TARKS_TYPE);
 
 
                     //路段选择获取的任务编号  先写死
-                    map.put("S_TASK_ID", "123");
+                    map.put("sTaskId", "123");
                     //时间+养护人员
-                    map.put("S_RECODE_ID", System.currentTimeMillis() + "_" + "YH" + "_" + SPUtils.get("user", ""));
+                    map.put("sRecodeId", System.currentTimeMillis() + "_" + "YH" + "_" + SPUtils.get("user", ""));
                     //路段ID
-                    map.put("S_ROAD_ID", S_ROAD_ID);
+                    map.put("sRoadId", S_ROAD_ID);
                     //养护人员
-                    map.put("T_CURING_MAN", SPUtils.get("user", ""));
+                    map.put("tCuringMan", SPUtils.get("user", ""));
                     //养护类型
                     //  map.put("S_TARKS_TYPE", "W1007100001");
                     //任务开始时间
-                    map.put("T_STARTM", AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS));
+                    map.put("tStartm", AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS));
                     LogUtils.e("数据zzzzzzz", map.toString());
                     presenter.getRelyid(4, map);
                 }
@@ -990,8 +991,8 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                     }
                     Gps g1 = PositionUtil.gcj_To_Gps84(MyServiceYH.aMapLocation.getLatitude(), aMapLocation.getLongitude());
 
-                    map.put("x", g1.getWgLat());
-                    map.put("y", g1.getWgLon());
+                    map.put("x", String.valueOf(g1.getWgLat()));
+                    map.put("y", String.valueOf(g1.getWgLon()));
                     map.put("relyid", SPUtil.getInstance(this).getStringValue(SPUtil.YHID));
                     ArrayList<File> arrayList1 = new ArrayList<>();
                     ArrayList<String> imgList = new ArrayList<>();
@@ -1022,13 +1023,13 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                         }
                     }
 
-                    map.put("yxfa", System.currentTimeMillis());
+                    map.put("yxfa", String.valueOf(System.currentTimeMillis()));
                     map.put("S_TYPE", mTvclaphoto.getText().toString());
                     map.put("S_DESC", et_contentdeal.getText().toString());
                     if (flag == 2) {//上报
-                        presenter.reporFile(2, map, arrayList1, audioPath, videoPath, imgList);
+//                        presenter.reporFile(2, map, arrayList1, audioPath, videoPath, imgList);
                     } else if (flag == 3) {//结束
-                        presenter.reporFile(3, map, arrayList1, audioPath, videoPath, imgList);
+//                        presenter.reporFile(3, map, arrayList1, audioPath, videoPath, imgList);
 
                     }
 
@@ -1442,7 +1443,7 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
 
     @Override
     public void resultSuccess(int what, ResponseBody result) {
-
+        Log.e("MainMapYHActivity:",result.toString());
         switch (what) {
             case 1://开始养护上传附件
 
@@ -1771,8 +1772,8 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                             map = new HashMap<>();
                             //把高德经纬度转换为84
                             Gps g = PositionUtil.gcj_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
-                            map.put("x", g.getWgLat());
-                            map.put("y", g.getWgLon());
+                            map.put("x", String.valueOf(g.getWgLat()));
+                            map.put("y", String.valueOf(g.getWgLon()));
                             map.put("relyid", SPUtil.getInstance(MainMapYHActivity.this).getStringValue(SPUtil.YHID));
                             ArrayList<File> arrayList = new ArrayList<>();
                             ArrayList<String> imgList = new ArrayList<>();
@@ -1795,11 +1796,11 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                                     arrayList.add(new File(allimages.get(i).getCompressPath()));
                                 }
                             }
-                            map.put("yxfa", System.currentTimeMillis());
+                            map.put("yxfa", String.valueOf(System.currentTimeMillis()));
                             map.put("S_TYPE", mTvclaphotostart.getText().toString());
                             map.put("S_DESC", et_contentdealstart.getText().toString());
                             show();
-                            presenter.reporFile(1, map, arrayList, audioPath, videoPath, imgList);
+//                            presenter.reporFile(1, map, arrayList, audioPath, videoPath, imgList);
                         } else {
                             ToastUtils.showToast("请选择图片");
                         }
