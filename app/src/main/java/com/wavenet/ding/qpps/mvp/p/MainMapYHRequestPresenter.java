@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
@@ -328,12 +329,14 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
                 if (getmMvpView() != null) {
                     getmMvpView().hide();
                     getmMvpView().resultFailure(what, error);
+                    Log.e("onError",error);
                 }
             }
 
             @Override
             public void onSuccess(int id, JSONObject result) {
                 if (getmMvpView() != null) {
+                    Log.e("onSuccess",result.toString());
                     getmMvpView().resultStringSuccess(what, result.toString());
                     getmMvpView().hide();
                 }

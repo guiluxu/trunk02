@@ -97,6 +97,8 @@ import com.wavenet.ding.qpps.bean.RelyIdBean;
 import com.wavenet.ding.qpps.bean.Response;
 import com.wavenet.ding.qpps.bean.RoadBean;
 import com.wavenet.ding.qpps.bean.SearchHistory;
+import com.wavenet.ding.qpps.bean.XYbean;
+import com.wavenet.ding.qpps.db.bean.TrackBean;
 import com.wavenet.ding.qpps.fragment.PlaybackFragment;
 import com.wavenet.ding.qpps.interf.AddFeatureQueryResultListen;
 import com.wavenet.ding.qpps.interf.AddLayerListen;
@@ -990,7 +992,7 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                         return;
                     }
                     Gps g1 = PositionUtil.gcj_To_Gps84(MyServiceYH.aMapLocation.getLatitude(), aMapLocation.getLongitude());
-
+                    Map<String, Object> map = new HashMap<>();
                     map.put("x", String.valueOf(g1.getWgLat()));
                     map.put("y", String.valueOf(g1.getWgLon()));
                     map.put("relyid", SPUtil.getInstance(this).getStringValue(SPUtil.YHID));
@@ -1027,9 +1029,9 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                     map.put("S_TYPE", mTvclaphoto.getText().toString());
                     map.put("S_DESC", et_contentdeal.getText().toString());
                     if (flag == 2) {//上报
-//                        presenter.reporFile(2, map, arrayList1, audioPath, videoPath, imgList);
+                        presenter.reporFile(2, map, arrayList1, audioPath, videoPath, imgList);
                     } else if (flag == 3) {//结束
-//                        presenter.reporFile(3, map, arrayList1, audioPath, videoPath, imgList);
+                        presenter.reporFile(3, map, arrayList1, audioPath, videoPath, imgList);
 
                     }
 
@@ -1389,7 +1391,7 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
 
     @Override
     public void resultFailure(int what, String result) {
-
+        ToastUtils.showToast(result);
 
     }
 
@@ -1747,21 +1749,34 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                 });
                 break;
             case 4:
-
-                if (result != null && !result.contains("error")) {
+//                !AppTool.isNull(result) && !result.contains("error")
+//                JSONObject jsonObject=new JSONObject(result);
+//                if (jsonObject.getInt("code")!=200){
+//                    AppAttribute.G.TrackUPError++;
+//                    return;
+//                }
+//                AppAttribute.G.TrackUPSuccess++;
+////                        String s=jsonObject.getString("Data");
+//                XYbean xYbean = new Gson().fromJson(result, XYbean.class);
+//                if (!mMainUIView.isStartde)
+//                    return;
+//                mTrackBiz.inserttasktrack(new TrackBean(xYbean));
+                    Log.e("2222",result);
+                if (!AppTool.isNull(result) && !result.contains("error")) {
                     JSONObject jsonObject= null;
                     try {
                         jsonObject = new JSONObject(result);
 
-                    if (jsonObject.getInt("Code")!=200){
-                        ToastUtils.showToast(jsonObject.getString("Msg"));
+                    if (jsonObject.getInt("code")!=200){
+                        ToastUtils.showToast(jsonObject.getString("msg"));
                         return;
                     }
 
                     doing = true;
 //                    RelyIdBean relyIdBean = GsonUtils.getObject(result, RelyIdBean.class);
-                    RelyIdBean relyIdBean = GsonUtils.getObject(jsonObject.getJSONObject("Data").toString(), RelyIdBean.class);
-                    relyid = relyIdBean.S_RECODE_ID;
+                    RelyIdBean relyIdBean = GsonUtils.getObject(jsonObject.toString(), RelyIdBean.class);
+                    Log.e("tijiao",relyIdBean.toString());
+                    relyid = relyIdBean.getData().getSRecodeId();
                     SPUtil.getInstance(MainMapYHActivity.this).setStringValue(SPUtil.YHID, relyid);
                     if (AppTool.isNull(SPUtil.getInstance(MainMapYHActivity.this).getStringValue(SPUtil.YHID))) {
                         ToastUtils.showToast("relyid为空请,请重重试");
@@ -1769,7 +1784,7 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                     }
                     if (aMapLocation != null) {
                         if (allimages.size() > 0) {
-                            map = new HashMap<>();
+                            Map<String, Object> map = new HashMap<>();
                             //把高德经纬度转换为84
                             Gps g = PositionUtil.gcj_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
                             map.put("x", String.valueOf(g.getWgLat()));
@@ -1800,7 +1815,7 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                             map.put("S_TYPE", mTvclaphotostart.getText().toString());
                             map.put("S_DESC", et_contentdealstart.getText().toString());
                             show();
-//                            presenter.reporFile(1, map, arrayList, audioPath, videoPath, imgList);
+                            presenter.reporFile(1, map, arrayList, audioPath, videoPath, imgList);
                         } else {
                             ToastUtils.showToast("请选择图片");
                         }
