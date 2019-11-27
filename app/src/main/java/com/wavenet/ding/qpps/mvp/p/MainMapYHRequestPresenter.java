@@ -257,12 +257,29 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
     }
 
 
-    public void getPicUrl(final int what, Map<String, Object> map) {
+    public void getPicUrl(final int what, Map<String, String> map) {
         if (getmMvpView() != null) {
             getmMvpView().show();
         }
+        mainMapYHRequestModel.getPicUrl(map, new WavenetCallBack() {
+            @Override
+            public void onError(int id, String errorCode, String error) {
+                if (getmMvpView() != null) {
+                    getmMvpView().hide();
+                    getmMvpView().resultFailure(what, error);
+                }
+            }
 
-        mainMapYHRequestModel.getPicUrl(map, new CommonObserver<Object>() {
+            @Override
+            public void onSuccess(int id, JSONObject result) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultStringSuccess(what, result.toString());
+                    getmMvpView().hide();
+                }
+            }
+        });
+
+       /* new CommonObserver<Object>() {
 
 
             @Override
@@ -285,18 +302,32 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
 
                 }
             }
-        });
+        }*/
     }
 
 
-    public void userCancelTask(final int what, String id, Map<String, Object> map) {
+    public void userCancelTask(final int what, String id, Map<String, String> map) {
         if (getmMvpView() != null) {
             getmMvpView().show();
         }
+        mainMapYHRequestModel.userCancelTask(id, map, new WavenetCallBack() {
+            @Override
+            public void onError(int id, String errorCode, String error) {
+                if (getmMvpView() != null) {
+                    getmMvpView().hide();
+                    getmMvpView().resultFailure(what, error);
+                }
+            }
 
-        mainMapYHRequestModel.userCancelTask(id, map, new CommonObserver<Object>() {
-
-
+            @Override
+            public void onSuccess(int id, JSONObject result) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultStringSuccess(what, result.toString());
+                    getmMvpView().hide();
+                }
+            }
+        });
+        /*new CommonObserver<Object>() {
             @Override
             protected void onError(String errorMsg) {
                 //业务处理
@@ -304,20 +335,16 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
                     getmMvpView().hide();
                     getmMvpView().resultFailure(what, errorMsg);
                 }
-
             }
-
             @Override
             protected void onSuccess(Object s) {
                 //业务处理
                 if (getmMvpView() != null) {
                     getmMvpView().resultStringSuccess(what, (String) s);
                     getmMvpView().hide();
-
-
                 }
             }
-        });
+        }*/
     }
 
 

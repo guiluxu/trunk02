@@ -1330,10 +1330,9 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                 }
 
                 if (content.contains("取消")) {
-                    Map<String, Object> map = new HashMap<>();
-
-                    map.put("T_ENDTM", AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS));
-                    map.put("S_DEL", "0");
+                    Map<String, String> map = new HashMap<>();
+                    map.put("tEndtm", AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS));
+                    map.put("sDel", "0");
                     presenter.userCancelTask(888, SPUtil.getInstance(MainMapYHActivity.this).getStringValue(SPUtil.YHID), map);
                 }
 
@@ -1853,9 +1852,8 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                 JSONObject  jsonObject = null;
                 try {
                     jsonObject = new JSONObject(result);
-
-                    if (jsonObject.getInt("Code")!=200){
-                        ToastUtils.showToast(jsonObject.getString("Msg"));
+                    if (jsonObject.getInt("code")!=200){
+                        ToastUtils.showToast(jsonObject.getString("msg"));
                         return;
                     }
                     endYH();
@@ -2263,9 +2261,9 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
 
                             }
 
-                            Map<String, Object> map = new HashMap<>();
+                            Map<String, String> map = new HashMap<>();
                             map.put("yxfa", str);
-                            map.put("relyid", SPUtil.getInstance(MainMapYHActivity.this).getStringValue(SPUtil.YHID));
+                            map.put("reyId", SPUtil.getInstance(MainMapYHActivity.this).getStringValue(SPUtil.YHID));
 
                             presenter.getPicUrl(5, map);
 

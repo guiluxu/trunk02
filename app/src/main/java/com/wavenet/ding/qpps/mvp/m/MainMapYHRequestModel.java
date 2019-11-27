@@ -45,6 +45,7 @@ public class MainMapYHRequestModel {
         }
     }
 
+    //废弃
     public void requestUPXY(Map<String, Object> map, CommonObserver<Object> callback) {
         String urlstr = AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_TRAJECTORY";
         RxHttpUtils
@@ -67,43 +68,48 @@ public class MainMapYHRequestModel {
 //                .userXJRelyid(AppConfig.BeasUrl1+"/curingCode/addCuringCode", map)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-        post()
-                .url(AppConfig.BeasUrl1+"/curingCode/addCuringRecode")
+        String url = AppConfig.BeasUrl1+"/curingCode/addCuringRecode";
+        post().url(url)
                 .params(map)
                 .build()
                 .execute(callback);
-        Log.d("养护_requestRelyid：  " , AppConfig.BeasUrl1+"/curingCode/addCuringRecode");
+        Log.d("养护_requestRelyid：  " , url);
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
             Log.d("养护_requestRelyid：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
-
     }
 
-    public void getPicUrl(Map<String, Object> map, CommonObserver<Object> callback) {
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .getPicUrl(AppConfig.BeasUrl+"2083/file/find/SSYH", map)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-        Log.d("养护_getPicUrl：  " , AppConfig.BeasUrl+"2083/file/find/SSYH");
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
+    public void getPicUrl(Map<String, String> map, WavenetCallBack callback) {
+        // /file/getYhImg
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .getPicUrl(AppConfig.BeasUrl+"2083/file/find/SSYH", map)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
+        String url = AppConfig.BeasUrl1+"/file/getYhImg";
+        post().url(url)
+                .params(map)
+                .build()
+                .execute(callback);
+        Log.d("养护_getPicUrl：  " , url);
+        for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue().toString();
+            String value = entry.getValue();
             Log.d("养护_getPicUrl：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
     }
 
     public void userFinishTask(String id, Map<String, String> map, WavenetCallBack callback) {
+        String url = AppConfig.BeasUrl1+"/curingCode/updateCuringRecode";
         map.put("sRecodeId",id);
 //        RxHttpUtils
 //                .createApi(ApiService.class)
 //                .userFinishTask(AppConfig.BeasUrl+"2056/api/CuringRecode/UpdateCuringRecode", map)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-        post()
-                .url(AppConfig.BeasUrl1+"/curingCode/updateCuringRecode")
+        post().url(url)
                 .params(map)
                 .build()
                 .execute(callback);
@@ -115,17 +121,23 @@ public class MainMapYHRequestModel {
         }
     }
 
-    public void userCancelTask(String id, Map<String, Object> map, CommonObserver<Object> callback) {
-        map.put("S_RECODE_ID",id);
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .userFinishTask(AppConfig.BeasUrl+"2056/api/CuringRecode/UpdateCuringRecode", map)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-        Log.d("养护_userCancelTask：  " , AppConfig.BeasUrl+"2056/api/CuringRecode/UpdateCuringRecode");
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
+    public void userCancelTask(String id, Map<String, String> map, WavenetCallBack callback) {
+//        map.put("S_RECODE_ID",id);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .userFinishTask(AppConfig.BeasUrl+"2056/api/CuringRecode/UpdateCuringRecode", map)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
+        String url = AppConfig.BeasUrl1+"/curingCode/updateCuringRecode";
+        map.put("sRecodeId",id);
+        post().url(url)
+                .params(map)
+                .build()
+                .execute(callback);
+        Log.d("养护_userCancelTask：  " , url);
+        for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue().toString();
+            String value = entry.getValue();
             Log.d("养护_userCancelTask：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
 
@@ -156,6 +168,7 @@ public class MainMapYHRequestModel {
 
     }
 
+    //废弃
     public void requestPeople(String filterStr, CommonObserver<Object> callback) {
         String urlstr = AppConfig.BeasUrl+"2081/services/QPSSYH_DATASERVICE/t_person_operation?" + filterStr;
         Map<String, Object> headerMaps = new HashMap<>();
@@ -182,8 +195,7 @@ public class MainMapYHRequestModel {
         params.put("appType", "2");
         params.put("userId", user);
         params.put("searchValue", str);
-        post()
-                .url(AppConfig.BeasUrl1+"/appSearchHis/addAppSearch")
+        post().url(url)
                 .params(params)
                 .build()
                 .execute(callback);
@@ -205,12 +217,16 @@ public class MainMapYHRequestModel {
         Map<String, String> params = new HashMap<>();
         params.put("appType", "2");
         params.put("userId", user);
-        post()
-                .url(AppConfig.BeasUrl1+"/curingCode/addCuringRecode")
+        post().url(url)
                 .params(params)
                 .build()
                 .execute(callback);
         Log.d("养护_requestSearchHis：  " , url);
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("养护_requestSearchHis：  " , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void clearSearchHis(String user, WavenetCallBack callback) {
@@ -226,7 +242,7 @@ public class MainMapYHRequestModel {
         Map<String, String> params = new HashMap<>();
         params.put("appType", "2");
         params.put("userId", user);
-        post().url(AppConfig.BeasUrl1+"/appSearchHis/clearAppHis")
+        post().url(url)
                 .params(params)
                 .build()
                 .execute(callback);
