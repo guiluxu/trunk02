@@ -167,46 +167,73 @@ public class MainMapYHRequestModel {
         Log.d("养护_requestPeople：  " , urlstr);
     }
 
-    public void addSearchHis(String user, String str, CommonObserver<Object> callback) {
-        String url = AppConfig.BeasUrl+"2056/api/AppSearchHis/AddAppSearch";
-        Map<String, Object> params = new HashMap<>();
-        params.put("AppType", "2");
-        params.put("UserId", user);
-        params.put("SearchValue", str);
-        RxHttpUtils.createApi(ApiService.class)
-                .addSearchHis(url, params)
-                .compose(Transformer.<String>switchSchedulers())
-                .subscribe(callback);
+    public void addSearchHis(String user, String str, WavenetCallBack callback) {
+//        String url = AppConfig.BeasUrl+"2056/api/AppSearchHis/AddAppSearch";
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("AppType", "2");
+//        params.put("UserId", user);
+//        params.put("SearchValue", str);
+//        RxHttpUtils.createApi(ApiService.class)
+//                .addSearchHis(url, params)
+//                .compose(Transformer.<String>switchSchedulers())
+//                .subscribe(callback);
+        String url = AppConfig.BeasUrl1+"/appSearchHis/addAppSearch";
+        Map<String, String> params = new HashMap<>();
+        params.put("appType", "2");
+        params.put("userId", user);
+        params.put("searchValue", str);
+        post()
+                .url(AppConfig.BeasUrl1+"/appSearchHis/addAppSearch")
+                .params(params)
+                .build()
+                .execute(callback);
         Log.d("养护_addSearchHis：  " , url);
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
+        for (Map.Entry<String, String> entry : params.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue().toString();
+            String value = entry.getValue();
             Log.d("养护_addSearchHis：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
     }
 
-    public void requestSearchHis(String user, CommonObserver<Object> callback) {
-        String url = AppConfig.BeasUrl+"2056/api/AppSearchHis/GetAppSearch?AppType=2&UserId=" + user;
-        RxHttpUtils.createApi(ApiService.class)
-                .getSearchList(url)
-                .compose(Transformer.<String>switchSchedulers())
-                .subscribe(callback);
+    public void requestSearchHis(String user, WavenetCallBack callback) {
+//        String url = AppConfig.BeasUrl+"2056/api/AppSearchHis/GetAppSearch?AppType=2&UserId=" + user;
+//        RxHttpUtils.createApi(ApiService.class)
+//                .getSearchList(url)
+//                .compose(Transformer.<String>switchSchedulers())
+//                .subscribe(callback);
+        String url = AppConfig.BeasUrl1+"/appSearchHis/getAppSearch";
+        Map<String, String> params = new HashMap<>();
+        params.put("appType", "2");
+        params.put("userId", user);
+        post()
+                .url(AppConfig.BeasUrl1+"/curingCode/addCuringRecode")
+                .params(params)
+                .build()
+                .execute(callback);
         Log.d("养护_requestSearchHis：  " , url);
     }
 
-    public void clearSearchHis(String user, CommonObserver<Object> callback) {
-        String url = AppConfig.BeasUrl+"2056/api/AppSearchHis/ClearAppHis";
-        Map<String, Object> params = new HashMap<>();
-        params.put("AppType", "2");
-        params.put("UserId", user);
-        RxHttpUtils.createApi(ApiService.class)
-                .clearHis(url, params)
-                .compose(Transformer.<String>switchSchedulers())
-                .subscribe(callback);
+    public void clearSearchHis(String user, WavenetCallBack callback) {
+//        String url = AppConfig.BeasUrl+"2056/api/AppSearchHis/ClearAppHis";
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("AppType", "2");
+//        params.put("UserId", user);
+//        RxHttpUtils.createApi(ApiService.class)
+//                .clearHis(url, params)
+//                .compose(Transformer.<String>switchSchedulers())
+//                .subscribe(callback);
+        String url = AppConfig.BeasUrl1+"/appSearchHis/clearAppHis";
+        Map<String, String> params = new HashMap<>();
+        params.put("appType", "2");
+        params.put("userId", user);
+        post().url(AppConfig.BeasUrl1+"/appSearchHis/clearAppHis")
+                .params(params)
+                .build()
+                .execute(callback);
         Log.d("养护_clearSearchHis：  " , url);
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
+        for (Map.Entry<String, String> entry : params.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue().toString();
+            String value = entry.getValue();
             Log.d("养护_clearSearchHis：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
     }

@@ -476,7 +476,7 @@ public class ControllerCameraView extends LinearLayout implements View.OnClickLi
 
         map.put("x", MainMapXJActivity.g.getWgLon());
         map.put("y", MainMapXJActivity.g.getWgLat());
-        map.put("relyid", MainMapXJActivity.S_MANGE_ID);//S_SJSB_ID
+        map.put("relyid", MainMapXJActivity.S_MANGE_ID);
         ArrayList<File> arrayList = new ArrayList<>();
         for (int i = 0; i < imaDatas.size(); i++) {
             arrayList.add(new File(imaDatas.get(i).getCompressPath()));

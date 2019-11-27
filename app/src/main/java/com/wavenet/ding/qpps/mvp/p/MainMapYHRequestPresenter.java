@@ -504,7 +504,24 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
             getmMvpView().show();
         }
 
-        mainMapYHRequestModel.requestSearchHis(user, new CommonObserver<Object>() {
+        mainMapYHRequestModel.requestSearchHis(user, new WavenetCallBack() {
+            @Override
+            public void onError(int id, String errorCode, String error) {
+                if (getmMvpView() != null) {
+                    getmMvpView().hide();
+                    getmMvpView().resultFailureMAP(3, error);
+                }
+            }
+
+            @Override
+            public void onSuccess(int id, JSONObject result) {
+                if (getmMvpView() != null) {
+                    getmMvpView().resultSuccessMAP(3, result.toString());
+                    getmMvpView().hide();
+                }
+            }
+        });
+        /*new CommonObserver<Object>() {
             @Override
             protected void onError(String errorMsg) {
                 if (getmMvpView() != null) {
@@ -520,14 +537,25 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
                     getmMvpView().hide();
                 }
             }
-        });
+        }*/
     }
 
     /**
      * 增加搜索记录
      */
     public void addSearchHis(String user, String str) {
-        mainMapYHRequestModel.addSearchHis(user, str, new CommonObserver<Object>() {
+        mainMapYHRequestModel.addSearchHis(user, str, new WavenetCallBack() {
+            @Override
+            public void onError(int id, String errorCode, String error) {
+                ToastUtils.showToast(error);
+            }
+
+            @Override
+            public void onSuccess(int id, JSONObject result) {
+
+            }
+        });
+        /*new CommonObserver<Object>() {
             @Override
             protected void onError(String errorMsg) {
                 ToastUtils.showToast(errorMsg);
@@ -536,14 +564,31 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
             @Override
             protected void onSuccess(Object o) {
             }
-        });
+        }*/
     }
 
     /**
      * 清空搜索记录
      */
     public void clearHisList(final List<SearchHistory.DataBean> hisList, String user, final SearchHisAdapter mAdapter) {
-        mainMapYHRequestModel.clearSearchHis(user, new CommonObserver<Object>() {
+        mainMapYHRequestModel.clearSearchHis(user, new WavenetCallBack() {
+            @Override
+            public void onError(int id, String errorCode, String error) {
+                ToastUtils.showToast(error);
+            }
+
+            @Override
+            public void onSuccess(int id, JSONObject result) {
+                hisList.clear();
+                mAdapter.notifyDataSetChanged();
+                if (getmMvpView() != null) {
+                    getmMvpView().resultSuccessMAP(4, result.toString());
+                    getmMvpView().hide();
+                }
+                ToastUtils.showToast("清空成功！");
+            }
+        });
+       /* new CommonObserver<Object>() {
             @Override
             protected void onError(String errorMsg) {
                 ToastUtils.showToast(errorMsg);
@@ -559,6 +604,6 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
                 }
                 ToastUtils.showToast("清空成功！");
             }
-        });
+        }*/
     }
 }
