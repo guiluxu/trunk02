@@ -9,6 +9,7 @@ import com.dereck.library.observer.CommonObserver;
 import com.dereck.library.utils.RxHttpUtils;
 import com.wavenet.ding.qpps.api.ApiService;
 import com.wavenet.ding.qpps.db.WavenetCallBack;
+import com.wavenet.ding.qpps.http.PostFormBuilder;
 import com.wavenet.ding.qpps.utils.AppConfig;
 import com.wavenet.ding.qpps.utils.AppTool;
 import com.wavenet.ding.qpps.utils.LogUtils;
@@ -23,14 +24,20 @@ import static com.zhy.http.okhttp.OkHttpUtils.post;
 
 public class MainMapYHRequestModel {
 
-    public void requestFile(Map<String, Object> map, ArrayList<File> arrayList, CommonObserver<Object> callback) {
-        RxHttpUtils.uploadImgsWithParams(AppConfig.BeasUrl+"2083/file/upload/SSYH", "file", map, arrayList)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-        Log.d("养护_requestFile：  " , AppConfig.BeasUrl+"2083/file/upload/SSYH");
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
+    public void requestFile(Map<String, String> map, ArrayList<File> arrayList, WavenetCallBack callback) {
+        String url = AppConfig.BeasUrl1+"/file/addYhImg";
+//        RxHttpUtils.uploadImgsWithParams(AppConfig.BeasUrl1+"/file/addYhImg", "file", map, arrayList)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
+        new PostFormBuilder().files("files", arrayList)
+                .url(url)
+                .params(map)
+                .build()
+                .execute(callback);
+        Log.d("养护_requestFile：  " , AppConfig.BeasUrl1+"/file/addYhImg");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue().toString();
+            String value = entry.getValue();
             Log.d("养护_requestFile：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
         for (int i = 0; i < arrayList.size(); i++) {

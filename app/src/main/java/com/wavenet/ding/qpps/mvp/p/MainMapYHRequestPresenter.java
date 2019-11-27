@@ -46,13 +46,31 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
     }
 
     //正常上传附件
-    public void reporFile(final int what, final Map<String, Object> map, ArrayList<File> arrayList,
+    public void reporFile(final int what, final Map<String, String> map, ArrayList<File> arrayList,
                           final String audioPath, final String videoPath, final ArrayList<String> imgPaths) {
         if (getmMvpView() != null) {
             getmMvpView().show();
         }
 
-        mainMapYHRequestModel.requestFile(map, arrayList, new CommonObserver<Object>() {
+        mainMapYHRequestModel.requestFile(map, arrayList, new WavenetCallBack() {
+            @Override
+            public void onError(int id, String errorCode, String error) {
+                if (getmMvpView() != null) {
+                    Log.e("onError",error);
+                    getmMvpView().hide();
+                    getmMvpView().resultFailure(what, error, map, audioPath, videoPath, imgPaths);
+                }
+            }
+
+            @Override
+            public void onSuccess(int id, JSONObject result) {
+                if (getmMvpView() != null) {
+                    Log.e("onSuccess文件",result.toString());
+                    getmMvpView().resultSuccess(what, result.toString());
+                    getmMvpView().hide();
+                }
+            }
+        }/*new CommonObserver<Object>() {
 
 
             @Override
@@ -74,7 +92,7 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
                     getmMvpView().hide();
                 }
             }
-        });
+        }*/);
     }
 
     /**************************上传附件失败重新上传  开始**********************/
@@ -126,7 +144,7 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
         String audioPath = xjResult.getAudioUrl();
         List<FilePath> filePaths = xjResult.getImagePaths();
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
 
         map.put("x", x);
         map.put("y", y);
@@ -150,10 +168,23 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
         reporFile(context, xjResults, map, arrayList, index);
     }
 
-    public void reporFile(final Context context, final List<FailYHResult> xjResults, final Map<String, Object> map,
+    public void reporFile(final Context context, final List<FailYHResult> xjResults, final Map<String, String> map,
                           ArrayList<File> arrayList, final int index) {
 
-        mainMapYHRequestModel.requestFile(map, arrayList, new CommonObserver<Object>() {
+        mainMapYHRequestModel.requestFile(map, arrayList, new WavenetCallBack() {
+            @Override
+            public void onError(int id, String errorCode, String error) {
+                fileRequest(context, xjResults, index + 1);
+            }
+
+            @Override
+            public void onSuccess(int id, JSONObject result) {
+                xjResults.get(index).setIsSave(true);
+                DBManager.getFailYHDao(context).update(xjResults.get(index));
+
+                fileRequest(context, xjResults, index + 1);
+            }
+        }/*new CommonObserver<Object>() {
 
             @Override
             protected void onError(String errorMsg) {
@@ -168,7 +199,7 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
 
                 fileRequest(context, xjResults, index + 1);
             }
-        });
+        }*/);
     }
 
     private void showTipDialog(final Context context, String tip, final List<FailYHResult> successResults) {

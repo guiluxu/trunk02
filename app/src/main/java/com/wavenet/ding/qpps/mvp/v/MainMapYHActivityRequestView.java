@@ -16,9 +16,9 @@ public interface MainMapYHActivityRequestView extends IMvpBaseView {
 
     void resultFailure(int what, String result);
 
-    void resultFailure(int what, String result, Map<String, Object> map, String audioPath, String videoPath, ArrayList<String> imgPaths);
+    void resultFailure(int what, String result, Map<String, String> map, String audioPath, String videoPath, ArrayList<String> imgPaths);
 
-    void resultSuccess(int what, ResponseBody result);
+    void resultSuccess(int what, String result);
 
 
     void resultStringSuccess(int what, String result);

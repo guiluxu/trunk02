@@ -992,10 +992,10 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                         return;
                     }
                     Gps g1 = PositionUtil.gcj_To_Gps84(MyServiceYH.aMapLocation.getLatitude(), aMapLocation.getLongitude());
-                    Map<String, Object> map = new HashMap<>();
+                    Map<String, String> map = new HashMap<>();
                     map.put("x", String.valueOf(g1.getWgLat()));
                     map.put("y", String.valueOf(g1.getWgLon()));
-                    map.put("relyid", SPUtil.getInstance(this).getStringValue(SPUtil.YHID));
+                    map.put("reyId", SPUtil.getInstance(this).getStringValue(SPUtil.YHID));
                     ArrayList<File> arrayList1 = new ArrayList<>();
                     ArrayList<String> imgList = new ArrayList<>();
                     String audioPath = null;
@@ -1026,7 +1026,7 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                     }
 
                     map.put("yxfa", String.valueOf(System.currentTimeMillis()));
-                    map.put("S_TYPE", mTvclaphoto.getText().toString());
+                    map.put("sType", mTvclaphoto.getText().toString());
                     map.put("S_DESC", et_contentdeal.getText().toString());
                     if (flag == 2) {//上报
                         presenter.reporFile(2, map, arrayList1, audioPath, videoPath, imgList);
@@ -1396,14 +1396,14 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
     }
 
     @Override
-    public void resultFailure(int what, String result, Map<String, Object> map, String audioPath,
+    public void resultFailure(int what, String result, Map<String, String> map, String audioPath,
                               String videoPath, ArrayList<String> imgPaths) {
-        double x = (double) map.get("x");
-        double y = (double) map.get("y");
-        String relyid = (String) map.get("relyid");
-        long yxfa = (long) map.get("yxfa");
-        String sType = (String) map.get("S_TYPE");
-        String sDesc = (String) map.get("S_DESC");
+        double x = Double.parseDouble(map.get("x"));
+        double y = Double.parseDouble(map.get("y"));
+        String relyid = map.get("relyid");
+        long yxfa = Long.parseLong(map.get("yxfa"));
+        String sType = map.get("S_TYPE");
+        String sDesc = map.get("S_DESC");
 
 
         if (what == 1) {//开始养护时上传附件失败处理
@@ -1444,16 +1444,16 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
     }
 
     @Override
-    public void resultSuccess(int what, ResponseBody result) {
-        Log.e("MainMapYHActivity:",result.toString());
+    public void resultSuccess(int what, String result) {
+        Log.e("MainMapYHActivity:",result);
         switch (what) {
             case 1://开始养护上传附件
 
-                try {
-                    msg = result.string();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+                    msg = result;
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
 
                 if (msg.contains("failed")) {
@@ -1489,11 +1489,11 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                 break;
             case 2://上报养护上传附件
             case 3://结束养护上传附件
-                try {
-                    msg = result.string();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+                    msg = result;
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 if (msg.contains("failed")) {
 //                    ToastUtils.showToast("提交失败,请重试");
                     showTipDialog(2);
@@ -1783,12 +1783,12 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                     }
                     if (aMapLocation != null) {
                         if (allimages.size() > 0) {
-                            Map<String, Object> map = new HashMap<>();
+                            Map<String, String> map = new HashMap<>();
                             //把高德经纬度转换为84
                             Gps g = PositionUtil.gcj_To_Gps84(aMapLocation.getLatitude(), aMapLocation.getLongitude());
                             map.put("x", String.valueOf(g.getWgLat()));
                             map.put("y", String.valueOf(g.getWgLon()));
-                            map.put("relyid", SPUtil.getInstance(MainMapYHActivity.this).getStringValue(SPUtil.YHID));
+                            map.put("reyId", SPUtil.getInstance(MainMapYHActivity.this).getStringValue(SPUtil.YHID));
                             ArrayList<File> arrayList = new ArrayList<>();
                             ArrayList<String> imgList = new ArrayList<>();
                             String audioPath = null;
@@ -1811,7 +1811,7 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
                                 }
                             }
                             map.put("yxfa", String.valueOf(System.currentTimeMillis()));
-                            map.put("S_TYPE", mTvclaphotostart.getText().toString());
+                            map.put("sType", mTvclaphotostart.getText().toString());
                             map.put("S_DESC", et_contentdealstart.getText().toString());
                             show();
                             presenter.reporFile(1, map, arrayList, audioPath, videoPath, imgList);
