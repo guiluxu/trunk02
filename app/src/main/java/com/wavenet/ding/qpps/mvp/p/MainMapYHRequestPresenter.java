@@ -35,6 +35,8 @@ import java.util.Map;
 
 import okhttp3.ResponseBody;
 
+import static cn.jpush.android.api.JPushInterface.ErrorCode.s;
+
 public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivityRequestView> {
 
     private final MainMapYHRequestModel mainMapYHRequestModel;
@@ -288,34 +290,50 @@ public class MainMapYHRequestPresenter extends BaseMvpPersenter<MainMapYHActivit
     }
 
 
-    public void userFinishTask(final int what, String id, Map<String, Object> map) {
+    public void userFinishTask(final int what, String id, Map<String, String> map) {
         if (getmMvpView() != null) {
             getmMvpView().show();
         }
 
-        mainMapYHRequestModel.userFinishTask(id, map, new CommonObserver<Object>() {
-
-
+        mainMapYHRequestModel.userFinishTask(id, map, new WavenetCallBack() {
             @Override
-            protected void onError(String errorMsg) {
-                //业务处理
-                if (getmMvpView() != null) {
-                    getmMvpView().hide();
-                    getmMvpView().resultFailure(what, errorMsg);
+            public void onError(int id, String errorCode, String error) {
+                    if (getmMvpView() != null) {
+                        getmMvpView().hide();
+                        getmMvpView().resultFailure(what, error);
+                        Log.e("onError",error);
+                    }
                 }
 
-            }
-
-            @Override
-            protected void onSuccess(Object s) {
-                //业务处理
-                if (getmMvpView() != null) {
-                    getmMvpView().resultStringSuccess(what, (String) s);
-                    getmMvpView().hide();
-
-
+                @Override
+                public void onSuccess ( int id, JSONObject result) {
+                    if (getmMvpView() != null) {
+                        Log.e("onSuccess",result.toString());
+                        getmMvpView().resultStringSuccess(what, result.toString());
+                        getmMvpView().hide();
+                    }
                 }
-            }
+
+//            @Override
+//            protected void onError(String errorMsg) {
+//                //业务处理
+//                if (getmMvpView() != null) {
+//                    getmMvpView().hide();
+//                    getmMvpView().resultFailure(what, errorMsg);
+//                }
+//
+//            }
+//
+//            @Override
+//            protected void onSuccess(Object s) {
+//                //业务处理
+//                if (getmMvpView() != null) {
+//                    getmMvpView().resultStringSuccess(what, (String) s);
+//                    getmMvpView().hide();
+//
+//
+//                }
+//            }
         });
     }
 

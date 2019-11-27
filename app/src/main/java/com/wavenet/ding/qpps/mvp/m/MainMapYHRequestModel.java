@@ -88,17 +88,22 @@ public class MainMapYHRequestModel {
         }
     }
 
-    public void userFinishTask(String id, Map<String, Object> map, CommonObserver<Object> callback) {
-        map.put("S_RECODE_ID",id);
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .userFinishTask(AppConfig.BeasUrl+"2056/api/CuringRecode/UpdateCuringRecode", map)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
-        Log.d("养护_userFinishTask：  " , AppConfig.BeasUrl+"2056/api/CuringRecode/UpdateCuringRecode");
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
+    public void userFinishTask(String id, Map<String, String> map, WavenetCallBack callback) {
+        map.put("sRecodeId",id);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .userFinishTask(AppConfig.BeasUrl+"2056/api/CuringRecode/UpdateCuringRecode", map)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
+        post()
+                .url(AppConfig.BeasUrl1+"/curingCode/updateCuringRecode")
+                .params(map)
+                .build()
+                .execute(callback);
+        Log.d("养护_userFinishTask：  " , AppConfig.BeasUrl1+"/curingCode/updateCuringRecode");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue().toString();
+            String value = entry.getValue();
             Log.d("养护_userFinishTask：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
     }

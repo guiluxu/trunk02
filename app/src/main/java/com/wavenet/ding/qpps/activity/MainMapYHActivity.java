@@ -1520,22 +1520,21 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
 
                     if (finishTag) {//如果是结束按钮
                         mLoadingWaitView.loadView();
-                        Map<String, Object> map = new HashMap<>();
+                        map = new HashMap<>();
 
-                        map.put("T_ENDTM",AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS));
-                        map.put("S_TASK_STATUS", "W1007800001");
+                        map.put("tEndtm",AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS));
+                        map.put("sTaskStatus", "W1007800001");
 
 
                         if (tvDistance.getText().toString().contains("Km")
                                 ) {
                             double km = Double.parseDouble(tvDistance.getText().toString().replace("Km", ""));
 
-                            map.put("N_MILEAGE", km * 1000);
-
+                            map.put("nMileage", String.valueOf(km * 1000));
 
                         } else {
 
-                            map.put("N_MILEAGE", Double.parseDouble(tvDistance.getText().toString().replace("m", "")));
+                            map.put("nMileage", String.valueOf(Double.parseDouble(tvDistance.getText().toString().replace("m", ""))));
 
                         }
 //                        map.put("N_MILEAGE", 10682.46);33
@@ -1641,22 +1640,22 @@ public class MainMapYHActivity extends BaseMvpActivity<MainMapYHActivityRequestV
 
                         if (finishTag) {//如果是结束按钮
                             mLoadingWaitView.loadView();
-                            Map<String, Object> map = new HashMap<>();
+                            map = new HashMap<>();
 
-                            map.put("T_ENDTM", AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS));
-                            map.put("S_TASK_STATUS", "W1007800001");
+                            map.put("tEndtm", AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS));
+                            map.put("sTaskStatus", "W1007800001");
 
 
                             if (tvDistance.getText().toString().contains("Km")
                                     ) {
                                 double km = Double.parseDouble(tvDistance.getText().toString().replace("Km", ""));
 
-                                map.put("N_MILEAGE", km * 1000);
+                                map.put("nMileage", String.valueOf(km * 1000));
 
 
                             } else {
 
-                                map.put("N_MILEAGE", Double.parseDouble(tvDistance.getText().toString().replace("m", "")));
+                                map.put("nMileage", String.valueOf(Double.parseDouble(tvDistance.getText().toString().replace("m", ""))));
 
                             }
 //                        map.put("N_MILEAGE", 10682.46);33
