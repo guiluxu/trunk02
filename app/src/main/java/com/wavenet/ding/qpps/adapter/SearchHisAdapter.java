@@ -49,12 +49,12 @@ public class SearchHisAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (holder != null) {
             if (holder instanceof HisViewHolder) {
                 HisViewHolder hisViewHolder = (HisViewHolder) holder;
-                hisViewHolder.tvHis.setText(mHisList.get(position).getSEARCHVALUE());
+                hisViewHolder.tvHis.setText(mHisList.get(position).getSearchValue());
                 hisViewHolder.layoutHis.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (listener != null) {
-                            listener.onItemClick(v, mHisList.get(position).getSEARCHVALUE());
+                            listener.onItemClick(v, mHisList.get(position).getSearchValue());
                         }
                     }
                 });

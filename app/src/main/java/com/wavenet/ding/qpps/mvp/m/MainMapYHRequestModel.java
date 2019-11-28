@@ -155,7 +155,7 @@ public class MainMapYHRequestModel {
                 .AdminGetObjectIds(urlstr)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
+        Log.d("养护_AdminGetObjectIds：  " , urlstr);
     }
 
     public void AdminGetObjectDetails(int url, String ids, String filterkey, CommonObserver<Object> callback) {
@@ -165,7 +165,7 @@ public class MainMapYHRequestModel {
                 .AdminGetObjectDetails(urlstr)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);
-
+        Log.d("养护_AdminGetObjectDetails：  " , urlstr);
     }
 
     //废弃
