@@ -26,12 +26,12 @@ import java.util.List;
 public class TasklistRecordAdapter1 extends RecyclerView.Adapter<TasklistRecordAdapter1.TasklistRecordViewHolder> {
     //
     public static String id = "";
-    List<ListBean.PATROLMANAGEMENTBean> mListBeen;
+    List<ListBean.DataBean> mListBeen;
     OnItemClickListener mOnItemClickListener;
     private Context mContext;
     private SpannableString textv;
 
-    public TasklistRecordAdapter1(Context context, List<ListBean.PATROLMANAGEMENTBean> mbean) {
+    public TasklistRecordAdapter1(Context context, List<ListBean.DataBean> mbean) {
         this.mContext = context;
         this.mListBeen = mbean;
 
@@ -58,7 +58,7 @@ public class TasklistRecordAdapter1 extends RecyclerView.Adapter<TasklistRecordA
     @Override
     public void onBindViewHolder(final TasklistRecordViewHolder holder, final int position) {
         holder.itemView.setTag(position);
-        ListBean.PATROLMANAGEMENTBean b = mListBeen.get(position);
+        ListBean.DataBean b = mListBeen.get(position);
         holder.imageView2.setVisibility(View.VISIBLE);
 //        W1006500001 未派遣
 //        W1006500002 已派遣
@@ -68,45 +68,45 @@ public class TasklistRecordAdapter1 extends RecyclerView.Adapter<TasklistRecordA
 //        W1006500006 已退单
 
         holder.imageView2.setVisibility(View.VISIBLE);
-        if ("W1006500001".equals(b.S_STATUS)) {
+        if ("W1006500001".equals(b.sStatus)) {//S_STATUS
 //            cacheView.imageView1.setVisibility(View.INVISIBLE);
             holder.imageView2.setImageResource(R.mipmap.ico_lishi_weipq);
-        } else if ("W1006500002".equals(b.S_STATUS)) {
+        } else if ("W1006500002".equals(b.sStatus)) {
             holder.imageView2.setImageResource(R.mipmap.ico_lishi_yipq);
-        } else if ("W1006500003".equals(b.S_STATUS)) {
+        } else if ("W1006500003".equals(b.sStatus)) {
             holder.imageView2.setImageResource(R.mipmap.ico_lishi_zhixz);
-        } else if ("W1006500004".equals(b.S_STATUS)) {
+        } else if ("W1006500004".equals(b.sStatus)) {
             holder.imageView2.setImageResource(R.mipmap.ico_lishi_yiwc);
-        } else if ("W1006500005".equals(b.S_STATUS)) {
+        } else if ("W1006500005".equals(b.sStatus)) {
             holder.imageView2.setImageResource(R.mipmap.ico_lishi_yijj);
-        } else if ("W1006500006".equals(b.S_STATUS)) {
+        } else if ("W1006500006".equals(b.sStatus)) {
             holder.imageView2.setImageResource(R.mipmap.ico_lishi_yitd);
         } else {
             holder.imageView2.setVisibility(View.GONE);
         }
-        if (b.T_IN_DATE != null) {
+        if (b.tInDate!= null) {//T_IN_DATE
 
-            if (b.T_IN_DATE.length() > 10) {
-                holder.textview1.setText(AppTool.getNullStr(b.T_IN_DATE).substring(0, 16).replace("/", "-"));
+            if (b.tInDate.length() > 10) {
+                holder.textview1.setText(AppTool.getNullStr(b.tInDate).substring(0, 16).replace("/", "-"));
 
             } else {
-                holder.textview1.setText(AppTool.getNullStr(b.T_IN_DATE).replace("/", "-"));
+                holder.textview1.setText(AppTool.getNullStr(b.tInDate).replace("/", "-"));
 
             }
 
         }
 
 
-        holder.textview2.setText(AppTool.getNullStr(b.S_SOURCE_CN));
-        holder.textview3.setText(AppTool.getNullStr(b.S_NAME));
-        holder.textview4.setText(AppTool.getNullStr(b.S_CATEGORY_CN));
-        holder.textview5.setText(AppTool.getNullStr(b.S_TYPE_CN));
+        holder.textview2.setText(AppTool.getNullStr(b.sSourceCn));//S_SOURCE_CN
+        holder.textview3.setText(AppTool.getNullStr(b.sName));//S_NAME
+        holder.textview4.setText(AppTool.getNullStr(b.sCategoryCn));//S_CATEGORY_CN
+        holder.textview5.setText(AppTool.getNullStr(b.sTypeCn));//S_TYPE_CN
         RequestOptions options = new RequestOptions()
                 .fitCenter();
-        if (!AppTool.isNull(b.S_MANGE_ID)) {
+        if (!AppTool.isNull(b.sMangeId)) {//S_MANGE_ID
 
             Glide.with(mContext)
-                    .load(AppConfig.BeasUrl+"2083/file/down/SJSB?relyid=" + b.S_SJSB_ID).apply(options)
+                    .load(AppConfig.BeasUrl+"2083/file/down/SJSB?relyid=" + b.sSjsbId).apply(options)//S_SJSB_ID
                     .into(holder.imageView1);
         } else {
             Glide.with(mContext)
@@ -114,7 +114,7 @@ public class TasklistRecordAdapter1 extends RecyclerView.Adapter<TasklistRecordA
                     .into(holder.imageView1);
         }
 
-        LogUtils.e("图片", AppConfig.BeasUrl+"2083/file/down/SJSB?relyid=" + b.S_MANGE_ID);
+        LogUtils.e("图片", AppConfig.BeasUrl+"2083/file/down/SJSB?relyid=" + b.sMangeId);//S_MANGE_ID
 
 
     }

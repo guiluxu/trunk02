@@ -42,7 +42,7 @@ public class XJRecordActivity extends BaseMvpActivity<XJActivityRequestView, XJR
     PullToRefreshRecyclerView wxRecyclerview;
     //    ListView mLvrecord;
     TasklistRecordAdapter1 mTradapter;
-    List<ListBean.PATROLMANAGEMENTBean> mBeanList = new ArrayList<>();
+    List<ListBean.DataBean> mBeanList = new ArrayList<>();
 
     ControllerXJRecordSelecetTop SelecetTop;
     Map<String, Object> filterMap = new HashMap<>();
@@ -217,10 +217,10 @@ public class XJRecordActivity extends BaseMvpActivity<XJActivityRequestView, XJR
                     try {
                         ListBean tasklistBean = new Gson().fromJson(result, ListBean.class);
 
-                        if (tasklistBean.PATROL_MANAGEMENT != null) {
+                        if (tasklistBean.data != null) {
                             wxRecyclerview.setVisibility(View.VISIBLE);
                             mBeanList.clear();
-                            mBeanList.addAll(tasklistBean.PATROL_MANAGEMENT);
+                            mBeanList.addAll(tasklistBean.data);
                             mTradapter.notifyDataSetChanged();
                         } else {
 

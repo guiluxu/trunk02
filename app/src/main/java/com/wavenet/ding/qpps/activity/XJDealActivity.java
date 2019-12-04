@@ -145,7 +145,7 @@ public class XJDealActivity extends BaseMvpActivity<XJActivityRequestView, XJDea
                     ToastUtils.showToast("请选择上报的图片");
                     return;
                 }
-                MainMapXJActivity.g=new Gps(Double.parseDouble(bv.N_Y),Double.parseDouble(bv.N_X));
+                MainMapXJActivity.g=new Gps(Double.parseDouble(bv.nY),Double.parseDouble(bv.nX));
                 EventBus.getDefault().post(MapUtil.czdw);
 
                 //图片上传参数用到这个坐标
@@ -187,34 +187,34 @@ public class XJDealActivity extends BaseMvpActivity<XJActivityRequestView, XJDea
         mCameraView.onActivityResult(requestCode,resultCode,data);
 
     }
-    ListBean.PATROLMANAGEMENTBean bv;
+    ListBean.DataBean bv;
     public void initDatadaily(ListBean b) {
-        ListBean.PATROLMANAGEMENTBean bv = b.PATROL_MANAGEMENT.get(0);
+        ListBean.DataBean bv = b.data.get(0);
         this.bv=bv;
         mTvuser.setText(SPUtil.getInstance(this).getStringValue(SPUtil.APP_MYNAME));
         UTCTime = AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS);
         mTvdealtime.setText(AppTool.getCurrentDate(AppTool.FORMAT_YMDHM));
 //        mTvname.setText(AppTool.getNullStr(bv.S_NAME));
         mRlname.setVisibility(GONE);
-        mTvsource.setText(AppTool.getNullStr(bv.S_SOURCE_CN));
-        mTvstate.setText(AppTool.getNullStr(bv.S_STATUS_CN));
-        mTvrecordtime.setText(AppTool.setTvTime(bv.T_IN_DATE));// TODO 时间要处理
+        mTvsource.setText(AppTool.getNullStr(bv.sSourceCn));//S_SOURCE_CN
+        mTvstate.setText(AppTool.getNullStr(bv.sStatusCn));//S_STATUS_CN
+        mTvrecordtime.setText(AppTool.setTvTime(bv.tInDate));//T_IN_DATE// TODO 时间要处理
 //       mTvpaitime.setText(AppTool.setTvTime(bv.T_IN_DATE));
 //        mTvjinji.setText(AppTool.getNullStr(bv.S_EMERGENCY_CN));
         mRljinji.setVisibility(GONE);
-        mTvclabig.setText(AppTool.getNullStr(bv.S_CATEGORY_CN));
-        mTvclasmall.setText(AppTool.getNullStr(bv.S_TYPE_CN));
-        mTvaddr.setText(AppTool.getNullStr(bv.S_LOCAL));
-        if (AppTool.isNull(bv.S_DESC)) {
+        mTvclabig.setText(AppTool.getNullStr(bv.sCategoryCn));//S_CATEGORY_CN;
+        mTvclasmall.setText(AppTool.getNullStr(bv.sTypeCn));//S_TYPE_CN;
+        mTvaddr.setText(AppTool.getNullStr(bv.sLocal));//S_LOCAL
+        if (AppTool.isNull(bv.sDesc)) {//S_DESC
             mTvdetailreport.setText("无");
         } else {
-            mTvdetailreport.setText(bv.S_DESC);
+            mTvdetailreport.setText(bv.sDesc);
 
         }
-        mLlcameraSB.setVisibility(GONE);
-        if (!AppTool.isNull(bv.IS_SJSB_FJ) && "1".equals(bv.IS_SJSB_FJ) && !AppTool.isNull(bv.S_SJSB_ID)) {
+        mLlcameraSB.setVisibility(GONE);//IS_SJSB_FJ//S_SJSB_ID
+        if (!AppTool.isNull(bv.isSjczFj) && "1".equals(bv.isSjczFj) && !AppTool.isNull(bv.sSjsbId)) {
             mLlcameraSB.setVisibility(View.VISIBLE);
-            presenter.RequestFileDetailsPhoto(bv.S_SJSB_ID);
+            presenter.RequestFileDetailsPhoto(bv.sSjsbId);
         }
 
 //        mActivity.presenter.RequestRefuselist(bv.S_MANGE_ID);//退单、拒绝列表信息
@@ -255,7 +255,7 @@ public class XJDealActivity extends BaseMvpActivity<XJActivityRequestView, XJDea
                         return;
                     }
                         ListBean taskldetailBean = new Gson().fromJson(result, ListBean.class);
-                        if (taskldetailBean==null||taskldetailBean.PATROL_MANAGEMENT==null||taskldetailBean.PATROL_MANAGEMENT.size()==0){
+                        if (taskldetailBean==null||taskldetailBean.data==null||taskldetailBean.data.size()==0){
                             ToastUtils.showToast("数据为空");
                             return;
                         }

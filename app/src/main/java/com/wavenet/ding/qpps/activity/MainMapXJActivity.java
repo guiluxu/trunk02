@@ -1032,8 +1032,8 @@ try {
                     break;
                 case 20://上报完成后主动领取任务处置确定后查询任务详情接口回调
                     ListBean taskldetailBean = new Gson().fromJson(result, ListBean.class);
-                    if (!"200".equals(taskldetailBean.Code)){
-                        ToastUtils.showToast(taskldetailBean.Msg);
+                    if (!"200".equals(taskldetailBean.code)){
+                        ToastUtils.showToast(taskldetailBean.msg);
                         return;
                     }
                     mTaskDealView.showView(true);
@@ -1041,8 +1041,8 @@ try {
                     break;
                 case 21:
                     ListBean taskldetailBean1 = new Gson().fromJson(result, ListBean.class);
-                    if (!"200".equals(taskldetailBean1.Code)){
-                        ToastUtils.showToast(taskldetailBean1.Msg);
+                    if (!"200".equals(taskldetailBean1.code)){
+                        ToastUtils.showToast(taskldetailBean1.msg);
                         return;
                     }
 //                        mTaskDealView.showView(true);

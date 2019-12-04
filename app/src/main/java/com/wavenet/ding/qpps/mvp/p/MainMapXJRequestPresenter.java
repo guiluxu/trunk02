@@ -1067,7 +1067,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                     } else {
                         requestData(1, 19, errorMsg);
                     }
-
+                    Log.e("MOD-PclickRequestIsDealE",errorMsg);
                 }
 
             }

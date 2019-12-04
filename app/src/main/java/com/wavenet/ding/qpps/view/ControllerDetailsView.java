@@ -156,29 +156,30 @@ public class ControllerDetailsView extends LinearLayout implements View.OnClickL
         if (b == null) {
             return;
         }
-        ListBean.PATROLMANAGEMENTBean bv = b.PATROL_MANAGEMENT.get(0);
+        ListBean.DataBean bv = b.data.get(0);
         setVisibility(VISIBLE);
         mTvuser.setText(SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
-        mTvtime.setText(AppTool.getNullStr(bv.T_IN_DATE));
-        mTvsource.setText(AppTool.getNullStr(bv.S_SOURCE_CN));
-        mTvstate.setText(AppTool.getNullStr(bv.S_STATUS_CN));
-        mTvclabig.setText(AppTool.getNullStr(bv.S_CATEGORY_CN));
-        mTvclasmall.setText(AppTool.getNullStr(bv.S_TYPE_CN));
-        mTvaddr.setText(AppTool.getNullStr(bv.S_LOCAL));
-        if (AppTool.isNull(bv.S_DESC)) {
+        mTvtime.setText(AppTool.getNullStr(bv.tInDate));//T_IN_DATE
+        mTvsource.setText(AppTool.getNullStr(bv.sSourceCn));//S_SOURCE_CN
+        mTvstate.setText(AppTool.getNullStr(bv.sStatusCn));//S_STATUS_CN
+        mTvclabig.setText(AppTool.getNullStr(bv.sCategoryCn));//S_CATEGORY_CN
+        mTvclasmall.setText(AppTool.getNullStr(bv.sTypeCn));//S_TYPE_CN
+        mTvaddr.setText(AppTool.getNullStr(bv.sLocal));//S_LOCAL
+        if (AppTool.isNull(bv.sDesc)) {//S_DESC
             mTvdetailreport.setText("无");
         } else {
-            mTvdetailreport.setText(bv.S_DESC);
+            mTvdetailreport.setText(bv.sDesc);//S_DESC
 
         }
-        if (!AppTool.isNull(bv.IS_SJSB_FJ) && "1".equals(bv.IS_SJSB_FJ) && !AppTool.isNull(bv.S_SJSB_ID)) {
+        //IS_SJSB_FJ/S_SJSB_ID
+        if (!AppTool.isNull(bv.isSjsbFj) && "1".equals(bv.isSjsbFj) && !AppTool.isNull(bv.sSjsbId)) {
             mRvcamera.setVisibility(View.VISIBLE);
-            mActivity.presenter.RequestFileDetailsPhoto1(bv.S_SJSB_ID);
+            mActivity.presenter.RequestFileDetailsPhoto1(bv.sSjsbId);
         }
         mTvuser.setText(SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
 
-        MainMapXJActivity.g = new Gps(Double.parseDouble(bv.N_X), Double.parseDouble(bv.N_Y));
-        this.mS_MANGE_ID = bv.S_MANGE_ID;
+        MainMapXJActivity.g = new Gps(Double.parseDouble(bv.nX), Double.parseDouble(bv.nY));
+        this.mS_MANGE_ID = bv.sMangeId;//S_MANGE_ID
 //        mActivity.presenter.RequestISDeal(tb.S_MANGE_ID);
 //        if (tb.fileUrls != null && tb.fileUrls.size() > 0) {
 //            setPhotonotifyData(tb.fileUrls);

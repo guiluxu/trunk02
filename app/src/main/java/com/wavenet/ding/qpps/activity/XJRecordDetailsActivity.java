@@ -118,15 +118,15 @@ public class XJRecordDetailsActivity extends BaseMvpActivity<XJActivityRequestVi
 
     @Override
     public void requestData() {
-        ListBean.PATROLMANAGEMENTBean bv = (ListBean.PATROLMANAGEMENTBean) getIntent().getExtras().getSerializable("mBeanList");
-        mTvname.setText(bv.S_NAME);
+        ListBean.DataBean bv = (ListBean.DataBean) getIntent().getExtras().getSerializable("mBeanList");
+        mTvname.setText(bv.sName);//S_NAME
 
-        mTvdealtime.setText(AppTool.setTvTime(bv.T_MANGE_TIME));
+        mTvdealtime.setText(AppTool.setTvTime(bv.tMangeTime));//T_MANGE_TIME
 
 
-        if (bv.S_MANGE_FULL != null) {
+        if (bv.sMangeFull != null) {//S_MANGE_FULL
 
-            mTvuser.setText(AppTool.getNullStr(bv.S_MANGE_FULL));
+            mTvuser.setText(AppTool.getNullStr(bv.sMangeFull));//S_MANGE_FULL
 
         } else {
 
@@ -134,43 +134,43 @@ public class XJRecordDetailsActivity extends BaseMvpActivity<XJActivityRequestVi
 
         }
 
-        mTvsource.setText(AppTool.getNullStr(bv.S_SOURCE_CN));
-        mTvjinji.setText(AppTool.getNullStr(bv.S_EMERGENCY_CN));
-        mTvstate.setText(AppTool.getNullStr(bv.S_STATUS_CN));
-        mTvclabig.setText(AppTool.getNullStr(bv.S_CATEGORY_CN));
-        mTvclasmall.setText(AppTool.getNullStr(bv.S_TYPE_CN));
-        mTvaddr.setText(AppTool.getNullStr(bv.S_LOCAL));
-        if (AppTool.isNull(bv.S_DESC)) {
+        mTvsource.setText(AppTool.getNullStr(bv.sSourceCn));//S_SOURCE_CN
+        mTvjinji.setText(AppTool.getNullStr(bv.sEmergencyCn));//S_EMERGENCY_CN
+        mTvstate.setText(AppTool.getNullStr(bv.sStatusCn));//S_STATUS_CN
+        mTvclabig.setText(AppTool.getNullStr(bv.sCategoryCn));//S_CATEGORY_CN
+        mTvclasmall.setText(AppTool.getNullStr(bv.sTypeCn));//S_TYPE_CN
+        mTvaddr.setText(AppTool.getNullStr(bv.sLocal));//S_LOCAL
+        if (AppTool.isNull(bv.sDesc)) {//S_DESC
             mTvdetailreport.setText("无");
         } else {
-            mTvdetailreport.setText(bv.S_DESC);
+            mTvdetailreport.setText(bv.sDesc);//S_DESC
 
         }
-        if (AppTool.isNull(bv.S_MANGE_REMARK)) {
+        if (AppTool.isNull(bv.sMangeRemark)) {//S_MANGE_REMARK
             mTvdealdetail.setText("无");
         } else {
-            mTvdealdetail.setText(bv.S_MANGE_REMARK);
+            mTvdealdetail.setText(bv.sMangeRemark);//S_MANGE_REMARK
 
         }
-        mTvrecordtime.setText(AppTool.setTvTime(bv.T_IN_DATE));
-        mTvpaitime.setText(AppTool.setTvTime(bv.T_MANGE_TIME));
-        if ("W1006500004".equals(bv.S_SOURCE)) {
+        mTvrecordtime.setText(AppTool.setTvTime(bv.tInDate));//T_IN_DATE
+        mTvpaitime.setText(AppTool.setTvTime(bv.tMangeTime));//T_MANGE_TIME
+        if ("W1006500004".equals(bv.sSource)) {//S_SOURCE
             isShowDeal(true);
         } else {
             isShowDeal(false);
         }
-        presenter.RequestReportDetails(bv.S_MANGE_ID);
-        if (!AppTool.isNull(bv.IS_SJSB_FJ) && "1".equals(bv.IS_SJSB_FJ) && !AppTool.isNull(bv.S_SJSB_ID)) {
-            presenter.RequestFileDetailsPhoto(201, bv.S_SJSB_ID);
+        presenter.RequestReportDetails(bv.sMangeId);//S_MANGE_ID
+        if (!AppTool.isNull(bv.isSjsbFj) && "1".equals(bv.isSjsbFj) && !AppTool.isNull(bv.sSjsbId)) {//S_SJSB_ID
+            presenter.RequestFileDetailsPhoto(201, bv.sSjsbId);
         }
-        if (!AppTool.isNull(bv.IS_SJCZ_FJ) && "1".equals(bv.IS_SJCZ_FJ) && !AppTool.isNull(bv.S_SJCZ_ID)) {
-            presenter.RequestFileDetailsPhoto(202, bv.S_SJCZ_ID);
+        if (!AppTool.isNull(bv.isSjczFj) && "1".equals(bv.isSjczFj) && !AppTool.isNull(bv.sSjczId)) {//S_SJCZ_ID
+            presenter.RequestFileDetailsPhoto(202, bv.sSjczId);
         }
-        if (!AppTool.isNull(bv.IS_TD) && "1".equals(bv.IS_TD)) {
-            presenter.RequestTDlist(bv.S_MANGE_ID);
+        if (!AppTool.isNull(bv.isTd) && "1".equals(bv.isTd)) {//IS_TD
+            presenter.RequestTDlist(bv.sMangeId);//S_MANGE_ID
         }
-        if (!AppTool.isNull(bv.IS_JJ) && "1".equals(bv.IS_JJ)) {
-            presenter.RequestRefuselist(bv.S_MANGE_ID);
+        if (!AppTool.isNull(bv.isJj) && "1".equals(bv.isJj)) {
+            presenter.RequestRefuselist(bv.sMangeId);
         }
 
     }
