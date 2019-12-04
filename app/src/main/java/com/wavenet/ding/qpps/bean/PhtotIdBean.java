@@ -1,7 +1,5 @@
 package com.wavenet.ding.qpps.bean;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
@@ -10,68 +8,64 @@ import java.util.List;
 
 public class PhtotIdBean {
 
-    @SerializedName("app")
-    public List<AppBean> app;
+    /**
+     * code : 200
+     * msg : 成功
+     * data : [{"sId":"6c06c16873e9400494fce1f20c6a1f1d","reyId":"1575451744529xjtest","x":"121.53391096700342","y":"31.27850091555069","sType":"","tType":"","upDate":"2019-12-04 17:28:57","url":"/sjczUpload/1575451733591.jpg","contentType":"image/jpeg"}]
+     * _dt : 1575451737694
+     */
 
-    public static class AppBean {
+    private String code;
+    private String msg;
+    private long _dt;
+    public List<DataBean> data;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public long get_dt() {
+        return _dt;
+    }
+
+    public void set_dt(long _dt) {
+        this._dt = _dt;
+    }
+
+    public static class DataBean {
         /**
-         * fieldname : file
-         * originalname : magazine-unlock-01-2.3.1080-_2F9AC872A6F0BA8AAAE0F678DC7A8BE8.jpg
-         * encoding : 7bit
-         * mimetype : image/jpeg
-         * id : 5b7d8f574073ef13b45a62bd
-         * filename : magazine-unlock-01-2.3.1080-_2F9AC872A6F0BA8AAAE0F678DC7A8BE8.jpg
-         * metadata : {"x":"121.5339601560661","y":"31.278487081923988","relyid":"XJ1534926611097admin"}
-         * bucketName : SJSB
-         * chunkSize : 261120
-         * size : 48346
-         * md5 : f02f52fed3f9cb0605843265cc3a338a
-         * uploadDate : 2018-08-22T16:29:11.439Z
+         * sId : 6c06c16873e9400494fce1f20c6a1f1d
+         * reyId : 1575451744529xjtest
+         * x : 121.53391096700342
+         * y : 31.27850091555069
+         * sType :
+         * tType :
+         * upDate : 2019-12-04 17:28:57
+         * url : /sjczUpload/1575451733591.jpg
          * contentType : image/jpeg
          */
 
-        @SerializedName("fieldname")
-        public String fieldname;
-        @SerializedName("originalname")
-        public String originalname;
-        @SerializedName("encoding")
-        public String encoding;
-        @SerializedName("mimetype")
-        public String mimetype;
-        @SerializedName("id")
-        public String id;
-        @SerializedName("_id")
-        public String _id;
-        @SerializedName("filename")
-        public String filename;
-        @SerializedName("metadata")
-        public MetadataBean metadata;
-        @SerializedName("bucketName")
-        public String bucketName;
-        @SerializedName("chunkSize")
-        public int chunkSize;
-        @SerializedName("size")
-        public int size;
-        @SerializedName("md5")
-        public String md5;
-        @SerializedName("uploadDate")
-        public String uploadDate;
-        @SerializedName("contentType")
+        public String sId;
+        public String reyId;
+        public String x;
+        public String y;
+        public String sType;
+        public String tType;
+        public String upDate;
+        public String url;
         public String contentType;
 
-        public static class MetadataBean {
-            /**
-             * x : 121.5339601560661
-             * y : 31.278487081923988
-             * relyid : XJ1534926611097admin
-             */
-
-            @SerializedName("x")
-            public String x;
-            @SerializedName("y")
-            public String y;
-            @SerializedName("relyid")
-            public String relyid;
-        }
     }
 }

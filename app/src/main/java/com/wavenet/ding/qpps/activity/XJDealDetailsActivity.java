@@ -263,7 +263,7 @@ public class XJDealDetailsActivity extends BaseMvpActivity<XJActivityRequestView
                     break;
                 case 201:
                     PhtotIdBean mPhtotIdBean = new Gson().fromJson(result, PhtotIdBean.class);
-                    if (mPhtotIdBean.app.size() > 0) {
+                    if (mPhtotIdBean.data.size() > 0) {
                         mLlcameraSB.setVisibility(View.VISIBLE);
                         imaDatasSB.clear();
                         imaDatasSB.addAll(TaskBean.Builder().setFileUrls(mPhtotIdBean).fileUrls);
@@ -283,7 +283,7 @@ public class XJDealDetailsActivity extends BaseMvpActivity<XJActivityRequestView
                     PhtotIdBean mPhtotIdBean1 = new Gson().fromJson(result, PhtotIdBean.class);
                     imaDatasCZ.clear();
                     imaDatasCZ.addAll(TaskBean.Builder().setFileUrls1(mPhtotIdBean1).fileUrls);
-                    if (mPhtotIdBean1.app.size() > 0) {
+                    if (mPhtotIdBean1.data.size() > 0) {
                         mLlcameraCZ.setVisibility(View.VISIBLE);
                         mPhotoAdapterCZ.notifyDataSetChanged();
                         imaDatasCZphtot.clear();

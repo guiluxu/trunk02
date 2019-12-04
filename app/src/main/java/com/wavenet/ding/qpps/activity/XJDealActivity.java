@@ -264,7 +264,7 @@ public class XJDealActivity extends BaseMvpActivity<XJActivityRequestView, XJDea
                     break;
                 case 17://事件上报的图片信息
                     PhtotIdBean mPhtotIdBean3 = new Gson().fromJson(result, PhtotIdBean.class);
-                    if (mPhtotIdBean3.app.size() > 0) {
+                    if (mPhtotIdBean3.data.size() > 0) {
                        setDate(mPhtotIdBean3);
                     }
                     break;

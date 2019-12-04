@@ -1013,7 +1013,7 @@ try {
                     break;
                 case 17:
                     PhtotIdBean mPhtotIdBean3 = new Gson().fromJson(result, PhtotIdBean.class);
-                    if (mPhtotIdBean3.app.size() > 0) {
+                    if (mPhtotIdBean3.data.size() > 0) {
                         mTaskDealView.setDate(mPhtotIdBean3);
                     }
                     break;

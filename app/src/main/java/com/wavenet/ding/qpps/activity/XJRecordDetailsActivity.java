@@ -216,7 +216,7 @@ public class XJRecordDetailsActivity extends BaseMvpActivity<XJActivityRequestVi
                     break;
                 case 201:
                     PhtotIdBean mPhtotIdBean = new Gson().fromJson(result, PhtotIdBean.class);
-                    if (mPhtotIdBean.app.size() > 0) {
+                    if (mPhtotIdBean.data.size() > 0) {
                         mLlcameraSB.setVisibility(View.VISIBLE);
                         imaDatasSB.clear();
                         imaDatasSB.addAll(TaskBean.Builder().setFileUrls(mPhtotIdBean).fileUrls);
@@ -242,7 +242,7 @@ public class XJRecordDetailsActivity extends BaseMvpActivity<XJActivityRequestVi
                             imaDatasCZphtot.add(imaDatasCZ.get(i));
                         }
                     }
-                    if (mPhtotIdBean1.app.size() > 0) {
+                    if (mPhtotIdBean1.data.size() > 0) {
                         mLlcameraCZ.setVisibility(View.VISIBLE);
                         mPhotoAdapterCZ.notifyDataSetChanged();
                     }
