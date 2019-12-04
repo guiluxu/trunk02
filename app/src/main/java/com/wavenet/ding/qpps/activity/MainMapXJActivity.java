@@ -798,9 +798,7 @@ try {
                     mTaskReportView.FileRequest(MapUtil.FR);
                     break;
                 case 3:
-                    Log.e(TAG, "requestSuccess3: "+result);
                     ClasBean cb = new Gson().fromJson(result, ClasBean.class);
-
                     if (!"200".equals(cb.Code)){
                         ToastUtils.showToast(cb.Msg);
                         return;
@@ -1188,10 +1186,10 @@ try {
     }
 
     @Override
-    public void requestFailure(int resultid, String result, Map<String, Object> map, ArrayList<TImage> images, String videoPath, String audioPath) {
-        double x = (double) map.get("x");
-        double y = (double) map.get("y");
-        String relyid = (String) map.get("relyid");
+    public void requestFailure(int resultid, String result, Map<String, String> map, ArrayList<TImage> images, String videoPath, String audioPath) {
+        double x = Double.parseDouble(map.get("x"));
+        double y = Double.parseDouble(map.get("y"));
+        String relyid = map.get("relyId");
 
         switch (resultid) {
             case 6://日常上报的文件上传失败

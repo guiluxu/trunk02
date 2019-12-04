@@ -241,7 +241,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     }
 
     //正常的附件上传
-    public void FileRequest(final int file, final Map<String, Object> map, final ArrayList<File> arrayList,
+    public void FileRequest(final int file, final Map<String, String> map, final ArrayList<File> arrayList,
                             final ArrayList<TImage> images, final String mfilevideo, final String audioPath) {
 
 //        file  6 事件上报，61事件处置，62 暂时没有用  63 派单结束上报
@@ -250,6 +250,8 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 
             @Override
             public void onError(int id, String errorCode, String error) {
+                Log.e("MOD-PFileRequestF",file+"");
+                Log.e("MOD-PFileRequestE",error);
                 requestData(file, error, map, images, mfilevideo, audioPath);
             }
 
@@ -1165,7 +1167,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
         }
     }
 
-    public void requestData(int resultid, String content, Map<String, Object> map, ArrayList<TImage> images,
+    public void requestData(int resultid, String content, Map<String, String> map, ArrayList<TImage> images,
                             String videoPath, String audioPath) {
         if (getmMvpView() != null) {
             getmMvpView().hide();

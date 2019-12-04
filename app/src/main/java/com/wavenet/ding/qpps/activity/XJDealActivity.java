@@ -333,7 +333,7 @@ public class XJDealActivity extends BaseMvpActivity<XJActivityRequestView, XJDea
     }
 
     @Override
-    public void requestFailure(int resultid, String result, Map<String, Object> map, ArrayList<TImage> images, String videoPath, String audioPath) {
+    public void requestFailure(int resultid, String result, Map<String, String> map, ArrayList<TImage> images, String videoPath, String audioPath) {
 
     }
 

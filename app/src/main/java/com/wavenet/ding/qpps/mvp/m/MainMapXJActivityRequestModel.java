@@ -164,34 +164,24 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
     }
 
     //事件上报（文件）//6 事件上报，61事件处置，62 暂时没有用  63 派单结束上报
-    public void FileRequest(final int file, Map<String, Object> map, ArrayList<File> arrayList, WavenetCallBack callback) {
-        String url =AppConfig.BeasUrl1+ "/file/addXjImg";
-        if (file == 6) {
+    public void FileRequest(final int file, Map<String, String> map, ArrayList<File> arrayList, WavenetCallBack callback) {
+        String url ="";
+        if (file == 6||file == 61 || file == 63||file == 62) {
             url = AppConfig.BeasUrl1+"/file/addXjImg";//上报，补录
-        } else if (file == 61 || file == 63) {
-            url = AppConfig.BeasUrl1+"/file/addXjImg";
-        } else if (file == 62) {
-            url = AppConfig.BeasUrl1+"/file/addXjImg";
         }
-        Map<String, String> reqParams = new HashMap<>();
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            if (entry.getKey().equals("reyId")){
-                reqParams.put("reyId", entry.getValue().toString());
-            } else if (entry.getKey().equals("x")){
-                reqParams.put("x", entry.getValue().toString());
-            } else if (entry.getKey().equals("y")){
-                reqParams.put("y", entry.getValue().toString());
-            }
-        }
-//        reqParams.put("files", arrayList);
-//        post()
-//                .url(url)
-//                .params(reqParams)
-//                .build()
-//                .execute(callback);
+//        Map<String, String> reqParams = new HashMap<>();
+//        for (Map.Entry<String, Object> entry : map.entrySet()) {
+//            if (entry.getKey().equals("reyId")){
+//                reqParams.put("reyId", entry.getValue().toString());
+//            } else if (entry.getKey().equals("x")){
+//                reqParams.put("x", entry.getValue().toString());
+//            } else if (entry.getKey().equals("y")){
+//                reqParams.put("y", entry.getValue().toString());
+//            }
+//        }
         new PostFormBuilder().files("files", arrayList)
                 .url(url)
-                .params(reqParams)
+                .params(map)
                 .build()
                 .execute(callback);
 //        RxHttpUtils
@@ -203,15 +193,14 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         RxHttpUtils.uploadImgsWithParams(url, "file", map, arrayList)
                 .compose(Transformer.switchSchedulers())
                 .subscribe(callback);*/
-        Log.e("DMOD-RequestModel","FileRequest 146");
-        Log.d("DMOD-FileRequest：  " , "get方法：" + url);
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
+        Log.d("MOD-FileRequest：  " , "get方法：" + url);
+        for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue().toString();
-            Log.d("DMOD-RequestModel_map：  " , "Key = " + key + "  ----  " + "Value = " + value);
+            String value = entry.getValue();
+            Log.d("MOD-RequestModel_map：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
         for (int i = 0;i<arrayList.size();i++) {
-            Log.d("DMOD-RequestModel_arraylist：  " , arrayList.get(i).getAbsolutePath());
+            Log.d("MOD-RequestModel_arraylist：  " , arrayList.get(i).getAbsolutePath());
         }
     }
 

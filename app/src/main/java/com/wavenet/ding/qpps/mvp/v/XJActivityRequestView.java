@@ -21,6 +21,6 @@ public interface XJActivityRequestView extends IMvpBaseView {
 
     void requestFailure(int resultid, String result, boolean b);
 
-    void requestFailure(int resultid, String result, Map<String, Object> map, ArrayList<TImage> images,
+    void requestFailure(int resultid, String result, Map<String, String> map, ArrayList<TImage> images,
                         String videoPath, String audioPath);
 }
