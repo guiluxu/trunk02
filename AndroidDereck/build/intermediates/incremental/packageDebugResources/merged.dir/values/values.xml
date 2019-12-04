@@ -53,6 +53,7 @@
     <color name="tvc_realtimewater">#595959</color>
     <color name="white">#FFFFFF</color>
     <color name="window_bg_color">#FFFFFF</color>
+    <declare-styleable name="StateView"><attr format="reference" name="loadingViewAnimation"/><attr format="string" name="loadingText"/><attr format="reference" name="emptyImage"/><attr format="string" name="emptyText"/><attr format="reference" name="disConnectImage"/><attr format="string" name="disConnectText"/><attr format="dimension" name="tipTextSize"/><attr format="color" name="tipTextColor"/></declare-styleable>
     <drawable name="line_background">#161823</drawable>
     <string name="add">确定</string>
     <string name="album_view">选择图片</string>
@@ -108,20 +109,4 @@
     <style name="commDialogTheme" parent="@android:style/Theme.Translucent.NoTitleBar">
         <item name="android:windowAnimationStyle">@style/FeelyouWindowTopBottomAnimTheme</item>
     </style>
-    <declare-styleable name="StateView">
-        <!--加载动画-->
-        <attr format="reference" name="loadingViewAnimation"/>
-        <!--加载提示-->
-        <attr format="string" name="loadingText"/>
-        <!--空布局显示图片-->
-        <attr format="reference" name="emptyImage"/>
-        <attr format="string" name="emptyText"/>
-        <!--断网显示图片-->
-        <attr format="reference" name="disConnectImage"/>
-        <attr format="string" name="disConnectText"/>
-        <!-- 文字大小 -->
-        <attr format="dimension" name="tipTextSize"/>
-        <!-- 文字颜色 -->
-        <attr format="color" name="tipTextColor"/>
-    </declare-styleable>
 </resources>

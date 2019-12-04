@@ -28,6 +28,7 @@ import com.wavenet.ding.qpps.utils.AppTool;
 import com.wavenet.ding.qpps.utils.LogUtils;
 
 import org.devio.takephoto.model.TImage;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -58,8 +59,8 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 
             @Override
             public void onSuccess(int id, JSONObject result) {
-                Log.e("on111Success",result.toString());
                 requestData(2, 1, result.toString());
+//                Log.e("MOD-PclickRequestUPloca",result.toString());
             }
         });
 //        {
@@ -90,8 +91,8 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             @Override
             public void onSuccess(int id, JSONObject result) {
                 if (getmMvpView() != null) {
-                    Log.e("clickRequestUPTask",result.toString());
                     getmMvpView().requestSuccess(2, result.toString());
+                    Log.e("MOD-PclickRequestUPTask",result.toString());
                 }
             }
 
@@ -121,8 +122,8 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 
             @Override
             public void onSuccess(int id, JSONObject result) {
-                Log.e("clickRequestClasbig",result.toString());
                 requestData(2, 3, result.toString());
+                Log.e("MOD-PclickRequestClasbig",result.toString());
             }
 
         });/*(new CommonObserver<Object>() {
@@ -157,6 +158,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                     @Override
                     public void onSuccess(int id, JSONObject result) {
                         requestData(2, 4, result.toString());
+                        Log.e("MOD-PclickRequestClassmall",result.toString());
                     }
                 });
                 /*new CommonObserver<Object>() {
@@ -187,6 +189,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                     @Override
                     public void onSuccess(int id, JSONObject result) {
                         requestData(2, 5, result.toString());
+                        Log.e("MOD-PclickRequestTasklist",result.toString());
                     }
                 });
                 /*new CommonObserver<Object>() {
@@ -218,6 +221,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                     @Override
                     public void onSuccess(int id, JSONObject result) {
                         requestData(2, 51,result.toString());
+                        Log.e("MOD-PclickRequestTasklistsum",result.toString());
                     }
                 });
                 /*new CommonObserver<Object>() {
@@ -252,7 +256,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             @Override
             public void onSuccess(int id, JSONObject result) {
                 requestData(2, file, result.toString());
-                Log.e("FileRequest", "onSuccess: "+result.toString());
+                Log.e("MOD-PFileRequest",result.toString());
             }
 
 //            @Override
@@ -407,6 +411,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 @Override
                 public void onSuccess(int id, JSONObject result) {
                     requestData(2, 7, result.toString());
+                    Log.e("MOD-PclickTaskStart",result.toString());
                 }
 
             });
@@ -436,6 +441,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 requestData(2, 8, result.toString());
+                Log.e("MOD-PclickTaskDeal",result.toString());
             }
         });
     }
@@ -462,6 +468,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 requestData(2, 82, result.toString());
+                Log.e("MOD-PclickTaskDeal2",result.toString());
             }
         });
     }
@@ -482,6 +489,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 //业务处理
                 if (getmMvpView() != null) {
                     getmMvpView().requestSuccess(9, result.toString());
+                    Log.e("MOD-PclickRequestTaskAdd",result.toString());
                 }
             }
         });
@@ -504,6 +512,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 //业务处理
                 if (getmMvpView() != null) {
                     getmMvpView().requestSuccess(10, result.toString());
+                    Log.e("MOD-PclickTaskPaiStart",result.toString());
                 }
             }
         });
@@ -526,6 +535,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 //业务处理
                 if (getmMvpView() != null) {
                     getmMvpView().requestSuccess(10, result.toString());
+                    Log.e("MOD-PclickTaskPaiStart1",result.toString());
                 }
             }
         });
@@ -557,6 +567,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 //业务处理
                 if (getmMvpView() != null) {
                     getmMvpView().requestSuccess(1111, result.toString());
+                    Log.e("MOD-PclickTaskPaiState",result.toString());
                 }
             }
         });
@@ -587,6 +598,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 //业务处理
                 if (getmMvpView() != null) {
                     getmMvpView().requestSuccess(102, result.toString());
+                    Log.e("MOD-PclickTaskPaiReason1",result.toString());
                 }
             }
         });
@@ -617,6 +629,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 //业务处理
                 if (getmMvpView() != null) {
                     getmMvpView().requestSuccess(1021, result.toString());
+                    Log.e("MOD-PclickTaskPaiReason2",result.toString());
                 }
             }
         });
@@ -647,6 +660,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 //业务处理
                 if (getmMvpView() != null) {
                     getmMvpView().requestSuccess(1022, result.toString());
+                    Log.e("MOD-PclickTaskPaiReason3",result.toString());
                 }
             }
         });
@@ -667,7 +681,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 requestData(2, 11,  result.toString());
-
+                Log.e("MOD-PgetRequestDictionaries",result.toString());
             }
         });
 
@@ -695,7 +709,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 requestData(2, 121, result.toString());
-
+                Log.e("MOD-PRequestCancleTask",result.toString());
             }
         });
     }
@@ -721,7 +735,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 requestData(2, 177, result.toString());
-
+                Log.e("MOD-PRequestCancleTask1",result.toString());
             }
         });
     }
@@ -734,6 +748,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 
             @Override
             public void onError(int id, String errorCode, String errorMsg) {
+                Log.e("MOD-PRequestEndTask",errorMsg);
                 if (getmMvpView() != null) {
                     if ("空指针异常".equals(errorMsg)) {
                         requestData(2, 12, errorMsg);
@@ -748,7 +763,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 requestData(2, 12, result.toString());
-
+                Log.e("MOD-PRequestEndTask",result.toString());
             }
         });
     }
@@ -775,7 +790,12 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             protected void onSuccess(Object s) {
                 //业务处理
                 requestData(2, 122, (String) s);
-
+                try {
+                    JSONObject jsonObject=new JSONObject((String) s);
+                    Log.e("MOD-PRequestEndTaskpai1",jsonObject.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -802,7 +822,12 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             protected void onSuccess(Object s) {
                 //业务处理
                 requestData(2, 123, (String) s);
-
+                try {
+                    JSONObject jsonObject=new JSONObject((String) s);
+                    Log.e("MOD-PRequestEndTaskpai2",jsonObject.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -875,7 +900,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             public void onSuccess(int id, JSONObject result) {
                 //业务处理
                 requestData(2, 13, result.toString());
-
+                Log.e("MOD-PRequestISDeal",result.toString());
             }
         });
     }
@@ -932,6 +957,12 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             protected void onSuccess(Object s) {
                 //业务处理
                 requestData(2, 16, (String) s);
+                try {
+                    JSONObject jsonObject=new JSONObject((String) s);
+                    Log.e("MOD-PRequestReportDetailsPhoto",jsonObject.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -950,6 +981,12 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             protected void onSuccess(Object s) {
                 //业务处理
                 requestData(2, 17, (String) s);
+                try {
+                    JSONObject jsonObject=new JSONObject((String) s);
+                    Log.e("MOD-PRequestFileDetailsPhoto",jsonObject.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -968,6 +1005,12 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             protected void onSuccess(Object s) {
                 //业务处理
                 requestData(2, 171, (String) s);
+                try {
+                    JSONObject jsonObject=new JSONObject((String) s);
+                    Log.e("MOD-PRequestFileDetailsPhoto1",jsonObject.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -999,7 +1042,12 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 
             @Override
             protected void onSuccess(Object o) {
-                LogUtils.d("clickRequestPushMessage", o.toString());
+                try {
+                    JSONObject jsonObject=new JSONObject((String) o);
+                    Log.e("MOD-PclickRequestPushMessage",jsonObject.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -1028,6 +1076,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 if (getmMvpView() != null) {
 //                    getmMvpView().hide();
                     requestData(2, 19, result.toString());
+                    Log.e("MOD-PclickRequestIsDeal",result.toString());
                 }
             }
         });
@@ -1050,6 +1099,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 if (getmMvpView() != null) {
 //                    getmMvpView().hide();
                     requestData(2, 20, result.toString());
+                    Log.e("MOD-PclickRequestIsDealDetail",result.toString());
                 }
             }
         });
@@ -1072,6 +1122,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 if (getmMvpView() != null) {
 //                    getmMvpView().hide();
                     requestData(2, 21, result.toString());
+                    Log.e("MOD-PclickRequestIsDealDetail1",result.toString());
                 }
             }
         });
@@ -1094,6 +1145,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 if (getmMvpView() != null) {
 //                    getmMvpView().hide();
                     requestData(2, 22, result.toString());
+                    Log.e("MOD-PclickRequestIsDealDetail2",result.toString());
                 }
             }
         });
@@ -1134,8 +1186,13 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             @Override
             protected void onSuccess(Object s) {
                 //业务处理
-                Log.e("AdminGetObjectIds", (String) s);
                 requestData1(2, 1, (String) s);
+                try {
+                    JSONObject jsonObject=new JSONObject((String) s);
+                    Log.e("MOD-PAdminGetObjectIds",jsonObject.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -1153,8 +1210,13 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             @Override
             protected void onSuccess(Object s) {
                 //业务处理
-                Log.e("AdminGetObjectDetails", s.toString()+"..."+url);
                 requestData1(2, url, (String) s);
+                try {
+                    JSONObject jsonObject=new JSONObject((String) s);
+                    Log.e("MOD-PAdminGetObjectDetails",jsonObject.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -1207,6 +1269,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             @Override
             public void onSuccess(int id, JSONObject result) {
                 requestData1(2, 3, result.toString());
+                Log.e("MOD-PrequestSearchHis",result.toString());
             }
         });
     }
@@ -1223,7 +1286,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 
             @Override
             public void onSuccess(int id, JSONObject result) {
-                LogUtils.d("addSearchHis", result.toString());
+                Log.e("MOD-PaddSearchHis",result.toString());
             }
         });
     }
@@ -1244,6 +1307,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
                 mAdapter.notifyDataSetChanged();
                 requestData1(2, 4, result.toString());
                 ToastUtils.showToast("清空成功！");
+                Log.e("MOD-PclearHisList",result.toString());
             }
         });
     }

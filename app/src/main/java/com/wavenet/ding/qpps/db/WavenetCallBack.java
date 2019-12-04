@@ -38,7 +38,6 @@ public abstract class WavenetCallBack extends StringCallback {
 
     @Override
     public void onResponse(String response, int id) {
-        Log.e("MOD-WavenetCallBack", "OkHttpPost_Rspose=" + response);
         try {
             JSONObject jsonObject = new JSONObject(response);
             onSuccess(id, jsonObject);

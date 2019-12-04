@@ -22,8 +22,6 @@ public class TasklistBean implements Serializable {
     @SerializedName(value = "Data",alternate = "data")
     public List<ValueBean> value;
 
-//    public List<DataBean> Data;
-
     public static class ValueBean implements Serializable {
         public boolean isSelect = false;
         @SerializedName("@odata.etag")
@@ -113,78 +111,6 @@ public void setDis(LatLng lls){
         }
     }
 
-
-//
-//    @SerializedName("@odata.context")
-//    public String _$OdataContext112; // FIXME check this code
-//    @SerializedName("value")
-//    public List<ValueBean> value;
-//
-//    public static class ValueBean implements Serializable{
-//        public boolean isSelect = false;
-//        @SerializedName("@odata.etag")
-//        public String _$OdataEtag74; // FIXME check this code
-//        @SerializedName("S_TASK_ID")
-//        public String STASKID;   //任务编号
-//        @SerializedName("N_CYCLE")
-//        public Object NCYCLE;   //周期
-//        @SerializedName("S_SOURCE")
-//        public String SSOURCE;   //信息来源
-//        @SerializedName("S_NAME")// 任务名称
-//        public String SNAME;
-//        @SerializedName("T_START")
-//        public String TSTART;
-//        @SerializedName("S_CATEGORY")
-//        public String SCATEGORY;
-//        @SerializedName("S_TYPE")
-//        public String STYPE;
-//        @SerializedName("S_STATUS")
-//        public String SSTATUS;
-//        @SerializedName("T_CREATE")
-//        public String TCREATE;
-//        @SerializedName("S_LOCAL")
-//        public String SLOCAL;
-//        @SerializedName("S_EMERGENCY")
-//        public String SEMERGENCY;
-//        @SerializedName("S_MANGE_ID_REL")
-//        public String SMANGEIDREL;
-//        @SerializedName("S_MAN")
-//        public String SMAN;
-//        @SerializedName("S_COM")
-//        public String SCOM;
-//        @SerializedName("N_Y")
-//        public String NY;
-//        @SerializedName("N_X")
-//        public String NX;
-//        @SerializedName("T_IN_DATE")
-//        public String TINDATE;
-//        @SerializedName("S_SJCZ_ID")
-//        public String SSJCZID;
-//        @SerializedName("S_MANGE_MAN")
-//        public String SMANGEMAN;
-//        @SerializedName("T_MANGE_TIME")
-//        public String TMANGETIME;
-//        @SerializedName("S_SJSB_ID")
-//        public String SSJSBID;
-//        @SerializedName("S_IN_MAN")
-//        public String SINMAN;
-//        @SerializedName("S_MAN_FULLNAME")
-//        public String SMANFULLNAME;
-//        @SerializedName("T_TM")
-//        public String TTM;
-//        @SerializedName("S_REMARK")
-//        public String SREMARK;
-//        @SerializedName("S_REASON")
-//        public String SREASON;
-//        @SerializedName("S_TOWNID")
-//        public String STOWNID;
-//        @SerializedName("S_COMPANY")
-//        public String SCOMPANY;
-//        @SerializedName("S_TOWNNAME")
-//        public String STOWNNAME;
-//        public String S_MANGE_ID;
-//
-//    }
 }
 //    中文名	英文字段
 //    任务编号	S_TASK_ID

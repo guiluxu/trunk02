@@ -37,6 +37,7 @@ import static com.zhy.http.okhttp.OkHttpUtils.postFile;
 
 public class MainMapXJActivityRequestModel implements IMvpBaseView {
 
+    public static final String TAG = "MainMapXJActivityRequestModel";
     //开始巡检定时查询位置信息
     public void requestUPloca(String S_ID, String S_MAN_ID, String T_UPLOAD, double N_X, double N_Y, double N_SPEED, String S_TASK_TYPE, String S_RECORD_ID, double N_MILEAGE, WavenetCallBack callback) {
         String urlstr = AppConfig.BeasUrl1+"/trajectory/addTrajectory";
@@ -50,16 +51,15 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         reqParams.put("sTaskType", S_TASK_TYPE);
         reqParams.put("sRecordId", S_RECORD_ID);
         reqParams.put("nMileage", String.valueOf(N_MILEAGE));
-        post()
-                .url(urlstr)
+        post().url(urlstr)
                 .params(reqParams)
                 .build()
                 .execute(callback);
-        //        Log.e("RequestModel","requestUPloca49");
+//                Log.e(TAG,"MOD-requestUPloca: "+urlstr);
         for (Map.Entry<String, String> entry : reqParams.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue().toString();
-            Log.d("MOD-requestUPloca：  " , "Key = " + key + "  ----  " + "Value = " + value);
+            String value = entry.getValue();
+//            Log.d(TAG+"MOD-requestUPloca：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
     }
 
@@ -90,7 +90,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         reqParams.put("sCompanyIn", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
         reqParams.put("sStatus", "W1006500001");
 
-        Log.e("MOD-RequestModel","clickRequestUPTask92");
+        Log.e("MOD-clickRequestUPTask",urlstr);
 
         for (Map.Entry<String, String> entry : reqParams.entrySet()) {
             String key = entry.getKey();
@@ -104,8 +104,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
 
-        post()
-                .url(urlstr)
+        post().url(urlstr)
                 .params(reqParams)
                 .build()
                 .execute(callback);
@@ -118,8 +117,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         String urlstr = AppConfig.BeasUrl1+"/tDict/getTDict";
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("sCode", "W10026");
-        post()
-                .url(urlstr)
+        post().url(urlstr)
                 .params(reqParams)
                 .build()
                 .execute(callback);
@@ -129,8 +127,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
 
-        Log.e("MOD-RequestModel","clickRequestClasbig 106");
-        Log.d("MOD-clickRequestClasbig：  " , "sCode："+"W10026"+" url:" + urlstr);
+        Log.d("MOD-clickRequestClasbig：" , "sCode："+"W10026"+" url:" + urlstr);
 
     }
 
@@ -140,8 +137,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         String urlstr = AppConfig.BeasUrl1+"/tDict/getTDict";
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("sPcode", clasbig);
-        post()
-                .url(urlstr)
+        post().url(urlstr)
                 .params(reqParams)
                 .build()
                 .execute(callback);
@@ -150,8 +146,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .userXJgetClassmall(clasbig)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-        Log.e("MOD-RequestModel","clickRequestClassmall 117");
-        Log.d("MOD-clickRequestClassmall：" , "sPcode："+clasbig+" url: " + clasbig);
+        Log.d("MOD-clickRequestClassmall：" , "sPcode："+clasbig+" url: " + urlstr);
     }
 
     //待处置任务列表
@@ -161,16 +156,14 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         String urlstr =AppConfig.BeasUrl1+ "/management/vPatrolManagement";
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("sMan", S_MAN);
-        post()
-                .url(urlstr)
+        post().url(urlstr)
                 .params(reqParams)
                 .build()
                 .execute(callback);
-        Log.e("MOD-RequestModel","clickRequestTasklist131");
         Log.d("MOD-clickRequestTasklist：  " , "sMan："+ S_MAN +" url: "+ urlstr);
     }
 
-    //事件上报（文件）//TODO 6 事件上报，61事件处置，62 暂时没有用  63 派单结束上报
+    //事件上报（文件）//6 事件上报，61事件处置，62 暂时没有用  63 派单结束上报
     public void FileRequest(final int file, Map<String, Object> map, ArrayList<File> arrayList, WavenetCallBack callback) {
         String url =AppConfig.BeasUrl1+ "/file/addXjImg";
         if (file == 6) {
@@ -229,7 +222,6 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("sRecodeId",S_RECODE_ID);
         reqParams.put("tStart",T_IN_DATE);
-
         reqParams.put("sManId", S_MAN_ID);
         reqParams.put("sTownId", SPUtil.getInstance(context).getStringValue(SPUtil.APP_TOWNID));
         reqParams.put("sCompany",
@@ -242,12 +234,11 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
                 UrlUtils.toURLDecoded(SPUtil.getInstance(context).getStringValue(SPUtil.APP_MYNAME))
         );
 
-        post()
-                .url(urlstr)
+        post().url(urlstr)
                 .params(reqParams)
                 .build()
                 .execute(callback);
-        Log.e("MOD-RequestModel","clickTaskStart174");
+        Log.e("MOD-RequestModel",urlstr);
         for (Map.Entry<String, String> entry : reqParams.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
@@ -268,11 +259,9 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         if (!AppTool.isNull(S_MANGE_REMARK)) {
             reqParams.put("sMangeRemark", S_MANGE_REMARK);//
         }
-
         reqParams.put("sTownidMange", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
         reqParams.put("sCompanyMange", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
-        post()
-                .url(urlStr)
+        post().url(urlStr)
                 .params(reqParams)
                 .build()
                 .execute(callback);
@@ -281,7 +270,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .userXJTaskDeal(urlStr, reqParams)
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
-        Log.e("MOD-RequestModel","clickTaskDeal 201");
+        Log.e("MOD-RequestModel",urlStr);
         for (Map.Entry<String, String> entry : reqParams.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
@@ -312,8 +301,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         reqParams.put("sMangeMan", SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO));
         reqParams.put("tMangeTime", GetUTCTime.getNow());
 //        headerMaps.put("Accept", "application/json");
-        post()
-                .url(urlStr)
+        post().url(urlStr)
                 .params(reqParams)
                 .build()
                 .execute(callback);
@@ -852,7 +840,7 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
         reqParams.put("local", local);
         reqParams.put("category", category);
         reqParams.put("xl", xl);
-//        reqParams.put("pdr", "");
+        reqParams.put("pdr", "");
         reqParams.put("sbsj", sbsj);
 //        post()
 //                .url(urlstr)
@@ -864,8 +852,12 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
                 .pushMessage(urlstr)
                 .compose(Transformer.<String>switchSchedulers())
                 .subscribe(callback);
-        Log.e("MOD-RequestModel","clickRequestPushMessage648");
-        Log.d("MOD-clickRequestPushMessag" , "post方法无参：" + urlstr);
+        Log.d("MOD-clickRequestPushMessage" , urlstr);
+        for (Map.Entry<String, Object> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().toString();
+            Log.d("MOD-clickRequestPushMessage" , "Key = " + key + "  ----  " + "Value = " + value);
+        }
     }
 
     public void clickRequestIsDeal(Context mContext, String S_MANGE_ID, WavenetCallBack callback) {
