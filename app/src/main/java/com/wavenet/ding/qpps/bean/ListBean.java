@@ -136,5 +136,64 @@ public class ListBean {
         public String sTypeCn;
         public String sSjsbId;
 
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "sMangeId='" + sMangeId + '\'' +
+                    ", sRecordId='" + sRecordId + '\'' +
+                    ", sCategory='" + sCategory + '\'' +
+                    ", sType='" + sType + '\'' +
+                    ", sEmergency='" + sEmergency + '\'' +
+                    ", sInMan='" + sInMan + '\'' +
+                    ", sInDate='" + sInDate + '\'' +
+                    ", tInDate='" + tInDate + '\'' +
+                    ", nX='" + nX + '\'' +
+                    ", nY='" + nY + '\'' +
+                    ", sSjczId='" + sSjczId + '\'' +
+                    ", sIsMange='" + sIsMange + '\'' +
+                    ", isSjsbFj='" + isSjsbFj + '\'' +
+                    ", isSjczFj='" + isSjczFj + '\'' +
+                    ", sDesc='" + sDesc + '\'' +
+                    ", sSource='" + sSource + '\'' +
+                    ", sLocal='" + sLocal + '\'' +
+                    ", sTownIdIn='" + sTownIdIn + '\'' +
+                    ", sCompanyIn='" + sCompanyIn + '\'' +
+                    ", sStatus='" + sStatus + '\'' +
+                    ", sInManFull='" + sInManFull + '\'' +
+                    ", sMangeFull='" + sMangeFull + '\'' +
+                    ", sTownIdMange='" + sTownIdMange + '\'' +
+                    ", sDelete='" + sDelete + '\'' +
+                    ", sName='" + sName + '\'' +
+                    ", tCreate='" + tCreate + '\'' +
+                    ", sCreateMan='" + sCreateMan + '\'' +
+                    ", sRecodeId='" + sRecodeId + '\'' +
+                    ", sMangeStatus='" + sMangeStatus + '\'' +
+                    ", pMan='" + pMan + '\'' +
+                    ", pDate='" + pDate + '\'' +
+                    ", wTaskNo='" + wTaskNo + '\'' +
+                    ", tMangeTime='" + tMangeTime + '\'' +
+                    ", sMangeMan='" + sMangeMan + '\'' +
+                    ", sCompanyMange='" + sCompanyMange + '\'' +
+                    ", sMangeRemark='" + sMangeRemark + '\'' +
+                    ", tTransTime='" + tTransTime + '\'' +
+                    ", tTransNo='" + tTransNo + '\'' +
+                    ", tTransFj='" + tTransFj + '\'' +
+                    ", tTransDept='" + tTransDept + '\'' +
+                    ", tTransMan='" + tTransMan + '\'' +
+                    ", tTransPhone='" + tTransPhone + '\'' +
+                    ", tCsDept='" + tCsDept + '\'' +
+                    ", tTransUrl='" + tTransUrl + '\'' +
+                    ", tTransContent='" + tTransContent + '\'' +
+                    ", tTransNum='" + tTransNum + '\'' +
+                    ", isTd='" + isTd + '\'' +
+                    ", isJj='" + isJj + '\'' +
+                    ", sSourceCn='" + sSourceCn + '\'' +
+                    ", sEmergencyCn='" + sEmergencyCn + '\'' +
+                    ", sStatusCn='" + sStatusCn + '\'' +
+                    ", sCategoryCn='" + sCategoryCn + '\'' +
+                    ", sTypeCn='" + sTypeCn + '\'' +
+                    ", sSjsbId='" + sSjsbId + '\'' +
+                    '}';
+        }
     }
 }

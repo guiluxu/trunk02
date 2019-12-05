@@ -706,14 +706,14 @@ public class MainMapXJActivity extends BaseMvpActivity<XJActivityRequestView, Ma
         } else if (MapUtil.CANCLE_TD.equals(sate)) {
             if (mTaskReportView != null && mTaskReportView.mTaskBean != null) {
                 List<String> nameList = (List<String>) SPUtil.getInstance(this).getObjectValue(SPUtil.APP_PUSH);
-              /*  StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < nameList.size(); i++) {
                     if (i == nameList.size() - 1) {
                         sb.append(nameList.get(i));
                     } else {
                         sb.append(nameList.get(i) + ",");
                     }
-                }*/
+                }
                 presenter.clickRequestPushMessage(nameList, mTaskReportView.mTaskBean.addr, mTaskReportView.mTaskBean.clabig, mTaskReportView.mTaskBean.clasmall, mTaskReportView.mTaskBean.time);
             }
         } else if (MapUtil.czdw.equals(sate)) {
@@ -1036,6 +1036,7 @@ try {
                         ToastUtils.showToast(taskldetailBean.msg);
                         return;
                     }
+                    Log.e("MOD-","现在处置");
                     mTaskDealView.showView(true);
                     mTaskDealView.initDatadaily(taskldetailBean);
                     break;
@@ -1047,10 +1048,12 @@ try {
                     }
 //                        mTaskDealView.showView(true);
 //                        mTaskDealView.initDatadaily(taskldetailBean1);
+                    Log.e("MOD-","现在处置1");
                     mDetailsView.setVisibility(View.VISIBLE);
                     mDetailsView.setData(taskldetailBean1);
                     break;
                 case 22:
+                    Log.e("MOD-","现在处置2");
                     ListBean taskldetailBean2 = new Gson().fromJson(result, ListBean.class);
                     mTaskDealView.showView(false);
                     mTaskDealView.initDatadaily(taskldetailBean2);
@@ -1068,7 +1071,7 @@ try {
         }
 
 }catch (Exception e){
-
+Log.e("MOD-",e.getMessage());
 }
     }
 

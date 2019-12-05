@@ -182,15 +182,15 @@ public class MapTrackAllActivity extends BaseMvpActivity<RequestView, MapTrackPl
                     mLoadingWaitView.setVisibility(View.GONE);
                     mTarckp = new Gson().fromJson(result, TrackPalyBean.class);
 
-                    if (mTarckp.Code != 200) {
-                        ToastUtils.showToast(mTarckp.Msg);
+                    if (Double.parseDouble(mTarckp.code) != 200) {
+                        ToastUtils.showToast(mTarckp.msg);
                         return;
                     }
-                    if (mTarckp.Data == null || mTarckp.Data.Data == null || mTarckp.Data.Data.size() == 0 || mTarckp.Data.Data.get(0).Data == null || mTarckp.Data.Data.get(0).Data.size() == 0) {
+                    if (mTarckp.data==null||mTarckp.data.size()==0) {
                         showDialog();
                         return;
                     }
-                    final Point p = new Point(mTarckp.Data.Data.get(0).Data.get(0).NX, mTarckp.Data.Data.get(0).Data.get(0).NY, SpatialReferences.getWgs84());
+                    final Point p = new Point(mTarckp.data.get(0).nX, mTarckp.data.get(0).nY, SpatialReferences.getWgs84());
                     mMapView.setViewpointCenterAsync(p, 10000);
                     mAAttAper.drawTaskTrack(mMapView, mTarckp);      // 画轨迹
                     break;

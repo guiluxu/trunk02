@@ -242,9 +242,10 @@ public int colorfalg=Color.RED;
         }
         public void drawTaskTrack( MapView mMapView, TrackPalyBean mTrackPalyBean) {//当天轨迹查看
             setR(mMapView);
-            List<TrackPalyBean.DataBeanXX.DataBeanX.DataBean> taskTack=mTrackPalyBean.Data.Data.get(0).Data;
+            List<TrackPalyBean.DataBean> taskTack = mTrackPalyBean.data;
+//            List<TrackPalyBean.DataBeanXX.DataBeanX.DataBean> taskTack=mTrackPalyBean.Data.Data.get(0).Data;
             for (int i = 0; i < taskTack.size(); i++) {
-                lineGeometryRoute.addPoint(taskTack.get(i).NX, taskTack.get(i).NY);
+                lineGeometryRoute.addPoint(taskTack.get(i).nX, taskTack.get(i).nY);
             }
             draw(mMapView);
         }

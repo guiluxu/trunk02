@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -164,6 +165,7 @@ public class ControllerTaskDealView extends LinearLayout implements View.OnClick
             return;
         }
         ListBean.DataBean bv = b.data.get(0);
+        Log.d("MOD-",b.data.get(0).toString());
         setVisibility(VISIBLE);
         mTvuser.setText(SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
         UTCTime = AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS);

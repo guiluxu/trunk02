@@ -6,9 +6,9 @@ package com.wavenet.ding.qpps.utils;
 
     public class AppConfig {
 //    public static    String  BeasUrl="http://222.66.154.70:";
-    public static    String  BeasUrl="http://116.247.123.54:";
-    public static    String  BeasUrl1="http://172.18.0.148:1995";
-    public static    String  BeasUrlH5="http://172.18.0.148:8080";
+    public static  String  BeasUrl="http://116.247.123.54:";
+    public static  String  BeasUrl1="http://172.18.0.148:1995";
+    public static  String  BeasUrlH5="http://172.18.0.148:8080";
     //管网图层
     public static final String GuanWangUrl = BeasUrl+"2084/arcgis/rest/services/qpmobile/MapServer";
     public static final String JCUrl = BeasUrl+"2084/arcgis/rest/services/QPSYMapDataLayer/MapServer";
@@ -114,7 +114,7 @@ public static String Jssupport = BeasUrl+"2088/QP_H5/module/home/index.html#/Tec
     //调度员版本带派单H5
     public static  String DDYdpdurl= BeasUrl+"2088/QP_H5/module/home/index.html#/PaiDan_List?personname=%s&truename=%s&townname=%s";
     //巡检记录H5地址
-    public static String XJHistory=BeasUrlH5+"/QP_H5/module/home/index.html#/XCSJTab?personname=%s";
+    public static String XJHistory=BeasUrlH5+"/module/home/index.html#/XCSJTab?personname=%s";
     //轨迹播放接口
     public static String TrackUrl=BeasUrl+"2056/api/T_TRAJECTORY/GetTrajectoryByMan?S_Record_Id=%s";
 

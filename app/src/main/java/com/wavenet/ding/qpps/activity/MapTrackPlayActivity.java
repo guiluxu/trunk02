@@ -238,8 +238,8 @@ public void drawtarcspeed(){
                 mTvagainpaly.setVisibility(View.VISIBLE);
             }
         }else {
-            if (indexTrack<mTarckp.Data.Data.get(0).Data.size()){
-                p=new Point(mTarckp.Data.Data.get(0).Data.get(indexTrack).NX, mTarckp.Data.Data.get(0).Data.get(indexTrack).NY, SpatialReferences.getWgs84());
+            if (indexTrack<mTarckp.data.size()){
+                p=new Point(mTarckp.data.get(indexTrack).nX, mTarckp.data.get(indexTrack).nY, SpatialReferences.getWgs84());
             }else {
                 mIvtarckpaly.setVisibility(View.GONE);
                 mTvagainpaly.setVisibility(View.VISIBLE);
@@ -295,24 +295,24 @@ public  void getMarkerSymbol(){
 
                      mTarckp = new Gson().fromJson(result, TrackPalyBean.class);
 
-                    if (mTarckp.Code!=200){
-                        ToastUtils.showToast(mTarckp.Msg);
+                    if (Double.parseDouble(mTarckp.code)!=200){
+                        ToastUtils.showToast(mTarckp.msg);
                         return;
                     }
-                    if (mTarckp.Data==null||mTarckp.Data.Data==null||mTarckp.Data.Data.size()==0||mTarckp.Data.Data.get(0).Data==null||mTarckp.Data.Data.get(0).Data.size()==0){
+                    if (mTarckp.data==null||mTarckp.data.size()==0){
                         ToastUtils.showToast("没有查询到轨迹");
                         return;
                     }
-                     Point ps=new Point(mTarckp.Data.Data.get(0).Data.get(0).NX, mTarckp.Data.Data.get(0).Data.get(0).NY, SpatialReferences.getWgs84());
-                    int size=mTarckp.Data.Data.get(0).Data.size();
-                     Point pe=new Point(mTarckp.Data.Data.get(0).Data.get(size-1).NX, mTarckp.Data.Data.get(0).Data.get(size-1).NY, SpatialReferences.getWgs84());
+                     Point ps=new Point(mTarckp.data.get(0).nX, mTarckp.data.get(0).nY, SpatialReferences.getWgs84());
+                    int size=mTarckp.data.size();
+                     Point pe=new Point(mTarckp.data.get(size-1).nX, mTarckp.data.get(size-1).nY, SpatialReferences.getWgs84());
                     mMapView.setViewpointCenterAsync(ps,10000);
                     Graphic graphicimgs = new Graphic(ps, pictureMarkerSymbolstar);
                     Graphic graphicimge = new Graphic(pe, pictureMarkerSymbolend);
                     onSEgraphicsOverlay.getGraphics().add(graphicimgs);
                     onSEgraphicsOverlay.getGraphics().add(graphicimge);
                     mAAttAper.drawTaskTrack(mMapView,mTarckp);
-                    taskTack=mTarckp.getTrackBeanL(mTarckp.Data.Data.get(0).Data);
+                    taskTack=mTarckp.getTrackBeanL(mTarckp.data);//mTarckp.Data.Data.get(0).Data
                     handler.sendEmptyMessageDelayed(1, 0);
                     break;}}
     }
