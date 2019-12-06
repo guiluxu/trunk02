@@ -7,7 +7,7 @@ package com.wavenet.ding.qpps.utils;
     public class AppConfig {
 //    public static    String  BeasUrl="http://222.66.154.70:";
     public static  String  BeasUrl="http://116.247.123.54:";
-    public static  String  BeasUrl1="http://172.18.0.148:1995";
+    public static  String  BeasUrl1="http://172.18.0.148:8080/wavenet-framework-web";
     public static  String  BeasUrlH5="http://172.18.0.148:8080";
     //管网图层
     public static final String GuanWangUrl = BeasUrl+"2084/arcgis/rest/services/qpmobile/MapServer";

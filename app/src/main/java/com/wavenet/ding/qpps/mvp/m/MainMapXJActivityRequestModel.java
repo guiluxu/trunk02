@@ -784,14 +784,22 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         Log.d("MOD-RequestReportDetails" , "sMangeId："+ " url: " + urlstr);
     }
 
-    public void RequestReportDetailsPhoto(String S_RECODE_ID, CommonObserver<Object> callback) {
+    public void RequestReportDetailsPhoto(String S_RECODE_ID, WavenetCallBack callback) {
 
-        String urlstr = AppConfig.BeasUrl1+"2083/file/find/SJSB?relyid=" + S_RECODE_ID;
-        RxHttpUtils
-                .createApi(ApiService.class)
-                .RequestXJDealDetails(urlstr)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);
+//        String urlstr = AppConfig.BeasUrl+"2083/file/find/SJSB?relyid=" + S_RECODE_ID;
+        String urlstr = AppConfig.BeasUrl1+"/file/getXjImg";
+        Map<String, String> reqParams = new HashMap<>();
+        reqParams.put("reyId", S_RECODE_ID);
+        post()
+                .url(urlstr)
+                .params(reqParams)
+                .build()
+                .execute(callback);
+//        RxHttpUtils
+//                .createApi(ApiService.class)
+//                .RequestXJDealDetails(urlstr)
+//                .compose(Transformer.switchSchedulers())
+//                .subscribe(callback);
         Log.e("MOD-RequestModel","RequestReportDetailsPhoto622");
         Log.d("MOD-ReportDetailsPhoto： " , "url：" + urlstr);
     }

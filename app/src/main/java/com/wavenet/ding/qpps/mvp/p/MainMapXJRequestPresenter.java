@@ -948,72 +948,105 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
     public void RequestReportDetailsPhoto(String S_RECODE_ID) {
         //上报人，状态
         requestData(0, 16, "");
-        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
-                requestData(1, 16, errorMsg);
+            public void onError(int id, String errorCode, String error) {
+                requestData(1, 16, error);
             }
 
             @Override
-            protected void onSuccess(Object s) {
-                //业务处理
-                requestData(2, 16, (String) s);
-                try {
-                    JSONObject jsonObject=new JSONObject((String) s);
-                    Log.e("MOD-PRequestReportDetailsPhoto",jsonObject.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onSuccess(int id, JSONObject result) {
+                requestData(2, 16, result.toString());
+                Log.e("MOD-PRequestReportDetailsPhoto",result.toString());
             }
+//
+//            @Override
+//            protected void onError(String errorMsg) {
+//                requestData(1, 16, errorMsg);
+//            }
+//
+//            @Override
+//            protected void onSuccess(Object s) {
+//                //业务处理
+//                requestData(2, 16, (String) s);
+//                try {
+//                    JSONObject jsonObject=new JSONObject((String) s);
+//                    Log.e("MOD-PRequestReportDetailsPhoto",jsonObject.toString());
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
         });
     }
 
     public void RequestFileDetailsPhoto(String S_RECODE_ID) {
         //上报人，状态
         requestData(0, 17, "");
-        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
-                requestData(1, 17, errorMsg);
+            public void onError(int id, String errorCode, String error) {
+                requestData(1, 17, error);
             }
 
             @Override
-            protected void onSuccess(Object s) {
-                //业务处理
-                requestData(2, 17, (String) s);
-                try {
-                    JSONObject jsonObject=new JSONObject((String) s);
-                    Log.e("MOD-PRequestFileDetailsPhoto",jsonObject.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onSuccess(int id, JSONObject result) {
+                requestData(2, 17, result.toString());
+                Log.e("MOD-PRequestFileDetailsPhoto",result.toString());
             }
+
+//            @Override
+//            protected void onError(String errorMsg) {
+//                requestData(1, 17, errorMsg);
+//            }
+//
+//            @Override
+//            protected void onSuccess(Object s) {
+//                //业务处理
+//                requestData(2, 17, (String) s);
+//                try {
+//                    JSONObject jsonObject=new JSONObject((String) s);
+//                    Log.e("MOD-PRequestFileDetailsPhoto",jsonObject.toString());
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
         });
     }
 
     public void RequestFileDetailsPhoto1(String S_RECODE_ID) {
         //上报人，状态
         requestData(0, 171, "");
-        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, new CommonObserver<Object>() {
+        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, new WavenetCallBack() {
 
             @Override
-            protected void onError(String errorMsg) {
-                requestData(1, 171, errorMsg);
+            public void onError(int id, String errorCode, String error) {
+                requestData(1, 171, error);
             }
 
             @Override
-            protected void onSuccess(Object s) {
-                //业务处理
-                requestData(2, 171, (String) s);
-                try {
-                    JSONObject jsonObject=new JSONObject((String) s);
-                    Log.e("MOD-PRequestFileDetailsPhoto1",jsonObject.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onSuccess(int id, JSONObject result) {
+                requestData(2, 171, result.toString());
+                Log.e("MOD-PRequestFileDetailsPhoto1",result.toString());
             }
+
+//            @Override
+//            protected void onError(String errorMsg) {
+//                requestData(1, 171, errorMsg);
+//            }
+//
+//            @Override
+//            protected void onSuccess(Object s) {
+//                //业务处理
+//                requestData(2, 171, (String) s);
+//                try {
+//                    JSONObject jsonObject=new JSONObject((String) s);
+//                    Log.e("MOD-PRequestFileDetailsPhoto1",jsonObject.toString());
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
         });
     }
 

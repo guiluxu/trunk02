@@ -67,5 +67,19 @@ public class PhtotIdBean {
         public String url;
         public String contentType;
 
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "sId='" + sId + '\'' +
+                    ", reyId='" + reyId + '\'' +
+                    ", x='" + x + '\'' +
+                    ", y='" + y + '\'' +
+                    ", sType='" + sType + '\'' +
+                    ", tType='" + tType + '\'' +
+                    ", upDate='" + upDate + '\'' +
+                    ", url='" + url + '\'' +
+                    ", contentType='" + contentType + '\'' +
+                    '}';
+        }
     }
 }

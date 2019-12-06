@@ -1014,6 +1014,7 @@ try {
                     break;
                 case 17:
                     PhtotIdBean mPhtotIdBean3 = new Gson().fromJson(result, PhtotIdBean.class);
+                    Log.e("MOD-PhtotIdBean",mPhtotIdBean3.data.get(0).toString());
                     if (mPhtotIdBean3.data.size() > 0) {
                         mTaskDealView.setDate(mPhtotIdBean3);
                     }

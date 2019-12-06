@@ -151,11 +151,12 @@ public class ControllerTaskDealView extends LinearLayout implements View.OnClick
             mTvdetailreport.setText(bv.S_DESC);
 
         }
-        mLlcameraSB.setVisibility(View.GONE);
-        if (!AppTool.isNull(bv.IS_SJSB_FJ) && "1".equals(bv.IS_SJSB_FJ) && !AppTool.isNull(bv.S_SJSB_ID)) {
+        mLlcameraSB.setVisibility(View.VISIBLE);
+        mActivity.presenter.RequestFileDetailsPhoto(bv.S_SJSB_ID);
+     /*   if (!AppTool.isNull(bv.IS_SJSB_FJ) && "1".equals(bv.IS_SJSB_FJ) && !AppTool.isNull(bv.S_SJSB_ID)) {
             mLlcameraSB.setVisibility(View.VISIBLE);
             mActivity.presenter.RequestFileDetailsPhoto(bv.S_SJSB_ID);
-        }
+        }*/
 
 //        mActivity.presenter.RequestRefuselist(bv.S_MANGE_ID);//退单、拒绝列表信息
     }
@@ -165,7 +166,7 @@ public class ControllerTaskDealView extends LinearLayout implements View.OnClick
             return;
         }
         ListBean.DataBean bv = b.data.get(0);
-        Log.d("MOD-",b.data.get(0).toString());
+        Log.d("MOD-","initDatadaily"+b.data.get(0).toString());
         setVisibility(VISIBLE);
         mTvuser.setText(SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
         UTCTime = AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS);
@@ -188,10 +189,13 @@ public class ControllerTaskDealView extends LinearLayout implements View.OnClick
 
         }
 //        mLlcameraSB.setVisibility(View.GONE);//IS_SJSB_FJ/S_SJSB_ID
-        if (!AppTool.isNull(bv.isSjsbFj) && "1".equals(bv.isSjsbFj) && !AppTool.isNull(bv.sSjsbId)) {
-            mLlcameraSB.setVisibility(View.VISIBLE);
-            mActivity.presenter.RequestFileDetailsPhoto(bv.sSjsbId);
-        }//IS_SJSB_FJ//S_SJSB_ID
+
+        mLlcameraSB.setVisibility(View.VISIBLE);
+        mActivity.presenter.RequestFileDetailsPhoto(bv.sMangeId);
+        /*if (!AppTool.isNull(bv.isSjsbFj) && "1".equals(bv.isSjsbFj) && !AppTool.isNull(bv.sSjsbId)) {
+             mLlcameraSB.setVisibility(View.VISIBLE);
+             mActivity.presenter.RequestFileDetailsPhoto(bv.sSjsbId);
+        }*/
 
 //        mActivity.presenter.RequestRefuselist(bv.S_MANGE_ID);//退单、拒绝列表信息
     }
