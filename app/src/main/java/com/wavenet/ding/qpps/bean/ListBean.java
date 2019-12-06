@@ -20,7 +20,6 @@ public class ListBean {
     public String code;
     public String msg;
     public long _dt;
-    @SerializedName("Data")
     public List<DataBean> data;
 
     public static class DataBean implements Serializable {

@@ -15,7 +15,6 @@ import com.esri.arcgisruntime.loadable.LoadStatus;
 import com.wavenet.ding.qpps.R;
 import com.wavenet.ding.qpps.activity.MainMapXJActivity;
 import com.wavenet.ding.qpps.activity.WebViewHistoryXJActivity;
-import com.wavenet.ding.qpps.activity.WebViewHistoryXJActivity1;
 import com.wavenet.ding.qpps.api.QPSWApplication;
 import com.wavenet.ding.qpps.bean.BreakOffBean;
 import com.wavenet.ding.qpps.bean.Gps;
@@ -282,9 +281,9 @@ public class ControllerMainUIView extends LinearLayout implements View.OnClickLi
             case R.id.iv_history:
 //                Intent iHistory = new Intent(mActivity, MapTrackActivity.class);
 //                iHistory.putExtra("title", "巡检轨迹");
-                Intent iHistory = new Intent(mActivity, WebViewHistoryXJActivity1.class);
+                Intent iHistory = new Intent(mActivity, WebViewHistoryXJActivity.class);
                 iHistory.putExtra("isStartde", isStartde);
-                iHistory.putExtra("url", String.format("http://172.18.0.148:8080/wavenet-framework-web", SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO)));
+                iHistory.putExtra("url", String.format(AppConfig.XJHistory, SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO)));
                 mActivity.startActivity  (iHistory);
                 //ToastUtils.showToast("距离1");
                 break;

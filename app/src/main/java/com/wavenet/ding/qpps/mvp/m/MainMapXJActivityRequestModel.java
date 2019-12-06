@@ -786,7 +786,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 
     public void RequestReportDetailsPhoto(String S_RECODE_ID, CommonObserver<Object> callback) {
 
-        String urlstr = AppConfig.BeasUrl+"2083/file/find/SJSB?relyid=" + S_RECODE_ID;
+        String urlstr = AppConfig.BeasUrl1+"2083/file/find/SJSB?relyid=" + S_RECODE_ID;
         RxHttpUtils
                 .createApi(ApiService.class)
                 .RequestXJDealDetails(urlstr)

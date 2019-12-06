@@ -868,6 +868,7 @@ try {
                         return;
                     }
                     Tasklistsize = tasklistBean1.value.size();
+                    Log.e("MOD-51",Tasklistsize+"");
                     mMainUIView.setmTvtaskpai(Tasklistsize);
                     break;
                 case 6://日常上报的文件上传成功
@@ -1032,6 +1033,7 @@ try {
                     break;
                 case 20://上报完成后主动领取任务处置确定后查询任务详情接口回调
                     ListBean taskldetailBean = new Gson().fromJson(result, ListBean.class);
+                    Log.e("js",taskldetailBean.data.get(0).toString());
                     if (!"200".equals(taskldetailBean.code)){
                         ToastUtils.showToast(taskldetailBean.msg);
                         return;
