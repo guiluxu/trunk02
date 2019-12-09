@@ -61,7 +61,7 @@ public class TaskBean {
         for (int i = 0; i < mPhtotIdBean.data.size(); i++) {
             if ("video/mp4".equals(mPhtotIdBean.data.get(i).contentType)){
 
-                fileUrls.add(0, AppConfig.BeasUrl+"2083/file/download/SJSB?id=" + mPhtotIdBean.data.get(i).sId+"视频");
+                fileUrls.add(0, AppConfig.BeasUrl1+ mPhtotIdBean.data.get(i).url+"视频");
             }else if ("audio/mpeg".equals(mPhtotIdBean.data.get(i).contentType)){
                 String[] urlarry=mPhtotIdBean.data.get(i).url.split("@");
                 int index=0;
@@ -71,9 +71,9 @@ public class TaskBean {
                     index=0;
                 }
                 if (urlarry.length>1){
-                fileUrls.add(index,AppConfig.BeasUrl+"2083/file/download/SJSB?id=" + mPhtotIdBean.data.get(i).sId+"@"+urlarry[1].replace(".mp4","")+"语音");
+                fileUrls.add(index,AppConfig.BeasUrl1+ mPhtotIdBean.data.get(i).url+"@"+urlarry[1].replace(".mp4","")+"语音");
                 } }else {
-                fileUrls.add(AppConfig.BeasUrl+"2083/file/download/SJSB?id=" + mPhtotIdBean.data.get(i).sId);
+                fileUrls.add(AppConfig.BeasUrl1+ mPhtotIdBean.data.get(i).url);
             }
         }
         return this;
@@ -84,7 +84,7 @@ public class TaskBean {
         for (int i = 0; i < mPhtotIdBean.data.size(); i++) {
 
             if ("video/mp4".equals(mPhtotIdBean.data.get(i).contentType)){
-                fileUrls.add(0,AppConfig.BeasUrl+"2083/file/download/SJSB?id=" + mPhtotIdBean.data.get(i).sId+"视频");
+                fileUrls.add(0,AppConfig.BeasUrl+"2083/file/download/SJSB?id=" + mPhtotIdBean.data.get(i).url+"视频");
             }else if ("audio/mpeg".equals(mPhtotIdBean.data.get(i).contentType)){
                 String[] urlarry=mPhtotIdBean.data.get(i).url.split("@");
                 int index=0;
@@ -94,8 +94,8 @@ public class TaskBean {
                     index=0;
                 }
                 if (urlarry.length>1){
-                fileUrls.add(index,AppConfig.BeasUrl+"2083/file/download/SJSB?id=" + mPhtotIdBean.data.get(i).sId+"@"+urlarry[1].replace(".mp4","")+"语音");}}else {
-            fileUrls.add(AppConfig.BeasUrl+"2083/file/download/SJSB?id=" + mPhtotIdBean.data.get(i).sId);
+                fileUrls.add(index,AppConfig.BeasUrl+"2083/file/download/SJSB?id=" + mPhtotIdBean.data.get(i).url+"@"+urlarry[1].replace(".mp4","")+"语音");}}else {
+            fileUrls.add(AppConfig.BeasUrl+"2083/file/download/SJSB?id=" + mPhtotIdBean.data.get(i).url);
         }
         }
         return this;
@@ -105,7 +105,7 @@ public class TaskBean {
         fileUrls.clear();
         for (int i = 0; i < mPhtotIdBean.data.size(); i++) {
             if ("video/mp4".equals(mPhtotIdBean.data.get(i).contentType)){
-                fileUrls.add(0,AppConfig.BeasUrl+"2083/file/download/SJCZ?id=" + mPhtotIdBean.data.get(i).sId+"视频");
+                fileUrls.add(0,AppConfig.BeasUrl+"2083/file/download/SJCZ?id=" + mPhtotIdBean.data.get(i).url+"视频");
             }else if ("audio/mpeg".equals(mPhtotIdBean.data.get(i).contentType) ){
                 String[] urlarry=mPhtotIdBean.data.get(i).url.split("@");
                 int index=0;
@@ -115,8 +115,8 @@ public class TaskBean {
                     index=0;
                 }
                 if (urlarry.length>1){
-                    fileUrls.add(index,AppConfig.BeasUrl+"2083/file/download/SJCZ?id=" + mPhtotIdBean.data.get(i).sId+"@"+urlarry[1].replace(".mp4","")+"语音");}}else {
-                    fileUrls.add(AppConfig.BeasUrl+"2083/file/download/SJCZ?id=" + mPhtotIdBean.data.get(i).sId);
+                    fileUrls.add(index,AppConfig.BeasUrl+"2083/file/download/SJCZ?id=" + mPhtotIdBean.data.get(i).url+"@"+urlarry[1].replace(".mp4","")+"语音");}}else {
+                    fileUrls.add(AppConfig.BeasUrl+"2083/file/download/SJCZ?id=" + mPhtotIdBean.data.get(i).url);
                 }
         }
 

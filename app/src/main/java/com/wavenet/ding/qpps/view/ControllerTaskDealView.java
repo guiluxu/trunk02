@@ -166,7 +166,7 @@ public class ControllerTaskDealView extends LinearLayout implements View.OnClick
             return;
         }
         ListBean.DataBean bv = b.data.get(0);
-        Log.d("MOD-","initDatadaily"+b.data.get(0).toString());
+        Log.d("MOD-","initDatadaily "+b.data.get(0).toString());
         setVisibility(VISIBLE);
         mTvuser.setText(SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
         UTCTime = AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS);

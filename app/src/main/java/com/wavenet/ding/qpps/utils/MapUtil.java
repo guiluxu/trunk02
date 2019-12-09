@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -524,6 +525,7 @@ public void setGensui(AMapLocation mAMapLocation,MapView mMapView){
             public void onClick(View view) {
                 alertDialog.dismiss();
                 mapXJActivity.mTaskDealView.initData(MainMapXJActivity.mtvBean);
+                Log.e("确定上报",MainMapXJActivity.mtvBean.toString());
 //                EventBus.getDefault().post(MapUtil.DES);
 
             }

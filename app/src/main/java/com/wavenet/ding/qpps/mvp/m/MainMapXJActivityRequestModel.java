@@ -22,18 +22,13 @@ import com.wavenet.ding.qpps.utils.LogUtils;
 import com.wavenet.ding.qpps.utils.SPUtil;
 import com.wavenet.ding.qpps.utils.UrlUtils;
 import com.wavenet.ding.qpps.view.ControllerMainUIView;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import cn.jiguang.net.HttpRequest;
-
 import static com.zhy.http.okhttp.OkHttpUtils.post;
-import static com.zhy.http.okhttp.OkHttpUtils.postFile;
 
 public class MainMapXJActivityRequestModel implements IMvpBaseView {
 
@@ -75,7 +70,6 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
             ToastUtils.showToast("上报人为空");
             return;
         }
-
         reqParams.put("sEmergency", "W1008100001");
         reqParams.put("sInMan", S_IN_MAN);
         reqParams.put("tInDate", T_IN_DATE);
@@ -165,20 +159,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 
     //事件上报（文件）//6 事件上报，61事件处置，62 暂时没有用  63 派单结束上报
     public void FileRequest(final int file, Map<String, String> map, ArrayList<File> arrayList, WavenetCallBack callback) {
-        String url ="";
-        if (file == 6||file == 61 || file == 63||file == 62) {
-            url = AppConfig.BeasUrl1+"/file/addXjImg";//上报，补录
-        }
-//        Map<String, String> reqParams = new HashMap<>();
-//        for (Map.Entry<String, Object> entry : map.entrySet()) {
-//            if (entry.getKey().equals("reyId")){
-//                reqParams.put("reyId", entry.getValue().toString());
-//            } else if (entry.getKey().equals("x")){
-//                reqParams.put("x", entry.getValue().toString());
-//            } else if (entry.getKey().equals("y")){
-//                reqParams.put("y", entry.getValue().toString());
-//            }
-//        }
+        String url =AppConfig.BeasUrl1+"/file/addXjImg";
         new PostFormBuilder().files("files", arrayList)
                 .url(url)
                 .params(map)
@@ -790,6 +771,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         String urlstr = AppConfig.BeasUrl1+"/file/getXjImg";
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("reyId", S_RECODE_ID);
+        reqParams.put("sbCz", "1");
         post()
                 .url(urlstr)
                 .params(reqParams)
@@ -801,7 +783,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 //                .compose(Transformer.switchSchedulers())
 //                .subscribe(callback);
         Log.e("MOD-RequestModel","RequestReportDetailsPhoto622");
-        Log.d("MOD-ReportDetailsPhoto： " , "url：" + urlstr);
+        for (Map.Entry<String, String> entry : reqParams.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            Log.d("MOD-RequestReportDetailsPhoto" , "Key = " + key + "  ----  " + "Value = " + value);
+        }
+        Log.d("MOD-RequestReportDetailsPhoto： " , "url：" + urlstr);
     }
 
     public void RequestRefuselist(String S_MANGE_ID, WavenetCallBack callback) {

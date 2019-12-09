@@ -1004,9 +1004,9 @@ try {
                     }
                     break;
                 case 15://废弃
-                    DetailsBean mDetailsBean = new Gson().fromJson(result, DetailsBean.class);
-                    DetailsBean.ValueBean b = mDetailsBean.value.get(0);
-                    presenter.RequestReportDetailsPhoto(b.SSJCZID);
+//                    DetailsBean mDetailsBean = new Gson().fromJson(result, DetailsBean.class);
+//                    DetailsBean.ValueBean b = mDetailsBean.value.get(0);
+//                    presenter.RequestReportDetailsPhoto(b.SSJCZID);
                     break;
                 case 16://废弃
                     PhtotIdBean mPhtotIdBean1 = new Gson().fromJson(result, PhtotIdBean.class);

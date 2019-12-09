@@ -86,6 +86,8 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             @Override
             public void onError(int id, String errorCode, String errorMsg) {
                 requestData(1, 2, errorMsg);
+                Log.e("MOD-PclickRequestUPTaskE",errorCode);
+
             }
 
             @Override
@@ -429,6 +431,7 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 
             @Override
             public void onError(int id, String errorCode, String error) {
+                Log.e("MOD-PclickTaskDealE",error);
                 if (getmMvpView() != null) {
                     if ("空指针异常".equals(error)) {
                         requestData(2, 8, error);
@@ -945,40 +948,40 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
         });
     }
 
-    public void RequestReportDetailsPhoto(String S_RECODE_ID) {
-        //上报人，状态
-        requestData(0, 16, "");
-        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, new WavenetCallBack() {
-
-            @Override
-            public void onError(int id, String errorCode, String error) {
-                requestData(1, 16, error);
-            }
-
-            @Override
-            public void onSuccess(int id, JSONObject result) {
-                requestData(2, 16, result.toString());
-                Log.e("MOD-PRequestReportDetailsPhoto",result.toString());
-            }
+//    public void RequestReportDetailsPhoto(String S_RECODE_ID) {
+//        //上报人，状态
+//        requestData(0, 16, "");
+//        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, new WavenetCallBack() {
 //
 //            @Override
-//            protected void onError(String errorMsg) {
-//                requestData(1, 16, errorMsg);
+//            public void onError(int id, String errorCode, String error) {
+//                requestData(1, 16, error);
 //            }
 //
 //            @Override
-//            protected void onSuccess(Object s) {
-//                //业务处理
-//                requestData(2, 16, (String) s);
-//                try {
-//                    JSONObject jsonObject=new JSONObject((String) s);
-//                    Log.e("MOD-PRequestReportDetailsPhoto",jsonObject.toString());
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+//            public void onSuccess(int id, JSONObject result) {
+//                requestData(2, 16, result.toString());
+//                Log.e("MOD-PRequestReportDetailsPhoto",result.toString());
 //            }
-        });
-    }
+////
+////            @Override
+////            protected void onError(String errorMsg) {
+////                requestData(1, 16, errorMsg);
+////            }
+////
+////            @Override
+////            protected void onSuccess(Object s) {
+////                //业务处理
+////                requestData(2, 16, (String) s);
+////                try {
+////                    JSONObject jsonObject=new JSONObject((String) s);
+////                    Log.e("MOD-PRequestReportDetailsPhoto",jsonObject.toString());
+////                } catch (JSONException e) {
+////                    e.printStackTrace();
+////                }
+////            }
+//        });
+//    }
 
     public void RequestFileDetailsPhoto(String S_RECODE_ID) {
         //上报人，状态

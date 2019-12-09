@@ -470,11 +470,17 @@ public class ControllerCameraView extends LinearLayout implements View.OnClickLi
         });
     }
 
+    //6 事件上报，61事件处置，62 暂时没有用  63 派单结束上报
     private void fileRequest(int file) {
         Map<String, String> map = new HashMap<>();
         map.put("x", String.valueOf(MainMapXJActivity.g.getWgLon()));
         map.put("y", String.valueOf(MainMapXJActivity.g.getWgLat()));
         map.put("reyId", MainMapXJActivity.S_MANGE_ID);
+        if (file == 61){
+            map.put("sbCz","2");
+        }else if (file == 6||file == 62||file == 63){
+            map.put("sbCz","1");
+        }
         ArrayList<File> arrayList = new ArrayList<>();
         for (int i = 0; i < imaDatas.size(); i++) {
             arrayList.add(new File(imaDatas.get(i).getCompressPath()));
