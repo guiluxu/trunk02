@@ -476,9 +476,9 @@ public class ControllerCameraView extends LinearLayout implements View.OnClickLi
         map.put("x", String.valueOf(MainMapXJActivity.g.getWgLon()));
         map.put("y", String.valueOf(MainMapXJActivity.g.getWgLat()));
         map.put("reyId", MainMapXJActivity.S_MANGE_ID);
-        if (file == 61){
+        if (file == 61||file == 63){
             map.put("sbCz","2");
-        }else if (file == 6||file == 62||file == 63){
+        }else if (file == 6||file == 62){
             map.put("sbCz","1");
         }
         ArrayList<File> arrayList = new ArrayList<>();

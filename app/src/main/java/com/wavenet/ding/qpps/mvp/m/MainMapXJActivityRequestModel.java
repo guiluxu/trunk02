@@ -218,7 +218,7 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
     //上报后处置提交
     public void clickTaskDeal(Context mContext, String S_MANGE_ID, String S_MANGE_MAN, String T_MANGE_TIME, String S_MANGE_REMARK, WavenetCallBack callback) {
 //        String urlStr = AppConfig.BeasUrl+"2081/odata/PSSSYH/default/T_PATROL_MANAGEMENT('" + S_MANGE_ID + "')";
-        String urlStr = AppConfig.BeasUrl1+"/management/edtManagement";
+        String urlStr = AppConfig.BeasUrl1+"/management/editManagenment";
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("sMangeId", S_MANGE_ID);
         reqParams.put("sMangeMan", S_MANGE_MAN);
@@ -845,7 +845,7 @@ String urlstr = AppConfig.BeasUrl1+ "/rejectPatrol/get";
     }
 
     public void clickRequestIsDeal(Context mContext, String S_MANGE_ID, WavenetCallBack callback) {
-        String urlstr =AppConfig.BeasUrl1+"/management/edtManagenment";
+        String urlstr =AppConfig.BeasUrl1+"/management/editManagenment";
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("sMangeMan", SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO));
         reqParams.put("sMangeFull", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));

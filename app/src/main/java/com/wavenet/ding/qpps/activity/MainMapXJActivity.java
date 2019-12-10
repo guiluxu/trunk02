@@ -835,9 +835,8 @@ try {
                         return;
                     }
                     Tasklistsize = tasklistBean.value.size();
-
+                    Log.e("MOD-5",Tasklistsize+"");
                     mMainUIView.setmTvtaskpai(Tasklistsize);
-
 
                     if (Tasklistsize > 0) {
                         mTasklistView.setVisibility(View.VISIBLE);
@@ -933,7 +932,7 @@ try {
                     break;
                 case 1021:
                     presenter.clickRequestTasklist(SPUtil.getInstance(this).getStringValue(SPUtil.USERNO), "W1006500002");
-//  派单列表中拒绝
+                    //派单列表中拒绝
                     cancelDialog();
                     mCtaskreason.isShowLlreason(false, 100);
                     break;

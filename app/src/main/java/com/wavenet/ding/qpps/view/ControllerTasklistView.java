@@ -2,6 +2,7 @@ package com.wavenet.ding.qpps.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -84,6 +85,9 @@ public class ControllerTasklistView extends LinearLayout implements View.OnClick
         mTvtasksum.setText(tasklistBean.value.size() + "");
         mBeanList.clear();
         mBeanList.addAll(tasklistBean.value);
+        Log.e("ControllerTasklistView-size",tasklistBean.value.size() + "");
+        Log.e("ControllerTasklistView-mBeanList-size",mBeanList.size() + "");
+        Log.e("ControllerTasklistView-mBeanList",mBeanList.get(0) + "");
         mTradapter.setDefSelect(0);
         mTradapter.notifyDataSetChanged();
         new android.os.Handler().postDelayed(new Runnable() {
