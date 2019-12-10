@@ -174,7 +174,7 @@ public class ControllerDetailsView extends LinearLayout implements View.OnClickL
         //IS_SJSB_FJ/S_SJSB_ID
         if (!AppTool.isNull(bv.isSjsbFj) && "1".equals(bv.isSjsbFj) && !AppTool.isNull(bv.sSjsbId)) {
             mRvcamera.setVisibility(View.VISIBLE);
-            mActivity.presenter.RequestFileDetailsPhoto1(bv.sSjsbId);
+            mActivity.presenter.RequestFileDetailsPhoto1(bv.sSjsbId,"1");
         }
         mTvuser.setText(SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
 

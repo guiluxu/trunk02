@@ -983,10 +983,10 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
 //        });
 //    }
 
-    public void RequestFileDetailsPhoto(String S_RECODE_ID) {
+    public void RequestFileDetailsPhoto(String S_RECODE_ID,String sbCz) {
         //上报人，状态
         requestData(0, 17, "");
-        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, new WavenetCallBack() {
+        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, sbCz, new WavenetCallBack() {
 
             @Override
             public void onError(int id, String errorCode, String error) {
@@ -1018,10 +1018,10 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
         });
     }
 
-    public void RequestFileDetailsPhoto1(String S_RECODE_ID) {
+    public void RequestFileDetailsPhoto1(String S_RECODE_ID,String sbCz) {
         //上报人，状态
         requestData(0, 171, "");
-        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, new WavenetCallBack() {
+        mMainMapXJActivityRequestModel.RequestReportDetailsPhoto(S_RECODE_ID, sbCz,new WavenetCallBack() {
 
             @Override
             public void onError(int id, String errorCode, String error) {

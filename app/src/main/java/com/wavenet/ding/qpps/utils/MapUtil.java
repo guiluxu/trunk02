@@ -305,8 +305,6 @@ public void setGensui(AMapLocation mAMapLocation,MapView mMapView){
             } else {
                 mapXJActivity.presenter.clickTaskPaiStart(userstr, MainMapXJActivity.S_RECODE_ID, MainMapXJActivity.STASKID, AppTool.getCurrentDate(AppTool.FORMAT_YMDHMS), "1");
             }
-
-
         }
     }
 

@@ -152,7 +152,7 @@ public class ControllerTaskDealView extends LinearLayout implements View.OnClick
 
         }
         mLlcameraSB.setVisibility(View.VISIBLE);
-        mActivity.presenter.RequestFileDetailsPhoto(bv.S_SJSB_ID);
+        mActivity.presenter.RequestFileDetailsPhoto(bv.S_MANGE_ID,"1");
      /*   if (!AppTool.isNull(bv.IS_SJSB_FJ) && "1".equals(bv.IS_SJSB_FJ) && !AppTool.isNull(bv.S_SJSB_ID)) {
             mLlcameraSB.setVisibility(View.VISIBLE);
             mActivity.presenter.RequestFileDetailsPhoto(bv.S_SJSB_ID);
@@ -191,7 +191,7 @@ public class ControllerTaskDealView extends LinearLayout implements View.OnClick
 //        mLlcameraSB.setVisibility(View.GONE);//IS_SJSB_FJ/S_SJSB_ID
 
         mLlcameraSB.setVisibility(View.VISIBLE);
-        mActivity.presenter.RequestFileDetailsPhoto(bv.sMangeId);
+        mActivity.presenter.RequestFileDetailsPhoto(bv.sMangeId,"1");
         /*if (!AppTool.isNull(bv.isSjsbFj) && "1".equals(bv.isSjsbFj) && !AppTool.isNull(bv.sSjsbId)) {
              mLlcameraSB.setVisibility(View.VISIBLE);
              mActivity.presenter.RequestFileDetailsPhoto(bv.sSjsbId);

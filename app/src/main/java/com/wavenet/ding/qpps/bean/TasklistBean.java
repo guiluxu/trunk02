@@ -26,45 +26,45 @@ public class TasklistBean implements Serializable {
         public boolean isSelect = false;
         @SerializedName("@odata.etag")
         public String _$OdataEtag159; // FIXME check this code
-        @SerializedName(value = "T_IN_DATE",alternate = "tinDate")
+        @SerializedName(value = "T_IN_DATE",alternate = "tInDate")
         public String T_IN_DATE;
-        @SerializedName(value = "S_COMPANY_MANGE",alternate = "scompanyMange")
+        @SerializedName(value = "S_COMPANY_MANGE",alternate = "sCompanyMange")
         public String S_COMPANY_MANGE;
-        @SerializedName(value = "S_SJCZ_ID",alternate = "ssjczId")
+        @SerializedName(value = "S_SJCZ_ID",alternate = "sSjczId")
         public String S_SJCZ_ID;
         @SerializedName(value = "S_MANGE_ID",alternate = "sMangeId")
         public String S_MANGE_ID;
-        @SerializedName(value = "S_LOCAL",alternate = "slocal")
+        @SerializedName(value = "S_LOCAL",alternate = "sLocal")
         public String S_LOCAL;
         @SerializedName(value = "S_STATUS",alternate = "sStatus")
         public String S_STATUS;
-        @SerializedName(value = "S_STATUS_CN",alternate = "sstatusCn")
+        @SerializedName(value = "S_STATUS_CN",alternate = "sStatusCn")
         public String S_STATUS_CN;
-        @SerializedName(value = "T_CREATE",alternate = "tcreate")
+        @SerializedName(value = "T_CREATE",alternate = "tCreate")
         public String T_CREATE;
-        @SerializedName(value = "S_EMERGENCY",alternate = "semergency")
+        @SerializedName(value = "S_EMERGENCY",alternate = "sEmergency")
         public String S_EMERGENCY;
-        @SerializedName(value = "S_EMERGENCY_CN",alternate = "semergencyCn")
+        @SerializedName(value = "S_EMERGENCY_CN",alternate = "sEmergencyCn")
         public String S_EMERGENCY_CN;
-        @SerializedName(value = "S_SOURCE",alternate = "ssource")
+        @SerializedName(value = "S_SOURCE",alternate = "sSource")
         public String S_SOURCE;
-        @SerializedName(value = "S_SOURCE_CN",alternate = "ssourceCn")
+        @SerializedName(value = "S_SOURCE_CN",alternate = "sSourceCn")
         public String S_SOURCE_CN;
-        @SerializedName(value = "S_TYPE",alternate = "stype")
+        @SerializedName(value = "S_TYPE",alternate = "sType")
         public String S_TYPE;
-        @SerializedName(value = "S_TYPE_CN",alternate = "stypeCn")
+        @SerializedName(value = "S_TYPE_CN",alternate = "sTypeCn")
         public String S_TYPE_CN;
-        @SerializedName(value = "N_X",alternate = "nx")
+        @SerializedName(value = "N_X",alternate = "nX")
         public String N_X;
-        @SerializedName(value = "N_Y",alternate = "ny")
+        @SerializedName(value = "N_Y",alternate = "nY")
         public String N_Y;
         @SerializedName(value = "S_SJSB_ID",alternate = "sSjsbId")
         public String S_SJSB_ID;
-        @SerializedName(value = "S_NAME",alternate = "sname")
+        @SerializedName(value = "S_NAME",alternate = "sName")
         public String S_NAME;
-        @SerializedName(value = "S_CATEGORY",alternate = "scategory")
+        @SerializedName(value = "S_CATEGORY",alternate = "sCategory")
         public String S_CATEGORY;
-        @SerializedName(value = "S_CATEGORY_CN",alternate = "scategoryCn")
+        @SerializedName(value = "S_CATEGORY_CN",alternate = "sCategoryCn")
         public String S_CATEGORY_CN;
         @SerializedName(value = "T_TM")
         public String T_TM;
@@ -74,7 +74,7 @@ public class TasklistBean implements Serializable {
         public String S_REASON;
         @SerializedName(value = "S_REMARK")
         public String S_REMARK;
-        @SerializedName(value = "S_DESC",alternate = "sdesc")
+        @SerializedName(value = "S_DESC",alternate = "sDesc")
         public String S_DESC;
         @SerializedName(value = "IS_SJSB_FJ",alternate = "isSjsbFj")
         public String IS_SJSB_FJ;

@@ -919,7 +919,7 @@ try {
                     mAddPhotoView.FileRequest(MapUtil.FTA);
                     break;
                 //派单执行成功的回调
-                case 10://clickTaskPaiStart
+                case 10:
                     taskPai(true);
                     break;
                 case 102://废弃

@@ -765,13 +765,13 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         Log.d("MOD-RequestReportDetails" , "sMangeId："+ " url: " + urlstr);
     }
 
-    public void RequestReportDetailsPhoto(String S_RECODE_ID, WavenetCallBack callback) {
+    public void RequestReportDetailsPhoto(String S_RECODE_ID, String sbCz, WavenetCallBack callback) {
 
 //        String urlstr = AppConfig.BeasUrl+"2083/file/find/SJSB?relyid=" + S_RECODE_ID;
         String urlstr = AppConfig.BeasUrl1+"/file/getXjImg";
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("reyId", S_RECODE_ID);
-        reqParams.put("sbCz", "1");
+        reqParams.put("sbCz", sbCz);
         post()
                 .url(urlstr)
                 .params(reqParams)

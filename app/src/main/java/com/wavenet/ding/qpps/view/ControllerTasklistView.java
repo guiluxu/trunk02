@@ -85,9 +85,6 @@ public class ControllerTasklistView extends LinearLayout implements View.OnClick
         mTvtasksum.setText(tasklistBean.value.size() + "");
         mBeanList.clear();
         mBeanList.addAll(tasklistBean.value);
-        Log.e("ControllerTasklistView-size",tasklistBean.value.size() + "");
-        Log.e("ControllerTasklistView-mBeanList-size",mBeanList.size() + "");
-        Log.e("ControllerTasklistView-mBeanList",mBeanList.get(0) + "");
         mTradapter.setDefSelect(0);
         mTradapter.notifyDataSetChanged();
         new android.os.Handler().postDelayed(new Runnable() {
@@ -137,8 +134,6 @@ public class ControllerTasklistView extends LinearLayout implements View.OnClick
                 } else {
                     MapUtil.getInstance(mContext).setstardailyloc(MainMapXJActivity.aMapLocation, mActivity, 1);
                 }
-
-
                 break;
         }
     }
@@ -160,7 +155,7 @@ public class ControllerTasklistView extends LinearLayout implements View.OnClick
         endLL=  new LatLng(g.getWgLat(),g.getWgLon());
         ShowPopNavi(mPopNaviWindow);
 
-    }//
+    }
     public  TasklistBean.ValueBean taskbean = null;
 
     @Override
@@ -169,12 +164,13 @@ public class ControllerTasklistView extends LinearLayout implements View.OnClick
         taskbean= b;
         paiID();
     }
-public void paiID(){
-    MainMapXJActivity.mtvBean = taskbean;
-    MainMapXJActivity.S_SJSB_ID = taskbean.S_SJSB_ID;
-    MainMapXJActivity.STASKID = taskbean.S_MANGE_ID;
-    MainMapXJActivity.S_MANGE_ID = taskbean.S_MANGE_ID;
-}
+
+    public void paiID(){
+        MainMapXJActivity.mtvBean = taskbean;
+        MainMapXJActivity.S_SJSB_ID = taskbean.S_SJSB_ID;
+        MainMapXJActivity.STASKID = taskbean.S_MANGE_ID;
+        MainMapXJActivity.S_MANGE_ID = taskbean.S_MANGE_ID;
+    }
 
     public PopWindowNavi ShowPopNavi( PopWindowNavi mPopNaviWindow){
         if (mPopNaviWindow == null) {
