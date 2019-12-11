@@ -184,7 +184,6 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
         mMainMapXJActivityRequestModel.clickRequestTasklist(S_MAN, S_STATUS, new WavenetCallBack() {
                     @Override
                     public void onError(int id, String errorCode, String error) {
-                        ToastUtils.showToast(error);
                         requestData(1, 5, error);
                     }
 
@@ -216,7 +215,6 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
         mMainMapXJActivityRequestModel.clickRequestTasklist(S_MAN, S_STATUS, new WavenetCallBack() {
                     @Override
                     public void onError(int id, String errorCode, String errorMsg) {
-                        ToastUtils.showToast(errorMsg);
                         requestData(1, 51, errorMsg);
                     }
 
@@ -650,14 +648,13 @@ public class MainMapXJRequestPresenter extends BaseMvpPersenter<XJActivityReques
             @Override
             public void onError(int id, String errorCode, String errorMsg) {
                 if (getmMvpView() != null) {
+                    Log.e("MOD-PclickTaskPaiReason3E",errorMsg);
                     if ("空指针异常".equals(errorMsg)) {
                         requestData(2, 1022, errorMsg);
                     } else {
                         requestData(1, 1022, errorMsg);
                     }
-
                 }
-
             }
 
             @Override

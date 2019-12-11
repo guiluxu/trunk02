@@ -261,31 +261,19 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
         reqParams.put("sStatus", "W1006500004");
         //N_MILEAGE   里程   单位米
         reqParams.put("nMileage", x+"");
-        reqParams.put("nDel", 1+"");
-        reqParams.put("sSjsbId", MainMapXJActivity.S_SJSB_ID);//派单任务记录上报id
+        reqParams.put("sSjsbId", S_MANGE_ID);//派单任务记录上报id
         reqParams.put("sSjczId", S_MANGE_ID);//派单任务记录处置id
         reqParams.put("sRecodeId", S_SJCZ_ID);//自动生成的s_recode_id
         reqParams.put("sMangeFull", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_MYNAME));
         reqParams.put("sTownIdMange", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
         reqParams.put("sCompanyMange", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_COMPANY));
-        reqParams.put("sMangeMan", SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO));
         reqParams.put("tMangeTime", GetUTCTime.getNow());
+        reqParams.put("nDel", "1");
 //        headerMaps.put("Accept", "application/json");
         post().url(urlStr)
                 .params(reqParams)
                 .build()
                 .execute(callback);
-       /* RxHttpUtilsFF
-                .createApi(ApiService.class)F
-                .userXJTaskDeal3(urlStr, reqParams)
-                .compose(Transformer.switchSchedulers())
-                .subscribe(callback);*/
-//        SingleRxHttp
-//                .getInstance().addHeaders(headerMaps).createSApi(ApiService.class)
-//
-//                .userXJTaskDeal3(urlStr, reqParams)
-//                .compose(Transformer.switchSchedulers())
-//                .subscribe(callback);
         Log.e("MOD-RequestModel","clickTaskDeal2 245");
         for (Map.Entry<String, String> entry : reqParams.entrySet()) {
             String key = entry.getKey();
@@ -476,15 +464,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
             String value = entry.getValue();
             Log.d("MOD-clickTaskPaiReason2：  " , "Key = " + key + "  ----  " + "Value = " + value);
         }
-
     }
-
 
     //执行派单的时候退单调用的接口
     public void clickTaskPaiReason3(Context mContext, String S_REASON, String S_REMARK, String S_MANGE_ID, String S_STATUS, WavenetCallBack callback) {
         String urlstr =AppConfig.BeasUrl1+ "/patrolRecode/taskChargeback";
         String user = SPUtil.getInstance(mContext).getStringValue(SPUtil.USERNO);
-
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("sId", user + System.currentTimeMillis());
         reqParams.put("sTownId", SPUtil.getInstance(mContext).getStringValue(SPUtil.APP_TOWNID));
@@ -680,17 +665,12 @@ public class MainMapXJActivityRequestModel implements IMvpBaseView {
 
     //派单取消
     public void RequestCancleTask1(String S_RECODE_ID, String S_MANGE_ID, String T_END, String S_TOWNNAME, WavenetCallBack callback) {
-        String urlstr =
-                AppConfig.BeasUrl1+"/patrolRecode/taskCancel";
-
-
+        String urlstr = AppConfig.BeasUrl1+"/patrolRecode/taskCancel";
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("tEnd", GetUTCTime.getNow());
         reqParams.put("sRecodeId", S_RECODE_ID);
         reqParams.put("sMangeId", S_MANGE_ID);
         reqParams.put("sStatus", "W1006500002");
-
-
         reqParams.put("nDel", 0+"");//正常为1，取消为0
         post()
                 .url(urlstr)
